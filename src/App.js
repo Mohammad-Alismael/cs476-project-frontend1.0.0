@@ -1,24 +1,32 @@
 import logo from './logo.svg';
 import './App.css';
-
+import {BrowserRouter as Router, Route,Redirect } from 'react-router-dom';
+import LandingPage from "./Pages/LandingPage";
+import LoginForm from "./Pages/LoginForm";
+import RegisterForm from "./Pages/RegisterForm";
+import ProfileSettings from "./Pages/ProfileSettings";
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <Router>
+        {/* <Route path="/">
+          <Redirect to="/login"/>
+        </Route> */}
+        {/*<Route  path="/login" render= {props =>(*/}
+        {/*    <>*/}
+        {/*      <LoginForm/>*/}
+        {/*    </>*/}
+
+        {/*)}/>*/}
+        <Route path="/login" component={LoginForm} />
+        <Route path="/register" component={RegisterForm} />
+        <Route path="/" component={LandingPage} />
+        <Route path="/profile-settings" component={ProfileSettings} />
+        <Route path="/log-out">
+          <Redirect to="/login" />
+        </Route>
+      </Router>
+
+
   );
 }
 
