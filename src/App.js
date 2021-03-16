@@ -16,8 +16,8 @@ function App() {
                   <Route exact path="/register" component={RegisterForm} />
                   <Route exact path="/profile-settings" component={ProfileSettings}/>
                   <Route exact path="/log-out">
-                      <Redirect to="/login"/>
-                  </Route>
+                  <Redirect to="/login"/>
+              </Route>
               </Switch>
           </div>
       </Router>
