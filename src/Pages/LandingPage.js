@@ -13,8 +13,9 @@ import {
     DropdownMenu,
     DropdownItem,
     NavbarText,
-    Input
+    Input, Container, Card, CardHeader, CardBody,Row,Col
 } from 'reactstrap';
+import ShopItem from "../Components/ShopItem";
 class LandingPage extends Component {
     state ={
         isOpen : false
@@ -57,6 +58,7 @@ class LandingPage extends Component {
                         </Nav>
                         <Nav>
                         <UncontrolledDropdown>
+                            <span>username</span>
                             <DropdownToggle caret style={otherDropDown}>
                                 My account
                             </DropdownToggle>
@@ -91,6 +93,21 @@ class LandingPage extends Component {
                         </NavbarText>
                     </Collapse>
                 </Navbar>
+
+                <Card color={"white"}>
+                    <CardHeader>
+                        <h6>Recommended for you</h6>
+                    </CardHeader>
+                    <CardBody>
+                        <Row>
+                            <ShopItem/>
+                            <ShopItem/>
+                            <ShopItem/>
+                            <ShopItem/>
+                            <ShopItem/>
+                        </Row>
+                    </CardBody>
+                </Card>
             </div>
         );
     }
