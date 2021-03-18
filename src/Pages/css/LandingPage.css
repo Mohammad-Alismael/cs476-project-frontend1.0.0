@@ -1,3 +1,29 @@
-.myCard{
-    background: red;
+body{
+    background: rgb(248,248,248);
+}
+.cartBtn{
+    font-size: 25px;
+    background: transparent;
+    border-radius: 7px;
+    padding: 5px;
+}
+.cartBtn i{
+   color: black;
+    margin-top: 0px;
+}
+.cartBtn span{
+    /*padding: 7px;*/
+    /*margin-bottom: -20px;*/
+    display: inline-block;
+}
+
+.cartBtn:hover{
+    background: rgb(214, 215, 216);
+    cursor: pointer;
+}
+.options span{
+    display: block;
+    margin-top: -29px;
+    margin-left: 30px;
+    text-transform: capitalize;
 }

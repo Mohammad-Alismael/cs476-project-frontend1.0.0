@@ -1,5 +1,5 @@
 import logo from './logo.svg';
-import './App.css';
+// import './index.css';
 import {BrowserRouter as Router, Route,Redirect,Switch } from 'react-router-dom';
 import LandingPage from "./Pages/LandingPage";
 import LoginForm from "./Pages/LoginForm";
