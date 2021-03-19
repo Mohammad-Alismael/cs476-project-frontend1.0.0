@@ -22,9 +22,14 @@ import {
 } from 'reactstrap';
 
 import ShopItem from "../Components/ShopItem";
+import { Slide } from 'react-slideshow-image';
+import 'react-slideshow-image/dist/styles.css';
 import tmp1 from '../Images/1.png';
 import tmp2 from '../Images/2.png';
 import tmp3 from '../Images/3.png';
+import ImageBanner from '../Images/tmp.jpeg'
+import BrandsShop from "../Components/BrandsShop";
+import SimpleReactFooter from "simple-react-footer";
 class LandingPage extends Component {
     state ={
         isOpen : false,
@@ -32,17 +37,18 @@ class LandingPage extends Component {
         animating : false,
         items : [
             {
-                src: tmp1,
+                src: 'https://www.gogits.com/images/slider3.jpg',
                 altText: 'Slide 1',
                 caption: 'Slide 1'
             },
             {
-                src: tmp2,
+                // src: 'https://cdn3.mageplaza.com/media/general/MImGnKu.png',
+                src: 'https://www.gogits.com/images/slider3.jpg',
                 altText: 'Slide 2',
                 caption: 'Slide 2'
             },
             {
-                src: tmp3,
+                src: 'https://www.gogits.com/images/slider3.jpg',
                 altText: 'Slide 3',
                 caption: 'Slide 3'
             }
@@ -59,16 +65,6 @@ class LandingPage extends Component {
         this.setState({activeIndex :nextIndex});
     }
 
-    previous = () => {
-        if (this.state.animating) return;
-        const nextIndex = this.state.activeIndex === 0 ? this.state.items.length - 1 : this.state.activeIndex - 1;
-        this.setState({activeIndex :nextIndex});
-    }
-
-    goToIndex = (newIndex) => {
-        if (this.state.animating) return;
-        this.setState({activeIndex :newIndex});
-    }
     render() {
         const slides = this.state.items.map((item) => {
             return (
@@ -92,26 +88,8 @@ class LandingPage extends Component {
                             <NavItem>
                                 <Input type="text" name="text" id="searchBar" size="70" placeholder="what are you looking for?" />
                             </NavItem>
-                            <NavItem>
-                                <NavLink href="/components/">Computers</NavLink>
-                            </NavItem>
-                            <UncontrolledDropdown nav inNavbar>
-                                <DropdownToggle nav caret>
-                                    Cloths
-                                </DropdownToggle>
-                                <DropdownMenu right>
-                                    <DropdownItem>
-                                        men
-                                    </DropdownItem>
-                                    <DropdownItem>
-                                        women
-                                    </DropdownItem>
-                                    <DropdownItem divider />
-                                    <DropdownItem>
-                                        kids
-                                    </DropdownItem>
-                                </DropdownMenu>
-                            </UncontrolledDropdown>
+
+
                         </Nav>
                         <Nav>
                             <NavItem>
@@ -153,16 +131,60 @@ class LandingPage extends Component {
                         </NavbarText>
                     </Collapse>
                 </Navbar>
-                <Carousel
-                    activeIndex={this.state.activeIndex}
-                    next={this.next}
-                    previous={this.previous}
-                >
-                    <CarouselIndicators items={this.state.items} activeIndex={this.state.activeIndex} onClickHandler={this.goToIndex} />
-                    {slides}
-                    <CarouselControl direction="prev" directionText="Previous" onClickHandler={this.previous} />
-                    <CarouselControl direction="next" directionText="Next" onClickHandler={this.next} />
-                </Carousel>
+                <Navbar className={'secondNav'}>
+                    <Nav>
+                        <NavItem>
+                            <NavLink href="/components/">Computers</NavLink>
+                        </NavItem>
+                        <NavItem>
+                            <NavLink href="/components/">Gaming</NavLink>
+                        </NavItem>
+                        <NavItem>
+                            <NavLink href="/components/">Software</NavLink>
+                        </NavItem>
+                        <NavItem>
+                            <NavLink href="/components/">Food</NavLink>
+                        </NavItem>
+                        <UncontrolledDropdown nav >
+                            <DropdownToggle nav caret>
+                                Cloths
+                            </DropdownToggle>
+                            <DropdownMenu right>
+                                <DropdownItem>
+                                    men
+                                </DropdownItem>
+                                <DropdownItem>
+                                    women
+                                </DropdownItem>
+                                <DropdownItem divider />
+                                <DropdownItem>
+                                    kids
+                                </DropdownItem>
+                            </DropdownMenu>
+                        </UncontrolledDropdown>
+                    </Nav>
+                </Navbar>
+                <Card>
+                <div className="slide-container">
+                    <Slide easing="ease">
+                        <div className="each-slide">
+                            <div style={{'backgroundImage': `url(${this.state.items[0].src})`}}>
+
+                            </div>
+                        </div>
+                        <div className="each-slide">
+                            <div style={{'backgroundImage': `url('https://cdn3.mageplaza.com/media/general/MImGnKu.png')`}}>
+
+                            </div>
+                        </div>
+                        <div className="each-slide">
+                            <div style={{'backgroundImage': `url(${this.state.items[0].src})`}}>
+
+                            </div>
+                        </div>
+                    </Slide>
+                </div>
+                </Card>
                 <Card color={"white"}>
                     <CardHeader>
                         <h5>Recommended for you</h5>
@@ -191,7 +213,31 @@ class LandingPage extends Component {
                     </CardBody>
                 </Card>
                 <Card >
-                    <CardImg style={{height : '200px'}}/>
+                    <CardImg src={"https://jstechno.com/images/E-commerce%20Solutions.jpg"} style={{height : '200px'}}/>
+                </Card>
+                <Card  color={"white"}>
+                    <CardHeader>
+                        <h5>Brands we have</h5>
+                    </CardHeader>
+                    <CardBody>
+                        <Row>
+                            <Col>
+                                <BrandsShop />
+                            </Col>
+                            <Col>
+                                <BrandsShop />
+                            </Col>
+                            <Col>
+                                <BrandsShop />
+                            </Col>
+                            <Col>
+                                <BrandsShop />
+                            </Col>
+                            <Col>
+                                <BrandsShop />
+                            </Col>
+                        </Row>
+                    </CardBody>
                 </Card>
                 <Card  color={"white"}>
                     <CardHeader>
@@ -221,14 +267,79 @@ class LandingPage extends Component {
                         </Row>
                     </CardBody>
                 </Card>
-                <CardFooter>
-                    isn't finished
-                </CardFooter>
+                <Card>
+                <SimpleReactFooter
+                    description={description}
+                    title={title}
+                    columns={columns}
+                    linkedin="fluffy_cat_on_linkedin"
+                    facebook="fluffy_cat_on_fb"
+                    twitter="fluffy_cat_on_twitter"
+                    instagram="fluffy_cat_live"
+                    youtube="UCFt6TSF464J8K82xeA?"
+                    pinterest="fluffy_cats_collections"
+                    copyright="black"
+                    iconColor="black"
+                    backgroundColor="white"
+                    fontColor="black"
+                    copyrightColor="darkgrey"
+                />
+                </Card>
             </div>
         );
     }
 }
-
+const description = "According to wikipedia, the cat (Felis catus) is a domestic species of small carnivorous mammal. It is the only domesticated species in the family Felidae and is often referred to as the domestic cat to distinguish it from the wild members of the family. A cat can either be a house cat, a farm cat or a feral cat; the latter ranges freely and avoids human contact.";
+const title = "E commerce web app";
+const columns = [
+    {
+        title: "Resources",
+        resources: [
+            {
+                name: "About",
+                link: "/about"
+            },
+            {
+                name: "Careers",
+                link: "/careers"
+            },
+            {
+                name: "Contact",
+                link: "/contact"
+            },
+            {
+                name: "Admin",
+                link: "/admin"
+            }
+        ]
+    },
+    {
+        title: "Legal",
+        resources: [
+            {
+                name: "Privacy",
+                link: "/privacy"
+            },
+            {
+                name: "Terms",
+                link: "/terms"
+            }
+        ]
+    },
+    {
+        title: "Visit",
+        resources: [
+            {
+                name: "Locations",
+                link: "/locations"
+            },
+            {
+                name: "Culture",
+                link: "/culture"
+            }
+        ]
+    }
+];
 const otherDropDown = {
     background : 'transparent',
     color: 'black',
