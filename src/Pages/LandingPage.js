@@ -52,6 +52,38 @@ class LandingPage extends Component {
                 altText: 'Slide 3',
                 caption: 'Slide 3'
             }
+        ],
+        recommendationProducts : [
+            {
+                price : 400,
+                name : "Apple watch",
+                item_id : 12,
+                srcImg : tmp1
+            },
+            {
+                price : 400,
+                name : "Apple watch",
+                item_id : 12,
+                srcImg : tmp1
+            },
+            {
+                price : 400,
+                name : "Apple watch",
+                item_id : 12,
+                srcImg : tmp1
+            },
+            {
+                price : 400,
+                name : "Apple watch",
+                item_id : 12,
+                srcImg : tmp1
+            },
+            {
+                price : 400,
+                name : "Apple watch",
+                item_id : 12,
+                srcImg : tmp1
+            }
         ]
     }
 
@@ -66,18 +98,6 @@ class LandingPage extends Component {
     }
 
     render() {
-        const slides = this.state.items.map((item) => {
-            return (
-                <CarouselItem
-                    onExiting={() => this.setState({animating : true})}
-                    onExited={() => this.setState({animating : true})}
-                    key={item.src}
-                >
-                    <img src={item.src} alt={item.altText} />
-                    <CarouselCaption captionText={item.caption} captionHeader={item.caption} />
-                </CarouselItem>
-            );
-        });
         return (
             <div>
                 <Navbar color="white" light expand="md">
@@ -88,17 +108,11 @@ class LandingPage extends Component {
                             <NavItem>
                                 <Input type="text" name="text" id="searchBar" size="70" placeholder="what are you looking for?" />
                             </NavItem>
-
-
                         </Nav>
                         <Nav>
-                            <NavItem>
-                                hello username
-                            </NavItem>
                         <UncontrolledDropdown>
-
                             <DropdownToggle caret style={otherDropDown}>
-                                My account
+                                {true ? "hello username" : "My account"}
                             </DropdownToggle>
                             <DropdownMenu right>
                                 <DropdownItem>
@@ -126,6 +140,7 @@ class LandingPage extends Component {
                         </Nav>
                         <NavbarText>
                             <div className="cartBtn">
+                                <span>Cart</span>
                                 <i className="material-icons">local_grocery_store</i>
                             </div>
                         </NavbarText>
@@ -191,24 +206,14 @@ class LandingPage extends Component {
                     </CardHeader>
                     <CardBody>
                         <Row>
-                            <Col>
-                                <ShopItem/>
-                            </Col>
-                            <Col>
-                                <ShopItem/>
-                            </Col>
-                            <Col>
-                                <ShopItem/>
-                            </Col>
-                            <Col>
-                                <ShopItem/>
-                            </Col>
-                            <Col>
-                                <ShopItem/>
-                            </Col>
-                            <Col>
-                                <ShopItem/>
-                            </Col>
+                            {
+                                this.state.recommendationProducts.map((element,index)=>(
+                                    <Col>
+                                        <ShopItem price={element.price} productName={element.name}
+                                                  item_id={element.item_id} srcImg={element.srcImg}/>
+                                    </Col>
+                                ))
+                            }
                         </Row>
                     </CardBody>
                 </Card>
@@ -221,21 +226,13 @@ class LandingPage extends Component {
                     </CardHeader>
                     <CardBody>
                         <Row>
-                            <Col>
-                                <BrandsShop />
-                            </Col>
-                            <Col>
-                                <BrandsShop />
-                            </Col>
-                            <Col>
-                                <BrandsShop />
-                            </Col>
-                            <Col>
-                                <BrandsShop />
-                            </Col>
-                            <Col>
-                                <BrandsShop />
-                            </Col>
+                            {
+                                this.state.recommendationProducts.map((element,index)=>(
+                                    <Col>
+                                        <BrandsShop brandName={element.name} srcImg={element.srcImg}/>
+                                    </Col>
+                                ))
+                            }
                         </Row>
                     </CardBody>
                 </Card>
@@ -246,24 +243,16 @@ class LandingPage extends Component {
                     <CardBody>
 
                         <Row>
-                            <Col>
-                                <ShopItem/>
-                            </Col>
-                            <Col>
-                                <ShopItem/>
-                            </Col>
-                            <Col>
-                                <ShopItem/>
-                            </Col>
-                            <Col>
-                                <ShopItem/>
-                            </Col>
-                            <Col>
-                                <ShopItem/>
-                            </Col>
-                            <Col>
-                                <ShopItem/>
-                            </Col>
+                            <Row>
+                                {
+                                    this.state.recommendationProducts.map((element,index)=>(
+                                        <Col>
+                                            <ShopItem price={element.price} productName={element.name}
+                                                      item_id={element.item_id} srcImg={element.srcImg}/>
+                                        </Col>
+                                    ))
+                                }
+                            </Row>
                         </Row>
                     </CardBody>
                 </Card>
@@ -289,7 +278,7 @@ class LandingPage extends Component {
         );
     }
 }
-const description = "According to wikipedia, the cat (Felis catus) is a domestic species of small carnivorous mammal. It is the only domesticated species in the family Felidae and is often referred to as the domestic cat to distinguish it from the wild members of the family. A cat can either be a house cat, a farm cat or a feral cat; the latter ranges freely and avoids human contact.";
+const description = "From the perspective of server-side website deployment, there are two types of web pages: static and dynamic. Static pages are retrieved from the web server's file system without any modification,[3] while dynamic pages must be created by the server on the fly, typically drawing from a database to fill out a web template, before being sent to the user's browser.";
 const title = "E commerce web app";
 const columns = [
     {
