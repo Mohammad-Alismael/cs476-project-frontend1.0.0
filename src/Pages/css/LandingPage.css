@@ -19,15 +19,22 @@ body{
     background: transparent;
     border-radius: 7px;
     padding: 5px;
+    width: 70px;
+    position: relative;
 }
 .cartBtn i{
    color: black;
     margin-top: 0px;
+    position: absolute;
+    right: 0;
+    top: 7px;
 }
 .cartBtn span{
-    /*padding: 7px;*/
-    /*margin-bottom: -20px;*/
-    display: inline-block;
+    display: block;
+    margin: 0;
+    font-size: 18px;
+    color: black;
+    text-transform: capitalize;
 }
 
 .cartBtn:hover{

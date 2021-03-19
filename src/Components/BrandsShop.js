@@ -5,8 +5,8 @@ class BrandsShop extends Component {
     render() {
         return (
             <Card>
-                <CardImg src={tmp}/>
-                <CardTitle style={{textAlign : 'center'}}>Apple</CardTitle>
+                <CardImg src={this.props.srcImg}/>
+                <CardTitle style={{textAlign : 'center'}}>{this.props.brandName}</CardTitle>
             </Card>
         );
     }
