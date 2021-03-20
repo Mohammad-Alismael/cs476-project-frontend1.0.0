@@ -6,6 +6,8 @@ import LoginForm from "./Pages/LoginForm";
 import RegisterForm from "./Pages/RegisterForm";
 import ProfileSettings from "./Pages/ProfileSettings";
 import GlobalContext,{GlobalProvider} from "./GlobalContext";
+import ItemDetails from "./Pages/ItemDetails";
+import LayoutDefault from "./Pages/LayoutDefault";
 
 function App() {
   return (
@@ -13,7 +15,8 @@ function App() {
           <Router>
               <div>
                   <Switch>
-                      <Route exact path="/" component={LandingPage}/>
+                      <LayoutDefault exact path="/" component={LandingPage}/>
+                      <LayoutDefault exact path="/item-details/:item_id" component={ItemDetails} />
                       <Route exact path="/login" component={LoginForm}/>
                       <Route exact path="/register" component={RegisterForm} />
                       <Route exact path="/profile-settings" component={ProfileSettings}/>
