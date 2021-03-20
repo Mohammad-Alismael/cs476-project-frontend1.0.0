@@ -10,7 +10,7 @@ class ShopItem extends Component {
     }
     render() {
         return (
-            <Card sm="6" className={"shopItem"} onClick={() => this.nextPath(`item-details/${this.props.item_id}`)}>
+            <Card sm="6" className={"shopItem"} onClick={() => this.nextPath(`item-details/:${this.props.item_id}`)}>
                 <CardImg top width="100%" src={this.props.srcImg} alt="Card image cap" />
                 <CardBody>
                     <CardTitle tag="h5">{this.props.productName}</CardTitle>
