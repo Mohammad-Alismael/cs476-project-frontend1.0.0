@@ -1,0 +1,123 @@
+body {
+  text-align: center;
+  background-color: Rgb(248, 248, 248);
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 1rem;
+}
+
+/* Div section  */
+.middle {
+  margin-top: 100px;
+  margin-left: 300px;
+}
+
+.middle-left {
+  position: absolute;
+  margin-top: 100px;
+  margin-left: 200px;
+}
+
+.middle-img {
+  width: 400px;
+  height: 515px;
+}
+
+.middle-right {
+  position: absolute;
+  margin-top: 100px;
+  margin-left: 600px;
+  height: 55%;
+  padding-right: 100px;
+  padding-left: 40px;
+  background-color: white;
+  text-align: left;
+}
+
+/* Form Section */
+.forgot-password {
+  position: absolute;
+  padding: 0 1em 0.5em 0;
+  margin-left: 100px;
+  margin-top: 35px;
+  color: rgb(111, 107, 232);
+  text-decoration: none;
+}
+
+.password {
+  font-size: 0.8rem;
+  color: #dbe2ef;
+}
+
+.email {
+  font-size: 0.8rem;
+  color: #dbe2ef;
+}
+
+.form-input {
+  border-radius: 8px;
+  height: 2rem;
+  width: 115%;
+  border-color: #8785a2;
+  border: 1px solid #aaa;
+  box-shadow: inset 0 0 5px #fafafa, 0 0 5px #fafafa;
+}
+
+.checkbox-form {
+  margin-top: 10%;
+  width: 20px;
+  height: 20px;
+}
+
+/* Button Section */
+.login-button {
+  margin: 30% 0 5% 0;
+  position: absolute;
+  border-radius: 4px;
+  margin-top: 40px;
+  padding: 10px 30px;
+  color: #8785a2;
+  border-color: #8785a2;
+  border-style: solid;
+  background-color: white;
+}
+
+.register-button {
+  position: absolute;
+  padding: 10px 30px;
+  border-radius: 4px;
+  margin-left: 215px;
+  margin-top: 40px;
+  color: white;
+  background-color: rgb(111, 107, 232);
+  border-style: solid;
+  border-color: rgb(111, 107, 232);
+}
+
+.register-butt {
+  margin: 30% 0 5% 0;
+  position: absolute;
+  border-radius: 4px;
+  margin-top: 40px;
+  padding: 10px 30px;
+  color: #8785a2;
+  border-color: #8785a2;
+  border-style: solid;
+  background-color: white;
+}
+
+.login-butt {
+  position: absolute;
+  padding: 10px 30px;
+  border-radius: 4px;
+  margin-left: 270px;
+  margin-top: 40px;
+  color: white;
+  background-color: rgb(111, 107, 232);
+  border-style: solid;
+  border-color: rgb(111, 107, 232);
+}
+
+/* Placeholder Section */
+::placeholder {
+  padding: 5px;
+}
