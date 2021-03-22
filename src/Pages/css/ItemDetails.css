@@ -1,0 +1,31 @@
+.granteeCard{
+    border: none;
+    height: 280px;
+    background: transparent;
+    /*position: relative;*/
+}
+.granteeCard i{
+    position: absolute;
+    top: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 45px;
+    color: #61dafb;
+}
+.granteeCard h5{
+    position: absolute;
+    min-width: 200px;
+    margin: 0 5px 0 5px;
+    background: transparent;
+    top: 90px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+}
+.granteeCard p{
+    position: absolute;
+    top: 120px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+}

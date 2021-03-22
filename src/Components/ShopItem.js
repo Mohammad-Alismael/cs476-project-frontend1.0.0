@@ -15,7 +15,7 @@ class ShopItem extends Component {
                 <CardBody>
                     <CardTitle tag="h5">{this.props.productName}</CardTitle>
                     <CardSubtitle tag="h6" className="mb-2 text-muted">{this.props.price}$</CardSubtitle>
-                    <Button color={"primary"} style={{width : "100%"}}>Add to cart</Button>
+                    <Button style={{width : "100%"}} id={'btn'}>Add to cart</Button>
                 </CardBody>
             </Card>
         );
