@@ -24,6 +24,10 @@ class LoginForm extends Component {
                           <span>Remember me</span>
                           <input type="checkbox" name="terms" value="" />
                       </div>
+                        <div className="checkbox-form">
+                            <span>forgot password?</span>
+                            <input type="checkbox" name="terms" value="" />
+                        </div>
                         <button type="button" className="register">Register</button>
                         <button type="button" className="login-button">log In</button>
               </form>
