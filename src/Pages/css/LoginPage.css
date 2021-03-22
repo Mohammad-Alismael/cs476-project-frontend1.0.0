@@ -4,21 +4,25 @@ body {
   margin-right: 10% !important;
   margin-top: 5% !important;
   font-family: 'IBM Plex Sans', sans-serif !important;
-  font-size: 0.9rem !important;
+  font-size: 1.2rem !important;
 }
 
 img {
   float: right;
 }
 
-.row {
-  height: 10px;
-}
-
 .middle-img {
   height: 100%;
 }
-
+.create-right{
+  padding-left: 2% !important;
+  background-color: white;
+  text-align: left;
+  padding-bottom: 2%;
+}
+.create-left{
+    padding-right: 0 !important;
+}
 .left {
   padding-right: 0 !important;
 }
@@ -42,7 +46,8 @@ img {
 
 .form-input {
   border-radius: 8px;
-  height: 2rem;
+  margin-bottom: 1%;
+  height: 3rem;
   width: 80%;
   border-color: #8785a2;
   border: 1px solid #aaa;
@@ -79,30 +84,31 @@ img {
 .user-info {
   padding-right: 1px;
 }
+.confirm-password{
+  margin-bottom: 5%;
+}
 
 /* Button Section */
 .login-button {
-  position: absolute;
-  padding: 10px 30px;
-  border-radius: 4px;
-  margin-left: 270px;
-  margin-top: 40px;
-  color: white;
-  background-color: rgb(111, 107, 232);
-  border-style: solid;
-  border-color: rgb(111, 107, 232);
-}
-
-.register-button {
-  margin: 30% 0 5% 0;
-  position: absolute;
-  border-radius: 4px;
-  margin-top: 40px;
-  padding: 10px 30px;
+  margin-top: 5%;
+  padding: 1.5% 6% 1.5% 6%;
+  border-radius: 5px;
   color: #8785a2;
   border-color: #8785a2;
   border-style: solid;
   background-color: white;
+}
+
+.register-button {
+  position: absolute;
+  right: 31%;
+  margin-top: 1.1%;
+  color: white;
+  border-style: solid;
+  border-color: rgb(111, 107, 232);
+  background-color: rgb(111, 107, 232);
+  padding: 0.4% 1.5% 0.4% 1.5%;
+  border-radius: 5px;
 }
 
 .register {
