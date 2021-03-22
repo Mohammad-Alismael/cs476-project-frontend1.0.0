@@ -29,7 +29,6 @@ class RegisterForm extends Component {
                   </form>
               </div>
             </Row>
-
             </Container>
     );
     }
