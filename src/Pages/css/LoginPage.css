@@ -61,20 +61,16 @@ img {
 /* Form Section */
 .forgot-password {
   position: absolute;
-  right: 31%;
+  right: 15%;
   color: rgb(111, 107, 232);
   text-decoration: none;
 }
 
-.password {
+.password, .email {
   font-size: 0.8rem;
-  color: #dbe2ef;
+  color: black;
 }
 
-.email {
-  font-size: 0.8rem;
-  color: #dbe2ef;
-}
 
 .checkbox-form {
   width: 20px;
@@ -88,16 +84,7 @@ img {
   margin-bottom: 5%;
 }
 
-/* Button Section */
-.login-button {
-  margin-top: 5%;
-  padding: 1.5% 6% 1.5% 6%;
-  border-radius: 5px;
-  color: #8785a2;
-  border-color: #8785a2;
-  border-style: solid;
-  background-color: white;
-}
+
 
 .register-button {
   position: absolute;
@@ -112,6 +99,19 @@ img {
 }
 
 .register {
+  position: absolute;
+  left: 10%;
+  margin-top: 1.1%;
+  color: white;
+  border-style: solid;
+  border-color: rgb(111, 107, 232);
+  color: rgb(111, 107, 232);
+  background-color: white;
+  padding: 0.4% 1.5% 0.4% 1.5%;
+  border-radius: 5px;
+}
+/* Button Section */
+.login-button {
   margin-top: 5%;
   padding: 1.5% 6% 1.5% 6%;
   border-radius: 5px;

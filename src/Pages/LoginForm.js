@@ -20,16 +20,11 @@ class LoginForm extends Component {
                         <input type="email" className="form-input" name="email" required/><br/>
                         <label className="password" for="password">Password</label><br/>
                         <input type="password" className="form-input password-input" name="password" required/><br/>
-                      <div className="checkbox-form">
-                          <span>Remember me</span>
-                          <input type="checkbox" name="terms" value="" />
-                      </div>
-                        <div className="checkbox-form">
-                            <span>forgot password?</span>
-                            <input type="checkbox" name="terms" value="" />
-                        </div>
+                        <input type={"checkbox"} class="checkbox-form" name="terms" value="t"/>
+                        <label className="remember" htmlFor="terms"> Remember me</label>
+                        <a className="forgot-password" href="">Forgot Password?</a><br/>
                         <button type="button" className="register">Register</button>
-                        <button type="button" className="login-button">log In</button>
+                        <button type="button" className="login">log In</button>
               </form>
           </div>
         </div>
