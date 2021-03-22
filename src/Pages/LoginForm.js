@@ -1,6 +1,7 @@
 import {Component,Link} from 'react';
 import '../Pages/css/LoginPage.css'
 import img from '../Pages/css/Design.png'
+import 'bootstrap/dist/css/bootstrap.min.css';
 class LoginForm extends Component {
 
     render() {
