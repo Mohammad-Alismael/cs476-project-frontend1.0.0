@@ -11,24 +11,27 @@
 <body>
 
 
-  <div class="middle">
-    <div class="middle-left">
+  <div class="container-fluid">
+
+    <div class="row">
+      <div class="col-lg-6 col-md-6 col-sm-6 left" style="">
       <img class="middle-img" src="../src/Pages/css/Design.png" alt="">
     </div>
-
-    <div class="middle-right">
-      <h1>Login</h1>
-      <p>Welcome back, please login to your account.</p>
-      <form class="user-info" action="index.html" method="post">
-        <label class="email" for="email">Email</label>
-        <input type="email" class="form-input" name="email" required><br>
-        <label class="password" for="password">Password</label><br>
-        <input type="password" class="form-input" name="password" required><br>
-        <input type="checkbox" class="checkbox-form" name="terms" value="" <label for="terms"> Remember me</label>
-        <a class="forgot-password" href="">Forgot Password?</a><br>
-        <button class="login-butt" type="button" name="button">Login</button>
-        <button class="register-butt" type="button" name="button">Register</button>
-      </form>
+      <div class="col-lg-4 col-md-4 col-sm-4 right" style="">
+        <h1>Login</h1>
+        <p class="p-welcome">Welcome back, please login to your account.</p>
+        <form class="user-info" action="index.html" method="post">
+          <label class="email" for="email">Email</label><br>
+          <input type="email" class="form-input" name="email" required><br>
+          <label class="password" for="password">Password</label><br>
+          <input type="password" class="form-input password-input" name="password" required><br>
+          <input type="checkbox" class="checkbox-form" name="terms" value="">
+           <label class="remember"for="terms"> Remember me</label>
+          <a class="forgot-password" href="">Forgot Password?</a><br>
+          <button type="button" class=" register">Register</button>
+          <button type="button" class=" login">Login</button>
+        </form>
+      </div>
     </div>
   </div>
 
