@@ -5,6 +5,8 @@ import {
     CardTitle, CardBody, CardHeader
 } from "reactstrap";
 import tmp1 from '../Images/1.png';
+import '../Pages/css/ItemDetails.css'
+import '../Pages/css/LandingPage.css'
 class ItemDetails extends Component {
     state = {
         item_id : this.props.match.params.item_id,
@@ -49,28 +51,31 @@ class ItemDetails extends Component {
                                 <option>5</option>
                             </Input>
                         </FormGroup>
-                        <Button color={"primary"}>Add To Cart</Button>
+                        <Button id={'btn'}>Add To Cart</Button>
                     </div>
                 </Col>
                 </Row>
                 <hr></hr>
                 <Row style={{background : 'rgb(248,248,248)'}}>
                     <Col>
-                        <Card>
-                            <CardTitle>100% 100% Original</CardTitle>
-                            <CardBody>Chocolate bar candy canes ice cream toffee cookie halvah.</CardBody>
+                        <Card className={'granteeCard'}>
+                            <i className="material-icons">monetization_on</i>
+                            <h5>100% Original</h5>
+                            <p>Chocolate bar candy canes ice cream toffee cookie halvah.</p>
                         </Card>
                     </Col>
                     <Col>
-                        <Card>
-                            <CardTitle>100% 100% Original</CardTitle>
-                            <CardBody>Chocolate bar candy canes ice cream toffee cookie halvah.</CardBody>
+                        <Card className={'granteeCard'}>
+                            <i className="material-icons">access_time</i>
+                            <h5>10 Day Replacement</h5>
+                            <p>Marshmallow biscuit donut dragée fruitcake wafer.</p>
                         </Card>
                     </Col>
                     <Col>
-                        <Card>
-                            <CardHeader>100% Original</CardHeader>
-                            <CardBody>Chocolate bar candy canes ice cream toffee cookie halvah.</CardBody>
+                        <Card className={'granteeCard'}>
+                            <i className="material-icons">monetization_on</i>
+                            <h5>1 Year Warranty</h5>
+                            <p>Chocolate bar candy canes ice cream toffee cookie halvah.</p>
                         </Card>
                     </Col>
                 </Row>

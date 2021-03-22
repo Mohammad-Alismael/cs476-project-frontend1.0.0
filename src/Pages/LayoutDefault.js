@@ -12,7 +12,8 @@ import {
     NavItem, NavLink, Row,
     UncontrolledDropdown
 } from "reactstrap";
-import ShopItem from "../Components/ShopItem";
+import '../Pages/LandingPage'
+import logo from '../Images/logo_cs476.png'
 import SimpleReactFooter from "simple-react-footer";
 class LayoutDefault extends Component {
     state = {
@@ -24,7 +25,7 @@ class LayoutDefault extends Component {
         return (
             <Fragment>
                 <Navbar color="white" light expand="md">
-                    <NavbarBrand href="/"><h4>E commerce web app</h4></NavbarBrand>
+                    <NavbarBrand href="/"><img id={'logo'} src={logo}/></NavbarBrand>
                     <NavbarToggler onClick={this.toggle} />
                     <Collapse isOpen={this.state.isOpen} navbar>
                         <Nav className="mr-auto" navbar>
