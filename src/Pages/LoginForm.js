@@ -7,28 +7,28 @@ class LoginForm extends Component {
     render() {
         return (
            <div class="container-fluid">
-
-    <div class="row">
-      <div class="col-lg-6 col-md-6 col-sm-6 left" style="">
-                     <img className="middle-img" src={img} alt="" />
-                   </div>
-      <div class="col-lg-4 col-md-4 col-sm-4 right" style="">
-        <h1>Login</h1>
-                <p>Welcome back, please login to your account.</p>
-                <form className="user-info">
-                     <p class="p-welcome">Welcome back, please login to your account.</p>
-        <form class="user-info" action="index.html" method="post">
-          <label class="email" for="email">Email</label><br>
-          <input type="email" class="form-input" name="email" required><br>
-          <label class="password" for="password">Password</label><br>
-          <input type="password" class="form-input password-input" name="password" required><br>
-          <input type="checkbox" class="checkbox-form" name="terms" value="">
-                {/*<Link className="forgot-password" to="">Forgot Password?</Link><br/>*/}
-              <button type="button" class=" register">Register</button>
-          <button type="button" class=" login">Login</button>
-                   </form>
-      </div>
-    </div>
+            <div className="row">
+              <div className="col-lg-6 col-md-6 col-sm-6 left">
+                  <img className="middle-img" src={img} alt="" />
+              </div>
+          <div className="col-lg-4 col-md-4 col-sm-4 right">
+            <h1>Login</h1>
+                    {/*<p>Welcome back, please login to your account.</p>*/}
+                    <form className="user-info">
+                        <p className={"p-welcome"}>Welcome back, please login to your account.</p>
+                        <label className="email" for="email">Email</label><br/>
+                        <input type="email" className="form-input" name="email" required/><br/>
+                        <label className="password" for="password">Password</label><br/>
+                        <input type="password" className="form-input password-input" name="password" required/><br/>
+                      <div className="checkbox-form">
+                          <span>Remember me</span>
+                          <input type="checkbox" name="terms" value="" />
+                      </div>
+                        <button type="button" className="register">Register</button>
+                        <button type="button" className="login-button">log In</button>
+              </form>
+          </div>
+        </div>
   </div>
 
         );
