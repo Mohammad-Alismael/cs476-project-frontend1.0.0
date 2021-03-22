@@ -5,26 +5,30 @@ class LoginForm extends Component {
 
     render() {
         return (
-            <div className="middle">
-                 <div className="middle-left">
+           <div class="container-fluid">
+
+    <div class="row">
+      <div class="col-lg-6 col-md-6 col-sm-6 left" style="">
                      <img className="middle-img" src={img} alt="" />
-                 </div>
-            <div className="middle-right">
-                <h1>Login</h1>
+                   </div>
+      <div class="col-lg-4 col-md-4 col-sm-4 right" style="">
+        <h1>Login</h1>
                 <p>Welcome back, please login to your account.</p>
                 <form className="user-info">
-                    <label className="email" htmlFor="email">Email</label>
-                    <input type="email" className="form-input" name="email" required/><br/>
-                    <label className="password" htmlFor="password">Password</label><br/>
-                 <input type="password" className="form-input" name="password" required/><br/>
-                <input type="checkbox" className="checkbox-form" name="terms" value=""/>
-                 <label htmlFor="terms"> Remember me</label>
+                     <p class="p-welcome">Welcome back, please login to your account.</p>
+        <form class="user-info" action="index.html" method="post">
+          <label class="email" for="email">Email</label><br>
+          <input type="email" class="form-input" name="email" required><br>
+          <label class="password" for="password">Password</label><br>
+          <input type="password" class="form-input password-input" name="password" required><br>
+          <input type="checkbox" class="checkbox-form" name="terms" value="">
                 {/*<Link className="forgot-password" to="">Forgot Password?</Link><br/>*/}
-               <button className="login-butt" type="button" name="button">Login</button>
-                <button className="register-butt" type="button" name="button">Register</button>
-                    </form>
-                </div>
-            </div>
+              <button type="button" class=" register">Register</button>
+          <button type="button" class=" login">Login</button>
+                   </form>
+      </div>
+    </div>
+  </div>
 
         );
     }
