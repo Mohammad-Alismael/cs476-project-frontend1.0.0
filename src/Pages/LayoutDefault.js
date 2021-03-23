@@ -52,11 +52,18 @@ class LayoutDefault extends Component {
                                             <span>payment</span>
                                         </div>
                                     </DropdownItem>
-                                    <DropdownItem divider />
+                                    <DropdownItem/>
                                     <DropdownItem>
                                         <div className="options">
                                             <i className="material-icons">list</i>
                                             <span>Orders</span>
+                                        </div>
+                                    </DropdownItem>
+                                    <DropdownItem divider />
+                                    <DropdownItem href={'/logout'}>
+                                        <div className="options">
+                                            <i className="material-icons">logout</i>
+                                            <span>logout</span>
                                         </div>
                                     </DropdownItem>
                                 </DropdownMenu>
