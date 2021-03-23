@@ -22,7 +22,7 @@ class LoginForm extends Component {
                         <input type="password" className="form-input password-input" name="password" required/><br/>
                         <input type={"checkbox"} class="checkbox-form" name="terms" value="t"/>
                         <label className="remember" htmlFor="terms"> Remember me</label>
-                        <a className="forgot-password" href="/">Forgot Password?</a><br/>
+                        <a className="forgot-password" href="/forgot-password">Forgot Password?</a><br/>
                         <button type="button" className="register">Register</button>
                         <button type="button" className="login">log In</button>
               </form>
