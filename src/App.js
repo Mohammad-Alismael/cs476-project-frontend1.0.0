@@ -8,6 +8,7 @@ import ProfileSettings from "./Pages/ProfileSettings";
 import GlobalContext,{GlobalProvider} from "./GlobalContext";
 import ItemDetails from "./Pages/ItemDetails";
 import LayoutDefault from "./Pages/LayoutDefault";
+import ComputerCpuPage from "./Pages/ComputerCpuPage";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
                   <Switch>
                       <LayoutDefault exact path="/" component={LandingPage}/>
                       <LayoutDefault exact path="/item-details/:item_id" component={ItemDetails} />
+                      <LayoutDefault exact path="/computers/cpu" component={ComputerCpuPage} />
                       <Route exact path="/login" component={LoginForm}/>
                       <Route exact path="/register" component={RegisterForm} />
                       <Route exact path="/profile-settings" component={ProfileSettings}/>
