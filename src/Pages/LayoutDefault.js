@@ -80,7 +80,31 @@ class LayoutDefault extends Component {
                 <Navbar className={'secondNav'}>
                     <Nav>
                         <NavItem>
-                            <NavLink href="/components/">Computers</NavLink>
+                            <UncontrolledDropdown nav >
+                                <DropdownToggle nav caret>
+                                    Computers
+                                </DropdownToggle>
+                                <DropdownMenu right>
+                                    <DropdownItem href={'/computers/cpu'}>
+                                        Gpu
+                                    </DropdownItem>
+                                    <DropdownItem>
+                                        Cpu
+                                    </DropdownItem>
+                                    <DropdownItem>
+                                        Ram
+                                    </DropdownItem>
+                                    <DropdownItem>
+                                        Desktop Cases
+                                    </DropdownItem>
+                                    <DropdownItem>
+                                        Monitors
+                                    </DropdownItem>
+                                    <DropdownItem>
+                                        Mouse & keyboard
+                                    </DropdownItem>
+                                </DropdownMenu>
+                            </UncontrolledDropdown>
                         </NavItem>
                         <NavItem>
                             <NavLink href="/components/">Gaming</NavLink>
