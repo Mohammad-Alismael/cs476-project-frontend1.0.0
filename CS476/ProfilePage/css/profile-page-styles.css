@@ -1,0 +1,33 @@
+body {
+  margin-top: 5% !important;
+  font-family: 'Fjalla One', sans-serif;
+}
+
+section {
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+input {
+  margin-top: 2% !important;
+  margin-bottom: 2% !important;
+  height: 3rem;
+  width: 100%;
+  background-color: #f6f6f6;
+  border-radius: 8px;
+  border-style: solid;
+  border-color: black;
+}
+
+.paragraph {
+  margin-top: 2% !important;
+}
+
+button {
+  margin-top: 5% !important;
+  padding: 2% 10%;
+  border-radius: 5px !important;
+  color: white;
+  background-color: #3d84a8;
+  border-color: #3d84a8;
+}
