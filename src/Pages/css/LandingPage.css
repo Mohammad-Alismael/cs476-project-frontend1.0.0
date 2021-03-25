@@ -25,6 +25,17 @@ body{
     padding: 5px;
     width: 70px;
     position: relative;
+    margin-left: 10px;
+}
+.cartBtn2{
+    font-size: 20px;
+    margin-right: 10px;
+    margin-top: 12px;
+    color: black;
+    cursor: pointer;
+}
+.cartBtn2:hover{
+    color: rgb(106, 106, 106);
 }
 .cartBtn i{
    color: black;

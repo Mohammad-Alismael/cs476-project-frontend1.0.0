@@ -34,6 +34,11 @@ class LayoutDefault extends Component {
                             </NavItem>
                         </Nav>
                         <Nav>
+                            <NavbarText>
+                                <div className="cartBtn2">
+                                    <i className="material-icons">notifications</i>
+                                </div>
+                            </NavbarText>
                             <UncontrolledDropdown>
                                 <DropdownToggle caret style={otherDropDown}>
                                     {true ? "hello username" : "My account"}
@@ -148,7 +153,7 @@ class LayoutDefault extends Component {
                         pinterest="fluffy_cats_collections"
                         copyright="black"
                         iconColor="black"
-                        backgroundColor="white"
+                        backgroundColor='white'
                         fontColor="black"
                         copyrightColor="darkgrey"
                     />
@@ -212,5 +217,6 @@ const columns = [
 const otherDropDown = {
     background : 'transparent',
     color: 'black',
+    marginTop : '13px',
     border : 'none'}
 export default LayoutDefault;
