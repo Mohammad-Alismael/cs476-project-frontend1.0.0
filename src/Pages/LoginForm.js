@@ -3,7 +3,9 @@ import '../Pages/css/LoginPage.css'
 import img from '../Pages/css/Design.png'
 import 'bootstrap/dist/css/bootstrap.min.css';
 class LoginForm extends Component {
-
+    nextPath(path) {
+        this.props.history.push(path);
+    }
     render() {
         return (
            <div class="container-fluid">
@@ -13,7 +15,6 @@ class LoginForm extends Component {
               </div>
           <div className="col-lg-4 col-md-4 col-sm-4 right">
             <h1>Login</h1>
-                    {/*<p>Welcome back, please login to your account.</p>*/}
                     <form className="user-info">
                         <p className={"p-welcome"}>Welcome back, please login to your account.</p>
                         <label className="email" for="email">Email</label><br/>
@@ -23,7 +24,7 @@ class LoginForm extends Component {
                         <input type={"checkbox"} class="checkbox-form" name="terms" value="t"/>
                         <label className="remember" htmlFor="terms"> Remember me</label>
                         <a className="forgot-password" href="/forgot-password">Forgot Password?</a><br/>
-                        <button type="button" className="register">Register</button>
+                        <button type="button" className="register" onClick={() => this.nextPath('/register')}>Register</button>
                         <button type="button" className="login">log In</button>
               </form>
           </div>

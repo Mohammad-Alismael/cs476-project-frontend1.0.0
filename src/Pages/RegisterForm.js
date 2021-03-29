@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import '../Pages/css/LoginPage.css'
 import img from '../Pages/css/U.png'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {Row, Container, Col} from "reactstrap";
+import {Row, Container, Col, Input} from "reactstrap";
 class RegisterForm extends Component {
 
     render() {
@@ -22,10 +22,17 @@ class RegisterForm extends Component {
                             <label for="password"></label><br/>
                             <input type="password" class="form-input" name="password" placeholder="Password" required/><br/>
                             <label for="confirm-password"></label><br/>
-                            <input type="password" class="form-input confirm-password" name="confirm-password" placeholder="Confirm Password" required/><br/>
+                            <input type="password" className="form-input confirm-password" name="confirm-password" placeholder="Confirm Password" required/><br/>
+                            <Input type="select" name="select" className="userType" style={{border : '1px solid rgb(111, 107, 232)',height : '3rem',marginBottom: '8px'}}>
+                                <option>User Type</option>
+                                <option>Sales Manager</option>
+                                <option>Product owner</option>
+                                <option>Buyer</option>
+                                <option>seller</option>
+                            </Input>
                             <input type="checkbox" class="checkbox-form" name="terms" value="t"/>
                             <label for="terms"> I accept the terms & conditions.</label><br/>
-                            <button className="login-button" type="button" name="button" style={{marginTop: '10px'}}>Register</button>
+                            <button className="register" type="button" name="button" style={{marginTop: '10px'}}>Register</button>
                         </form>
                     </div>
                 </Row>

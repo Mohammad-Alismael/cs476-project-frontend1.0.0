@@ -18,7 +18,8 @@ img {
   padding-left: 2% !important;
   background-color: white;
   text-align: left;
-  padding-bottom: 2%;
+  height: 550px;
+  /*padding-bottom: 2%;*/
 }
 .create-left{
     padding-right: 0 !important;
@@ -42,15 +43,16 @@ img {
 
 .user-info {
   padding: 0;
+  margin: 0;
 }
 
 .form-input {
   border-radius: 8px;
-  margin-bottom: 2%;
-  height: 3rem;
-  width: 80%;
-  border-color: #8785a2;
-  border: 1px solid #aaa;
+  /*margin-bottom: 2%;*/
+  height: 2.8rem;
+  width: 100%;
+  /*border-color: #8785a2;*/
+  border: 1px solid rgb(111, 107, 232);
   box-shadow: inset 0 0 5px #fafafa, 0 0 5px #fafafa;
 }
 
@@ -109,6 +111,10 @@ img {
   background-color: white;
   padding: 1.5% 6% 1.5% 6%;
   border-radius: 5px;
+}
+.register:hover{
+  border-color: rgb(83, 80, 174);
+  color: rgb(83, 80, 174);
 }
 /* Button Section */
 .login-button {
