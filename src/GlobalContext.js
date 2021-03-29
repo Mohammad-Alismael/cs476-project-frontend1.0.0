@@ -3,16 +3,14 @@ import React, { Component, createContext } from 'react'
 const GlobalContext = createContext();
 export class GlobalProvider extends Component {
     state = {
-        shoppingCard : 0
+        shoppingCard : 0,
+        IsLoggedIn : false
     }
 
     changeShoppingCard = () => {
         var {shoppingCard} = this.state
         this.setState({shoppingCard : shoppingCard + 1})
     }
-
-
-
 
 
     render() {
