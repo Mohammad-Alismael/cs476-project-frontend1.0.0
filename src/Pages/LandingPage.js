@@ -6,7 +6,7 @@ class LandingPage extends Component {
         return (
             <div>
                 this is landing page
-                {this.context.shoppingCard}
+                {this.context.username}
             </div>
         );
     }

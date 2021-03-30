@@ -4,6 +4,8 @@ import img from '../Pages/css/U.png'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Row, Container, Col, Input} from "reactstrap";
 import axios from 'axios';
+import GlobalContext from "../GlobalContext";
+import LandingPage from "./LandingPage";
 class RegisterForm extends Component {
     state = {
         username: "",
@@ -23,9 +25,29 @@ class RegisterForm extends Component {
         e.preventDefault()
         if (this.state.password == this.state.confirmPassword
             && this.state.userType != ""){
+            axios.post(`https://localhost:5001/api/account/register`,{
+                "userName": this.state.username,
+                "name": "no data",
+                "surname": "no data",
+                "age": "no data",
+                "password": this.state.password,
+                "email": this.state.email,
+                "userType" : this.state.userType
+            })
+                .then(res => {
+                    const persons = res.data;
+                    // console.log(res)
+                    this.context.updateUsername(this.state.username)
+                    this.context.updateEmail(this.state.email)
+                    alert("successfully added")
+                    this.nextPath('/login')
+                }).catch(error =>{
+                    if(error.response.status == 400)
+                        alert("username is taken")
+                    alert("error happened")
+                    console.log(error)
+            })
 
-            alert("successfully added")
-            this.nextPath('/login')
         }else{
             if (this.state.userType == "" ||this.state.userType == "User Type"){
                 alert("choose user type")
@@ -34,12 +56,8 @@ class RegisterForm extends Component {
             }
 
         }
-        axios.get(`localhost:5001/api/users`)
-            .then(res => {
-                const persons = res.data;
-                console.log(persons)
-            })
-        console.log(this.state)
+
+        // console.log(this.state)
     }
     render() {
         return (
@@ -56,9 +74,10 @@ class RegisterForm extends Component {
                                    onChange={this.updateSate}
                                    required/><br/>
                             <label for="fname"></label><br/>
-                            <input type="email" class="form-input" name="email" placeholder="Email"
+                            <input type="email" className="form-input" name="email" id="email" placeholder="Email"
                                    onChange={this.updateSate}
-                                   required/><br/>
+                                   title={"@gmail.com"}
+                                   required pattern={'/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$/'}/><br/>
                             <label for="password"></label><br/>
                             <input type="password" class="form-input" name="password" placeholder="Password"
                                    onChange={this.updateSate}
@@ -71,9 +90,8 @@ class RegisterForm extends Component {
                                    style={{border : '1px solid rgb(111, 107, 232)',height : '3rem',marginBottom: '8px'}}>
                                 <option>User Type</option>
                                 <option>Sales Manager</option>
+                                <option>Customer</option>
                                 <option>Product owner</option>
-                                <option>Buyer</option>
-                                <option>seller</option>
                             </Input>
                             <input type="checkbox" class="checkbox-form" name="terms" value="t"/>
                             <label for="terms"> I accept the terms & conditions.</label><br/>
@@ -87,5 +105,5 @@ class RegisterForm extends Component {
     );
     }
 }
-
+RegisterForm.contextType = GlobalContext
 export default RegisterForm;
