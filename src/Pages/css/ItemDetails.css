@@ -29,3 +29,7 @@
     transform: translateX(-50%);
     text-align: center;
 }
+.ratings{
+    background: orange;
+    width: 100%;
+}

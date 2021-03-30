@@ -2,13 +2,15 @@ import React, {Component} from 'react';
 import {
     Card, CardImg, Col, Row
     , FormGroup, Label, Input, Button,
-    CardTitle, CardBody, CardHeader
+    CardTitle, CardBody, CardHeader, CardText, TabPane, TabContent, NavLink, NavItem, Nav, Container
 } from "reactstrap";
 import tmp1 from '../Images/1.png';
 import '../Pages/css/ItemDetails.css'
-import '../Pages/css/LandingPage.css'
+import '../Pages/css/LandingPage.css';
+import classNames from "classnames";
 class ItemDetails extends Component {
     state = {
+        activeTab : 1,
         item_id : this.props.match.params.item_id,
         name : "Apple watch",
         description: "Apple Watch is a line of smart watches produced by Apple Inc. It incorporates fitness tracking, health-oriented capabilities, and wireless telecommunication, and integrates with iOS and other Apple products and services.\n" +
@@ -17,6 +19,9 @@ class ItemDetails extends Component {
         InStock : true,
         price : '999',
         brand : 'Apple'
+    }
+    toggle = tab => {
+        if(this.state.activeTab !== tab) this.setState({activeTab : tab});
     }
     render() {
         return (
@@ -51,9 +56,62 @@ class ItemDetails extends Component {
                                 <option>5</option>
                             </Input>
                         </FormGroup>
+
                         <Button id={'btn'}>Add To Cart</Button>
                     </div>
                 </Col>
+                </Row>
+                <hr></hr>
+                <Row>
+                    <Nav tabs style={{background : 'transparent',width: '100%'}}>
+                        <NavItem>
+                            <NavLink
+                                    className={classNames({ active: this.state.activeTab === '1' })}
+                                    onClick={() => { this.toggle('1'); }}
+                                >
+                                    Rates & reviews
+                                </NavLink>
+                            </NavItem>
+                            <NavItem>
+                                <NavLink
+                                    className={classNames({ active: this.state.activeTab === '2' })}
+                                    onClick={() => { this.toggle('2'); }}
+                                >
+                                    Add comments
+                                </NavLink>
+                            </NavItem>
+                        </Nav>
+                        <TabContent activeTab={this.state.activeTab}>
+                            <TabPane tabId="1">
+                                <Container body style={{background : 'red',width: '100%'}}>
+                                        <Row>
+                                            <Col xl={4}>
+                                                <Card>
+                                                    hello1
+                                                </Card>
+                                            </Col>
+                                            <Col xl={8}>
+                                                <Card>
+                                                    hello2
+                                                </Card>
+                                            </Col>
+                                        </Row>
+                                </Container>
+                            </TabPane>
+                            <TabPane tabId="2">
+                                <Row>
+                                    <Col>
+                                        <Card body>
+                                                <FormGroup>
+                                                    <Label for="exampleText">Text Area</Label>
+                                                    <Input type="textarea" name="text" id="exampleText" />
+                                                </FormGroup>
+                                            <Button id={'btn'}>Add comment</Button>
+                                        </Card>
+                                    </Col>
+                                </Row>
+                            </TabPane>
+                        </TabContent>
                 </Row>
                 <hr></hr>
                 <Row style={{background : 'rgb(248,248,248)'}}>

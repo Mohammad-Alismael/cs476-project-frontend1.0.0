@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {
     Card, CardBody, CardImg, Button, CardSubtitle, Row,
-    CardTitle, Spinner
+    CardTitle, Spinner, FormGroup, Label, Input
 } from "reactstrap";
 import tmpImg from '../Images/4.png';
 import '../Pages/css/LandingPage.css'
