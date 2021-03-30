@@ -3,6 +3,7 @@ import '../Pages/css/LoginPage.css'
 import img from '../Pages/css/U.png'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Row, Container, Col, Input} from "reactstrap";
+import axios from 'axios';
 class RegisterForm extends Component {
     state = {
         username: "",
@@ -10,6 +11,9 @@ class RegisterForm extends Component {
         email: "",
         confirmPassword: "",
         userType : ""
+    }
+    nextPath(path) {
+        this.props.history.push(path);
     }
     updateSate = (e) =>{
         e.preventDefault()
@@ -19,7 +23,9 @@ class RegisterForm extends Component {
         e.preventDefault()
         if (this.state.password == this.state.confirmPassword
             && this.state.userType != ""){
+
             alert("successfully added")
+            this.nextPath('/login')
         }else{
             if (this.state.userType == "" ||this.state.userType == "User Type"){
                 alert("choose user type")
@@ -28,6 +34,11 @@ class RegisterForm extends Component {
             }
 
         }
+        axios.get(`localhost:5001/api/users`)
+            .then(res => {
+                const persons = res.data;
+                console.log(persons)
+            })
         console.log(this.state)
     }
     render() {
