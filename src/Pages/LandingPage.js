@@ -57,7 +57,7 @@ class LandingPage extends Component {
             {
                 price : 400,
                 name : "Apple watch",
-                item_id : 12,
+                item_id : 5,
                 srcImg : tmp1
             },
             {

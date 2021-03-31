@@ -7,7 +7,9 @@ import {
 import tmp1 from '../Images/1.png';
 import '../Pages/css/ItemDetails.css'
 import '../Pages/css/LandingPage.css';
+import ReactStars from "react-rating-stars-component";
 import classNames from "classnames";
+import axios from "axios";
 class ItemDetails extends Component {
     state = {
         activeTab : 1,
@@ -32,22 +34,68 @@ class ItemDetails extends Component {
             {
                 username: "ali",
                 text : "comment1",
-                date: "",
+                date: "10/02/2020",
                 rate: 2,
                 status: "pending"
             },
             {
                 username: "ali2",
-                text : "comment2",
-                date: "",
+                text : "comment2 comment2 comment2 comment2 comment2 comment2" +
+                    "The Apple Watch was released in April 2015[30][31] and quickly became the ",
+                date: "17/05/2020",
+                rate: 3,
+                status: "approved"
+            },
+            {
+                username: "ali2",
+                text : "comment2 comment2 comment2 comment2 comment2 comment2" +
+                    "The Apple Watch was released in April 2015[30][31] and quickly became the " +
+                    "The Apple Watch was released in April 2015[30][31] and quickly became the  " +
+                    "The Apple Watch was released in April 2015[30][31] and quickly became the",
+                date: "17/05/2020",
                 rate: 3,
                 status: "approved"
             }
         ]
     }
     loadData() {
+        var self = this
         var promise = new Promise((resolve, reject) => {
             setTimeout(() => {
+                axios.get(`https://localhost:5001/api/comments/${5}`)
+                    .then(function (response) {
+                        // handle success
+                        // {
+                        //     username: "ali",
+                        //         text : "comment1",
+                        //     date: "10/02/2020",
+                        //     rate: 2,
+                        //     status: "pending"
+                        // }
+                        // {
+                        //     "id": 5,
+                        //     "userID": "1",
+                        //     "productID": "5",
+                        //     "commentDescription": "So bad",
+                        //     "rating": 1,
+                        //     "approvedStatus": 1
+                        // },
+
+                        response.data.map((element,index)=>{
+                            var tmp ={}
+                            tmp.username = element.id
+                            tmp.text = element.commentDescription
+                            tmp.rate = element.rating
+                            tmp.status = element.approvedStatus === 0 ? "approved" : "pending"
+                            self.setState({comments : [...self.state.comments, tmp]})
+                        })
+
+                        // console.log(response,"k");
+                    })
+                    .catch(function (error) {
+                        alert("error happened!!")
+                        console.log(error);
+                    })
                 resolve('This is my data.');
             }, 500);
         });
@@ -55,6 +103,7 @@ class ItemDetails extends Component {
         return promise;
     }
     componentDidMount() {
+        var self = this;
         this.setState({ loading: 'true' });
 
 
@@ -83,12 +132,27 @@ class ItemDetails extends Component {
             </div>
         )
     }
-    loadingComments(username,text,rate,status){
+    ratingChanged = (newRating) => {
+        console.log(newRating);
+    };
+    loadingComments(username,text,rate,date,status){
         return(
-        <div>
+        <div className="comment">
             <p>{username}</p>
+            <p>{date}</p>
             <p>{text}</p>
-            <p></p>
+            <p>{status}</p>
+            <ReactStars
+                count={5}
+                fullIcon={<i className="material-icons">star</i>}
+                emptyIcon={<i className="material-icons">star_border</i>}
+                onChange={this.ratingChanged}
+                size={24}
+                value={rate}
+                edit={false}
+                classNames={"stars"}
+                activeColor="#ffd700"
+            />
         </div>
         )
     }
@@ -147,32 +211,6 @@ class ItemDetails extends Component {
                     </div>
                 </Col>
                 </Row>
-                <hr></hr>
-                <Row>
-                    <Col xl={3}>
-                        <div className="addComments">
-                            <h4>Customer & Reviews</h4>
-                            <div style={{marginBottom: '20px'}}>
-                                {this.state.stars}
-                            </div>
-                            <div>
-                                {
-                                    this.state.percentageRating.map((element,index)=>{
-                                       return ( this.ratingsBars(index+1,element))
-                                    })
-                                }
-                            </div>
-                        </div>
-                    </Col>
-                    <Col xl={9}>
-                        <div className="addComments">
-                            <div>
-
-                            </div>
-                        </div>
-                    </Col>
-                </Row>
-
                 <Row style={{background : 'rgb(248,248,248)'}}>
                     <Col>
                         <Card className={'granteeCard'}>
@@ -194,6 +232,45 @@ class ItemDetails extends Component {
                             <h5>1 Year Warranty</h5>
                             <p>Chocolate bar candy canes ice cream toffee cookie halvah.</p>
                         </Card>
+                    </Col>
+                </Row>
+                <hr></hr>
+                <Row>
+                    <Col xl={3}>
+                        <div className="addComments">
+                            <h4>Customer & Reviews</h4>
+                            <div style={{marginBottom: '20px'}}>
+                                {this.state.stars}
+                            </div>
+                            <div>
+                                {
+                                    this.state.percentageRating.map((element,index)=>{
+                                       return ( this.ratingsBars(index+1,element))
+                                    })
+                                }
+                            </div>
+                        </div>
+                        <div></div>
+                    </Col>
+                    <Col xl={9}>
+                        <div className="addComments">
+                            <div>
+                                {
+                                    this.state.comments.map((element,index)=>{
+                                        return ( this.loadingComments(element.username,
+                                            element.text,element.rate,element.date,element.status
+                                        ))
+                                    })
+                                }
+                            </div>
+                        </div>
+                        <FormGroup>
+                            <Input type="textarea" name="text" id="exampleText"
+                            placeholder="let us hear your opinion..."
+                           style={{height: '100px'}}/>
+                        </FormGroup>
+                        <Button id={'btn'} onClick={()=>(console.log(this.state.comments))}>Add Comment</Button>
+
                     </Col>
                 </Row>
             </Card>
