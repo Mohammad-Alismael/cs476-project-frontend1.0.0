@@ -29,7 +29,25 @@
     transform: translateX(-50%);
     text-align: center;
 }
-.ratings{
-    background: orange;
-    width: 100%;
+.ratingBars{
+    position: relative;
+    width: 280px;
+    /*background: orange;*/
+    margin-bottom: 10px;
+}
+.ratingBars p{
+   margin: 0;
+}
+.ratingBars p:nth-child(1){
+    position: absolute;
+    top: -6px;
+}
+.ratingBars p:nth-child(2){
+    position: absolute;
+    top: -6px;
+    right: 35px;
+}
+#ratingsInNumber{
+    display: block;
+    margin: 0;
 }
