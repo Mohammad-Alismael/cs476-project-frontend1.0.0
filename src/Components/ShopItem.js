@@ -30,7 +30,6 @@ class ShopItem extends Component {
         this.loadData()
             .then((data) => {
                 for (var i=0; i < this.props.rate; i++){
-                    console.log("@")
                     this.setState({stars : [...this.state.stars, <i className="material-icons ratingStars">star</i>]})
                 }
                 for (var j=0; j < 5 - this.props.rate; j++){

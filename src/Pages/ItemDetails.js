@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {
     Card, CardImg, Col, Row
     , FormGroup, Label, Input, Button,
-    CardTitle, CardBody, CardHeader, CardText, TabPane, TabContent, NavLink, NavItem, Nav, Container
+    CardTitle, CardBody, CardHeader, CardText, TabPane, TabContent, NavLink, NavItem, Nav, Container, Spinner, Progress
 } from "reactstrap";
 import tmp1 from '../Images/1.png';
 import '../Pages/css/ItemDetails.css'
@@ -16,14 +16,100 @@ class ItemDetails extends Component {
         description: "Apple Watch is a line of smart watches produced by Apple Inc. It incorporates fitness tracking, health-oriented capabilities, and wireless telecommunication, and integrates with iOS and other Apple products and services.\n" +
             "\n" +
             "The Apple Watch was released in April 2015[30][31] and quickly became the best-selling wearable device: 4.2 million were sold in the second quarter of fiscal 2015,[32][33] and more than 100 million people were estimated to use an Apple Watch as of December 2020.[34] Apple has introduced new generations of the Apple Watch with improved internal components each September —each labeled by Apple a 'Series', with certain exceptions.",
-        InStock : true,
+        rate : 3,
+        stars: [],
         price : '999',
-        brand : 'Apple'
+        brand : 'Apple',
+        loading: 'initial',
+        percentageRating :[
+            34,
+            23,
+            12,
+            89,
+            99
+        ],
+        comments :[
+            {
+                username: "ali",
+                text : "comment1",
+                date: "",
+                rate: 2,
+                status: "pending"
+            },
+            {
+                username: "ali2",
+                text : "comment2",
+                date: "",
+                rate: 3,
+                status: "approved"
+            }
+        ]
     }
-    toggle = tab => {
-        if(this.state.activeTab !== tab) this.setState({activeTab : tab});
+    loadData() {
+        var promise = new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve('This is my data.');
+            }, 500);
+        });
+
+        return promise;
+    }
+    componentDidMount() {
+        this.setState({ loading: 'true' });
+
+
+        this.loadData()
+            .then((data) => {
+                for (var i=0; i < this.state.rate; i++){
+                    this.setState({stars : [...this.state.stars, <i className="material-icons ratingStars">star</i>]})
+                }
+                for (var j=0; j < 5 - this.state.rate; j++){
+                    this.setState({stars : [...this.state.stars, <i className="material-icons ratingStars">star_border</i>]})
+                }
+                this.setState({
+                    loading: 'false'
+                });
+            });
+        console.log(this.state.stars)
+    }
+
+    ratingsBars(stars,percentage){
+        return (
+            <div className={'ratingBars'}>
+                <p>{stars} stars</p>
+                <p>{percentage}%</p>
+                <Progress min={0} max={100} value={percentage} style={{width: '50%',marginLeft: '60px'}}/>
+
+            </div>
+        )
+    }
+    loadingComments(username,text,rate,status){
+        return(
+        <div>
+            <p>{username}</p>
+            <p>{text}</p>
+            <p></p>
+        </div>
+        )
     }
     render() {
+        if (this.state.loading === 'initial') {
+            return (
+                <div>
+                    <Spinner color="danger" />
+                </div>
+            );
+        }
+
+
+
+        if (this.state.loading === 'true') {
+            return (
+                <div>
+                    <Spinner color='rgb(120,60,237)' />
+                </div>
+            );
+        }
         return (
             <Card body>
                 <Row>
@@ -63,57 +149,30 @@ class ItemDetails extends Component {
                 </Row>
                 <hr></hr>
                 <Row>
-                    <Nav tabs style={{background : 'transparent',width: '100%'}}>
-                        <NavItem>
-                            <NavLink
-                                    className={classNames({ active: this.state.activeTab === '1' })}
-                                    onClick={() => { this.toggle('1'); }}
-                                >
-                                    Rates & reviews
-                                </NavLink>
-                            </NavItem>
-                            <NavItem>
-                                <NavLink
-                                    className={classNames({ active: this.state.activeTab === '2' })}
-                                    onClick={() => { this.toggle('2'); }}
-                                >
-                                    Add comments
-                                </NavLink>
-                            </NavItem>
-                        </Nav>
-                        <TabContent activeTab={this.state.activeTab}>
-                            <TabPane tabId="1">
-                                <Container body style={{background : 'red',width: '100%'}}>
-                                        <Row>
-                                            <Col xl={4}>
-                                                <Card>
-                                                    hello1
-                                                </Card>
-                                            </Col>
-                                            <Col xl={8}>
-                                                <Card>
-                                                    hello2
-                                                </Card>
-                                            </Col>
-                                        </Row>
-                                </Container>
-                            </TabPane>
-                            <TabPane tabId="2">
-                                <Row>
-                                    <Col>
-                                        <Card body>
-                                                <FormGroup>
-                                                    <Label for="exampleText">Text Area</Label>
-                                                    <Input type="textarea" name="text" id="exampleText" />
-                                                </FormGroup>
-                                            <Button id={'btn'}>Add comment</Button>
-                                        </Card>
-                                    </Col>
-                                </Row>
-                            </TabPane>
-                        </TabContent>
+                    <Col xl={3}>
+                        <div className="addComments">
+                            <h4>Customer & Reviews</h4>
+                            <div style={{marginBottom: '20px'}}>
+                                {this.state.stars}
+                            </div>
+                            <div>
+                                {
+                                    this.state.percentageRating.map((element,index)=>{
+                                       return ( this.ratingsBars(index+1,element))
+                                    })
+                                }
+                            </div>
+                        </div>
+                    </Col>
+                    <Col xl={9}>
+                        <div className="addComments">
+                            <div>
+
+                            </div>
+                        </div>
+                    </Col>
                 </Row>
-                <hr></hr>
+
                 <Row style={{background : 'rgb(248,248,248)'}}>
                     <Col>
                         <Card className={'granteeCard'}>
