@@ -30,22 +30,16 @@ class ItemDetails extends Component {
             89,
             99
         ],
+        currentComment : [
+            {
+                username: this.context.username,
+                text: "",
+                date: this.getDate(),
+                rate: 0,
+                status: ""
+            }
+        ],
         comments :[
-            {
-                username: "ali",
-                text : "comment1",
-                date: "10/02/2020",
-                rate: 2,
-                status: "pending"
-            },
-            {
-                username: "ali2",
-                text : "comment2 comment2 comment2 comment2 comment2 comment2" +
-                    "The Apple Watch was released in April 2015[30][31] and quickly became the ",
-                date: "17/05/2020",
-                rate: 3,
-                status: "approved"
-            },
             {
                 username: "ali2",
                 text : "comment2 comment2 comment2 comment2 comment2 comment2" +
@@ -57,6 +51,16 @@ class ItemDetails extends Component {
                 status: "approved"
             }
         ]
+    }
+    getDate(){
+        const monthNames = ["January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"];
+        const dateObj = new Date();
+        const month = monthNames[dateObj.getMonth()];
+        const day = String(dateObj.getDate()).padStart(2, '0');
+        const year = dateObj.getFullYear();
+        const output = month  + '\n'+ day  + ',' + year;
+        return output
     }
     loadData() {
         var self = this
@@ -96,25 +100,39 @@ class ItemDetails extends Component {
                         alert("error happened!!")
                         console.log(error);
                     })
-                resolve('This is my data.');
+                axios.get(`https://localhost:5001/api/products/${this.state.item_id = 1}`)
+                    .then(function (response) {
+                        var tmp = {}
+                        // "id": 2,
+                        //     "productName": "i7-10700k",
+                        //     "price": 200,
+                        //     "description": "Such an awesome CPU, the best",
+                        //     "category": "1",
+                        //     "rating": 0
+                        tmp.description = response.data.description
+                        tmp.rate = response.data.rating
+                        tmp.price = response.data.price
+                        tmp.name = response.data.productName
+                        resolve(tmp);
+                    }).catch(function (error) {
+                    alert("error happened!!")
+                    console.log(error);
+                })
+
             }, 500);
         });
 
         return promise;
     }
     componentDidMount() {
-        var self = this;
         this.setState({ loading: 'true' });
-
 
         this.loadData()
             .then((data) => {
-                for (var i=0; i < this.state.rate; i++){
-                    this.setState({stars : [...this.state.stars, <i className="material-icons ratingStars">star</i>]})
-                }
-                for (var j=0; j < 5 - this.state.rate; j++){
-                    this.setState({stars : [...this.state.stars, <i className="material-icons ratingStars">star_border</i>]})
-                }
+                const {name,description} = data
+               console.log(data)
+                this.setState({name})
+                this.setState({description})
                 this.setState({
                     loading: 'false'
                 });
@@ -127,7 +145,7 @@ class ItemDetails extends Component {
             <div className={'ratingBars'}>
                 <p>{stars} stars</p>
                 <p>{percentage}%</p>
-                <Progress min={0} max={100} value={percentage} style={{width: '50%',marginLeft: '60px'}}/>
+                <Progress color="#61dafb" min={0} max={100} value={percentage} style={{width: '50%',marginLeft: '60px'}}/>
 
             </div>
         )
@@ -155,6 +173,27 @@ class ItemDetails extends Component {
             />
         </div>
         )
+    }
+    addComment = (e)=>{
+        var self = this;
+        e.preventDefault()
+        axios.post(`https://localhost:5001/api/comments/add`,{
+            "id": 5,
+            // "userID": this.context.user_id = 20,
+            "userID": 40,
+            "productID": self.state.item_id,
+            "commentDescription": self.state.comments[0].text,
+            "rating":self.state.comments[0].rate,
+            "approvedStatus": 1
+        }).then((res)=>{
+            this.setState({comments : [...self.state.comments, self.state.currentComment[0]]})
+
+        }).catch(function (error) {
+            alert("error happened!!")
+            console.log(error.message);
+        })
+
+
     }
     render() {
         if (this.state.loading === 'initial') {
@@ -240,7 +279,17 @@ class ItemDetails extends Component {
                         <div className="addComments">
                             <h4>Customer & Reviews</h4>
                             <div style={{marginBottom: '20px'}}>
-                                {this.state.stars}
+                                {/*{this.state.stars}*/}
+                                <ReactStars
+                                    count={5}
+                                    fullIcon={<i className="material-icons">star</i>}
+                                    emptyIcon={<i className="material-icons">star_border</i>}
+                                    onChange={this.ratingChanged}
+                                    size={24}
+                                    value={this.state.rate}
+                                    edit={false}
+                                    activeColor="#ffd700"
+                                />
                             </div>
                             <div>
                                 {
@@ -265,11 +314,27 @@ class ItemDetails extends Component {
                             </div>
                         </div>
                         <FormGroup>
-                            <Input type="textarea" name="text" id="exampleText"
+                            <Input type="textarea" name="currentComment" id="exampleText"
                             placeholder="let us hear your opinion..."
+                                   onChange={()=>{
+                                       var tmp = {}
+                                       // username: this.context.username,
+                                       //     text: "",
+                                       //     date: this.getDate(),
+                                       //     rate: 0,
+                                       //     status: ""
+
+                                       tmp.username = this.context.username
+                                       tmp.text = document.getElementsByName('currentComment')[0].value
+                                       tmp.rate = 4
+                                       tmp.status = 1
+
+                                       this.setState({currentComment:
+                                       [tmp]
+                                   })}}
                            style={{height: '100px'}}/>
                         </FormGroup>
-                        <Button id={'btn'} onClick={()=>(console.log(this.state.comments))}>Add Comment</Button>
+                        <Button id={'btn'} onClick={this.addComment}>Add Comment</Button>
 
                     </Col>
                 </Row>

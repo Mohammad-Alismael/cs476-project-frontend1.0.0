@@ -139,7 +139,7 @@ class LandingPage extends Component {
                     </CardBody>
                 </Card>
                 <Card >
-                    <CardImg src={"https://jstechno.com/images/E-commerce%20Solutions.jpg"} style={{height : '200px'}}/>
+                    <CardImg src={"https://www.legitreviews.com/wp-content/uploads/2015/08/MSI-Twin-FrozrV.jpg"} style={{height : '225px'}}/>
                 </Card>
                 <Card  color={"white"}>
                     <CardHeader>
