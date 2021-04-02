@@ -23,19 +23,25 @@ export class GlobalProvider extends Component {
     updateEmail = (email1) => {
         this.setState({email : email1})
     }
+    updateIsLoggedIn = (IsLoggedIn) => {
+        this.setState({IsLoggedIn : IsLoggedIn})
+    }
     render() {
-        const {shoppingCard,username} = this.state;
+        const {shoppingCard,username,IsLoggedIn} = this.state;
         const {changeShoppingCard,
             updateUsername,
             updateUseID,
-            updateEmail} = this;
+            updateEmail,
+            updateIsLoggedIn} = this;
         return (
             <GlobalContext.Provider value={{
                 shoppingCard,
                 username,
+                IsLoggedIn,
                 updateUsername,
                 updateUseID,
                 updateEmail,
+                updateIsLoggedIn,
                 changeShoppingCard
             }}>
                 {this.props.children}

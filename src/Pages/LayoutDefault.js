@@ -15,6 +15,8 @@ import {
 import '../Pages/LandingPage'
 import logo from '../Images/logo_cs476.png'
 import SimpleReactFooter from "simple-react-footer";
+import GlobalContext from "../GlobalContext";
+import RegisterForm from "./RegisterForm";
 class LayoutDefault extends Component {
     state = {
         isOpen: false,
@@ -24,7 +26,7 @@ class LayoutDefault extends Component {
     render() {
         return (
             <Fragment>
-                <Navbar color="white" light expand="md">
+                <Navbar color="white" light expand="md" style={{width: '111%',marginTop:'-70px'}}>
                     <NavbarBrand href="/"><img id={'logo'} src={logo}/></NavbarBrand>
                     <NavbarToggler onClick={this.toggle} />
                     <Collapse isOpen={this.state.isOpen} navbar>
@@ -41,7 +43,7 @@ class LayoutDefault extends Component {
                             </NavbarText>
                             <UncontrolledDropdown>
                                 <DropdownToggle caret style={otherDropDown}>
-                                    {true ? "hello username" : "My account"}
+                                    {this.context.IsLoggedIn  ? `hello ${this.context.username}` : "My account"}
                                 </DropdownToggle>
                                 <DropdownMenu right>
                                     <DropdownItem>
@@ -82,7 +84,7 @@ class LayoutDefault extends Component {
                         </NavbarText>
                     </Collapse>
                 </Navbar>
-                <Navbar className={'secondNav'}>
+                <Navbar className={'secondNav'} style={{width: '111%'}}>
                     <Nav>
                         <NavItem>
                             <UncontrolledDropdown nav >
@@ -140,7 +142,7 @@ class LayoutDefault extends Component {
                     </Nav>
                 </Navbar>
                 <Route {...this.props} />
-                <Card>
+                <Card style={{width: '111%'}}>
                     <SimpleReactFooter
                         description={description}
                         title={title}
@@ -219,4 +221,5 @@ const otherDropDown = {
     color: 'black',
     marginTop : '13px',
     border : 'none'}
+LayoutDefault.contextType = GlobalContext
 export default LayoutDefault;

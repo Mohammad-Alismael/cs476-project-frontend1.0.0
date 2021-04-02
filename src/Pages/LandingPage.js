@@ -99,7 +99,7 @@ class LandingPage extends Component {
 
     render() {
         return (
-            <div>
+            <div style={{width: '111%'}}>
                 <Card>
                     <div className="slide-container">
                         <Slide easing="ease">

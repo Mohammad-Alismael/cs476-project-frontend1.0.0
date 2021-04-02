@@ -24,6 +24,7 @@ class LoginForm extends Component {
                 this.context.updateEmail(res.data.email);
                 this.context.updateUseID(res.data.id);
                 this.context.updateUsername(res.data.userName)
+                this.context.updateIsLoggedIn(true);
                 if (res.data.userType == "Customer"){
                     this.nextPath('/')
                 }else if (res.data.userType == "Sales Manager"){
