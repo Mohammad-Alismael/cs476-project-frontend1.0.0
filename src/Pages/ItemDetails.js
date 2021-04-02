@@ -151,7 +151,8 @@ class ItemDetails extends Component {
         )
     }
     ratingChanged = (newRating) => {
-        console.log(newRating);
+        const tmp = this.state.currentComment[0].rate;
+        this.setState({tmp: newRating});
     };
     loadingComments(username,text,rate,date,status){
         return(
@@ -178,7 +179,6 @@ class ItemDetails extends Component {
         var self = this;
         e.preventDefault()
         axios.post(`https://localhost:5001/api/comments/add`,{
-            "id": 5,
             // "userID": this.context.user_id = 20,
             "userID": 40,
             "productID": self.state.item_id,
@@ -279,7 +279,6 @@ class ItemDetails extends Component {
                         <div className="addComments">
                             <h4>Customer & Reviews</h4>
                             <div style={{marginBottom: '20px'}}>
-                                {/*{this.state.stars}*/}
                                 <ReactStars
                                     count={5}
                                     fullIcon={<i className="material-icons">star</i>}
@@ -299,7 +298,9 @@ class ItemDetails extends Component {
                                 }
                             </div>
                         </div>
-                        <div></div>
+                        <div>
+                            <img src={'https://smartyads.com/images/uploads/vertical-vs-horizontal-ad-strategy.png'} style={{height: '100%',width: '200px'}}/>
+                        </div>
                     </Col>
                     <Col xl={9}>
                         <div className="addComments">
@@ -313,29 +314,45 @@ class ItemDetails extends Component {
                                 }
                             </div>
                         </div>
-                        <FormGroup>
-                            <Input type="textarea" name="currentComment" id="exampleText"
-                            placeholder="let us hear your opinion..."
-                                   onChange={()=>{
-                                       var tmp = {}
-                                       // username: this.context.username,
-                                       //     text: "",
-                                       //     date: this.getDate(),
-                                       //     rate: 0,
-                                       //     status: ""
+                        <Card>
+                            <CardHeader tag={'h4'}>
+                                Let us hear your opinion
+                            </CardHeader>
+                            <CardBody>
+                                <ReactStars
+                                    count={5}
+                                    fullIcon={<i className="material-icons">star</i>}
+                                    emptyIcon={<i className="material-icons">star_border</i>}
+                                    onChange={this.ratingChanged}
+                                    size={24}
+                                    // value={0}
+                                    edit={true}
+                                    activeColor="#ffd700"
+                                />
+                                <FormGroup>
+                                    <Input type="textarea" name="currentComment" id="exampleText"
+                                    placeholder="add a comment..."
+                                           onChange={()=>{
+                                               var tmp = {}
+                                               // username: this.context.username,
+                                               //     text: "",
+                                               //     date: this.getDate(),
+                                               //     rate: 0,
+                                               //     status: ""
 
-                                       tmp.username = this.context.username
-                                       tmp.text = document.getElementsByName('currentComment')[0].value
-                                       tmp.rate = 4
-                                       tmp.status = 1
+                                               tmp.username = this.context.username
+                                               tmp.text = document.getElementsByName('currentComment')[0].value
+                                               tmp.rate = 4
+                                               tmp.status = 1
 
-                                       this.setState({currentComment:
-                                       [tmp]
-                                   })}}
-                           style={{height: '100px'}}/>
-                        </FormGroup>
-                        <Button id={'btn'} onClick={this.addComment}>Add Comment</Button>
-
+                                               this.setState({currentComment:
+                                               [tmp]
+                                           })}}
+                                   style={{height: '100px'}}/>
+                                </FormGroup>
+                                <Button id={'btn'} onClick={this.addComment}>Add Comment</Button>
+                            </CardBody>
+                        </Card>
                     </Col>
                 </Row>
             </Card>
