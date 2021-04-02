@@ -66,7 +66,7 @@ class ItemDetails extends Component {
         var self = this
         var promise = new Promise((resolve, reject) => {
             setTimeout(() => {
-                axios.get(`https://localhost:5001/api/comments/${5}`)
+                axios.get(`https://localhost:5001/api/comments/${this.state.item_id}`)
                     .then(function (response) {
                         // handle success
                         // {
