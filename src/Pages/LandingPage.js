@@ -101,25 +101,25 @@ class LandingPage extends Component {
         return (
             <div>
                 <Card>
-                <div className="slide-container">
-                    <Slide easing="ease">
-                        <div className="each-slide">
-                            <div style={{'backgroundImage': `url(${this.state.items[0].src})`}}>
+                    <div className="slide-container">
+                        <Slide easing="ease">
+                            <div className="each-slide">
+                                <div style={{'backgroundImage': `url(${this.state.items[0].src})`}}>
 
+                                </div>
                             </div>
-                        </div>
-                        <div className="each-slide">
-                            <div style={{'backgroundImage': `url('https://cdn3.mageplaza.com/media/general/MImGnKu.png')`}}>
+                            <div className="each-slide">
+                                <div style={{'backgroundImage': `url('https://cdn3.mageplaza.com/media/general/MImGnKu.png')`}}>
 
+                                </div>
                             </div>
-                        </div>
-                        <div className="each-slide">
-                            <div style={{'backgroundImage': `url(${this.state.items[0].src})`}}>
+                            <div className="each-slide">
+                                <div style={{'backgroundImage': `url(${this.state.items[0].src})`}}>
 
+                                </div>
                             </div>
-                        </div>
-                    </Slide>
-                </div>
+                        </Slide>
+                    </div>
                 </Card>
                 <Card color={"white"}>
                     <CardHeader>
