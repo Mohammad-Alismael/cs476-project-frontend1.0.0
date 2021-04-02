@@ -3,9 +3,10 @@ import {Card, CardTitle, Col, Container, Row} from "reactstrap";
 import FilterBar from "../Components/FilterBar";
 import ShopItem from "../Components/ShopItem";
 import tmp1 from "../Images/1.png";
+import axios from "axios";
 class ComputerCpuPage extends Component {
     state = {
-        recommendationProducts : [
+        Products : [
             {
                 price : 400,
                 name : "Apple watch",
@@ -125,6 +126,29 @@ class ComputerCpuPage extends Component {
             }
         ]
     }
+    componentDidMount() {
+        axios.get(`https://localhost:5001/api/products`)
+            .then((res)=>{
+                // {
+                //     "id": 1,
+                //     "productName": "RTX3070",
+                //     "price": 2000,
+                //     "description": "Such an awesome GPU, the best",
+                //     "category": "2",
+                //     "rating": 0
+                // }
+                // {
+                //     price : 400,
+                //         name : "Apple watch",
+                //     item_id : 12,
+                //     srcImg : tmp1
+                // }
+        }).catch((error)=>{
+            alert('error happened')
+            console.log(error)
+        })
+    }
+
     render() {
         return (
             <Container fluid>
@@ -132,10 +156,10 @@ class ComputerCpuPage extends Component {
                 <Col xl={3}>
                     <FilterBar/>
                 </Col>
-                    <Container fluid style={{width: '75%'}}>
+                    <Container fluid style={{width: '85%'}}>
                         <Row>
                         {
-                            this.state.recommendationProducts.map((element,index)=>(
+                            this.state.Products.map((element,index)=>(
                                 <Col xl={3}>
                                     <ShopItem price={element.price} productName={element.name}
                                               item_id={element.item_id} srcImg={element.srcImg}/>
