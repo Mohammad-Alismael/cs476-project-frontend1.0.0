@@ -100,7 +100,7 @@ class ItemDetails extends Component {
                         alert("error happened!!")
                         console.log(error);
                     })
-                axios.get(`https://localhost:5001/api/products/${this.state.item_id = 1}`)
+                axios.get(`https://localhost:5001/api/products/${this.state.item_id}`)
                     .then(function (response) {
                         var tmp = {}
                         // "id": 2,
@@ -151,8 +151,12 @@ class ItemDetails extends Component {
         )
     }
     ratingChanged = (newRating) => {
-        const tmp = this.state.currentComment[0].rate;
-        this.setState({tmp: newRating});
+        var tmp = {
+        ...this.state.currentComment[0],
+            rate: newRating
+        }
+        this.setState({currentComment: [tmp]});
+        // console.log(this.state.currentComment)
     };
     loadingComments(username,text,rate,date,status){
         return(
@@ -179,11 +183,12 @@ class ItemDetails extends Component {
         var self = this;
         e.preventDefault()
         axios.post(`https://localhost:5001/api/comments/add`,{
-            // "userID": this.context.user_id = 20,
-            "userID": 40,
-            "productID": self.state.item_id,
-            "commentDescription": self.state.comments[0].text,
-            "rating":self.state.comments[0].rate,
+            "userID": self.context.user_id.toString(),
+            // "userID": "441",
+            // "productID": self.state.item_id,
+            "productID": self.state.item_id.toString(),
+            "commentDescription": self.state.currentComment[0].text,
+            "rating":self.state.currentComment[0].rate,
             "approvedStatus": 1
         }).then((res)=>{
             this.setState({comments : [...self.state.comments, self.state.currentComment[0]]})
@@ -299,7 +304,7 @@ class ItemDetails extends Component {
                             </div>
                         </div>
                         <div>
-                            <img src={'https://smartyads.com/images/uploads/vertical-vs-horizontal-ad-strategy.png'} style={{height: '100%',width: '200px'}}/>
+                            <img src={'https://smartyads.com/images/uploads/vertical-vs-horizontal-ad-strategy.png'} style={{height: '100%',width: '250px'}}/>
                         </div>
                     </Col>
                     <Col xl={9}>
@@ -333,17 +338,17 @@ class ItemDetails extends Component {
                                     <Input type="textarea" name="currentComment" id="exampleText"
                                     placeholder="add a comment..."
                                            onChange={()=>{
-                                               var tmp = {}
+                                               var tmp = {
+                                                   ...this.state.currentComment[0],
+                                                   status : 'pending',
+                                                   username :this.context.username,
+                                                   text: document.getElementsByName('currentComment')[0].value
+                                               }
                                                // username: this.context.username,
                                                //     text: "",
                                                //     date: this.getDate(),
                                                //     rate: 0,
                                                //     status: ""
-
-                                               tmp.username = this.context.username
-                                               tmp.text = document.getElementsByName('currentComment')[0].value
-                                               tmp.rate = 4
-                                               tmp.status = 1
 
                                                this.setState({currentComment:
                                                [tmp]
