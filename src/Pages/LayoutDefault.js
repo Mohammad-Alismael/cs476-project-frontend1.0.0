@@ -1,5 +1,5 @@
 import React, {Component,Fragment} from 'react';
-import { Route } from 'react-router-dom';
+import {Route, withRouter} from 'react-router-dom';
 import {
     Card, CardBody, CardHeader, Col,
     Collapse, DropdownItem, DropdownMenu,
@@ -12,17 +12,43 @@ import {
     NavItem, NavLink, Row,
     UncontrolledDropdown
 } from "reactstrap";
+import '../Pages/css/LandingPage.css'
 import '../Pages/LandingPage'
 import logo from '../Images/logo_cs476.png'
 import SimpleReactFooter from "simple-react-footer";
 import GlobalContext from "../GlobalContext";
 import RegisterForm from "./RegisterForm";
+import axios from "axios";
 class LayoutDefault extends Component {
     state = {
         isOpen: false,
         activeIndex: 0,
-        animating: false
+        animating: false,
+        searchTerm : "",
+        productNames : [],
+        productDescription : []
     }
+    nextPath(path) {
+        this.props.history.push(path);
+    }
+    componentDidMount() {
+        setTimeout(()=>{
+            axios.get('https://localhost:5001/api/products').then((res)=>{
+                res.data.map((val,key)=>{
+                    this.setState({
+                        productNames : [...this.state.productNames,[val]]
+                    })
+                    console.log(this.state.productNames)
+                })
+                console.log(this.state.productNames)
+            }).catch((error)=>{
+                alert('fetching data error')
+                console.log(error)
+            })
+        },500)
+
+    }
+
     render() {
         return (
             <Fragment>
@@ -32,9 +58,38 @@ class LayoutDefault extends Component {
                     <Collapse isOpen={this.state.isOpen} navbar>
                         <Nav className="mr-auto" navbar>
                             <NavItem>
-                                <Input type="text" name="text" id="searchBar" size="70" placeholder="what are you looking for?" />
+                                <Input type="text" name="text" id="searchBar" size="70"
+                                        onChange={(event)=>{
+                                            this.setState({searchTerm: event.target.value})
+                                            console.log(this.state.searchTerm)
+                                        }}
+                                       placeholder="what are you looking for?" />
                             </NavItem>
+                            <div className={'filteredItems'} style={{display : this.state.searchTerm == "" ?  "none" : "block"}}>
+                                {
+                                    this.state.productNames.filter((val)=>{
+                                        if (this.state.searchTerm == ""){
+                                            return val
+                                        }else if(val[0].productName.toLowerCase().includes(this.state.searchTerm.toLowerCase())){
+                                            return val
+                                        }
+                                    }).map((val,key)=>{
+                                        return (
+
+                                                <p id={'searchedItem'}
+                                                   data-id={val[0].id}
+                                                   data-productName={val[0].productName}
+                                                   onClick={(event)=>{
+                                                       this.state.searchTerm = ""
+                                                       this.nextPath(`/item-details/:${event.target.dataset.id}`)
+                                                   }}
+                                                >{val[0].productName}</p>
+                                           )
+                                    })
+                                }
+                            </div>
                         </Nav>
+
                         <Nav>
                             <NavbarText>
                                 <div className="cartBtn2">
@@ -222,4 +277,4 @@ const otherDropDown = {
     marginTop : '13px',
     border : 'none'}
 LayoutDefault.contextType = GlobalContext
-export default LayoutDefault;
+export default withRouter(LayoutDefault);

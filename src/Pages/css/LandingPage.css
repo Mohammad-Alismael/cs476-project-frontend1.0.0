@@ -90,3 +90,29 @@ body{
     border-top: 1px solid black;
     /*height: 0px;*/
 }
+
+.filteredItems{
+    display: block;
+    position: absolute;
+    top: 60px;
+    width: 593px;
+    height: auto;
+    max-height: 300px;
+    border-top: none;
+    border-left: 1px solid black;
+    border-bottom: 1px solid black;
+    border-right: 1px solid black;
+    z-index: 999;
+    background: white;
+}
+
+#searchedItem{
+    margin: 0;
+    padding-left: 7px;
+    border-bottom: 1px solid #e2e2e2;
+}
+
+#searchedItem:hover{
+    background: #e2e2e2;
+    cursor: pointer;
+}
