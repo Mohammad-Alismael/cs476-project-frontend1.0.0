@@ -34,6 +34,11 @@ class LayoutDefault extends Component {
                             </NavItem>
                         </Nav>
                         <Nav>
+                            <NavbarText>
+                                <div className="cartBtn2">
+                                    <i className="material-icons">notifications</i>
+                                </div>
+                            </NavbarText>
                             <UncontrolledDropdown>
                                 <DropdownToggle caret style={otherDropDown}>
                                     {true ? "hello username" : "My account"}
@@ -52,11 +57,18 @@ class LayoutDefault extends Component {
                                             <span>payment</span>
                                         </div>
                                     </DropdownItem>
-                                    <DropdownItem divider />
+                                    <DropdownItem/>
                                     <DropdownItem>
                                         <div className="options">
                                             <i className="material-icons">list</i>
                                             <span>Orders</span>
+                                        </div>
+                                    </DropdownItem>
+                                    <DropdownItem divider />
+                                    <DropdownItem href={'/logout'}>
+                                        <div className="options">
+                                            <i className="material-icons">logout</i>
+                                            <span>logout</span>
                                         </div>
                                     </DropdownItem>
                                 </DropdownMenu>
@@ -73,7 +85,31 @@ class LayoutDefault extends Component {
                 <Navbar className={'secondNav'}>
                     <Nav>
                         <NavItem>
-                            <NavLink href="/components/">Computers</NavLink>
+                            <UncontrolledDropdown nav >
+                                <DropdownToggle nav caret>
+                                    Computers
+                                </DropdownToggle>
+                                <DropdownMenu right>
+                                    <DropdownItem href={'/computers/cpu'}>
+                                        Gpu
+                                    </DropdownItem>
+                                    <DropdownItem>
+                                        Cpu
+                                    </DropdownItem>
+                                    <DropdownItem>
+                                        Ram
+                                    </DropdownItem>
+                                    <DropdownItem>
+                                        Desktop Cases
+                                    </DropdownItem>
+                                    <DropdownItem>
+                                        Monitors
+                                    </DropdownItem>
+                                    <DropdownItem>
+                                        Mouse & keyboard
+                                    </DropdownItem>
+                                </DropdownMenu>
+                            </UncontrolledDropdown>
                         </NavItem>
                         <NavItem>
                             <NavLink href="/components/">Gaming</NavLink>
@@ -117,7 +153,7 @@ class LayoutDefault extends Component {
                         pinterest="fluffy_cats_collections"
                         copyright="black"
                         iconColor="black"
-                        backgroundColor="white"
+                        backgroundColor='white'
                         fontColor="black"
                         copyrightColor="darkgrey"
                     />
@@ -181,5 +217,6 @@ const columns = [
 const otherDropDown = {
     background : 'transparent',
     color: 'black',
+    marginTop : '13px',
     border : 'none'}
 export default LayoutDefault;

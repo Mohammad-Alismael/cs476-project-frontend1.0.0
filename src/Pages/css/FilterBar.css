@@ -1,0 +1,32 @@
+#filter-heading{
+    margin: 20px 0px 0px 20px;
+    font-size: 25px;
+}
+#filter-btn{
+    width : 100%;
+    background:rgb(234,94,211);
+    border-color: transparent;
+}
+#Go-btn{
+    background: transparent;
+    border: none;
+    color: #61dafb;
+    margin-top:25px ;
+}
+#Go-btn:hover{
+    color: #4691ad;
+}
+.ratingStars{
+    color: #ffc600;
+}
+.HowMany{
+    padding-left: 100px;
+}
+.slide-bar{
+   background: white;
+    height: auto;
+    border-radius: 5px 7px;
+    box-shadow: 0px 20px 47px 14px rgba(0,0,0,0.1);
+    border: none;
+    cursor: pointer;
+}
