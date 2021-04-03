@@ -8,9 +8,31 @@ import ProfileSettings from "./Pages/ProfileSettings";
 import GlobalContext,{GlobalProvider} from "./GlobalContext";
 import ItemDetails from "./Pages/ItemDetails";
 import LayoutDefault from "./Pages/LayoutDefault";
-import ComputerCpuPage from "./Pages/ComputerCpuPage";
+import CategoryPage from "./Pages/CategoryPage";
 
 function App() {
+    const routes = [
+        {
+            path : "/computers/gpu",
+            category : 2
+        },
+        {
+            path : "/computers/cpu",
+            category : 1
+        },
+        {
+            path : "/computers/motherboards",
+            category : 3
+        },
+        {
+            path : "/computers/apple",
+            category : 4
+        },
+        {
+            path : "/computers/monitors",
+            category : 5
+        }
+    ]
   return (
       <GlobalProvider>
           <Router>
@@ -18,7 +40,21 @@ function App() {
                   <Switch>
                       <LayoutDefault exact path="/" component={LandingPage}/>
                       <LayoutDefault exact path="/item-details/:item_id" component={ItemDetails} />
-                      <LayoutDefault exact path="/computers/cpu" component={ComputerCpuPage} />
+                      <LayoutDefault exact path="/computers/gpu" render={(props)=>
+                          <CategoryPage {...props} category={2}/>}
+                      />
+                      <LayoutDefault exact path="/computers/cpu" render={(props)=>
+                          <CategoryPage {...props} category={1}/>}
+                      />
+                      {
+                          routes.map(({path,category})=>{
+                              return(
+                                  <LayoutDefault exact path={path} render={(props)=>
+                                      <CategoryPage {...props} category={category}/>}
+                                  />
+                              )
+                          })
+                      }
                       <Route exact path="/login" component={LoginForm}/>
                       <Route exact path="/register" component={RegisterForm} />
                       <Route exact path="/profile-settings" component={ProfileSettings}/>
