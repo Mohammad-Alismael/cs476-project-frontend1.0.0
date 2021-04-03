@@ -126,7 +126,7 @@ class LayoutDefault extends Component {
                                         </div>
                                     </DropdownItem>
                                     <DropdownItem divider />
-                                    <DropdownItem href={'/logout'}>
+                                    <DropdownItem href={'/login'}>
                                         <div className="options">
                                             <i className="material-icons">logout</i>
                                             <span>logout</span>
@@ -151,19 +151,19 @@ class LayoutDefault extends Component {
                                     Computers
                                 </DropdownToggle>
                                 <DropdownMenu right>
-                                    <DropdownItem href={'/computers/cpu'}>
+                                    <DropdownItem href={'/computers/gpu'}>
                                         Gpu
                                     </DropdownItem>
-                                    <DropdownItem>
+                                    <DropdownItem href={'/computers/cpu'}>
                                         Cpu
                                     </DropdownItem>
-                                    <DropdownItem>
-                                        Ram
+                                    <DropdownItem href={'/computers/motherboards'}>
+                                        Motherboards
                                     </DropdownItem>
-                                    <DropdownItem>
-                                        Desktop Cases
+                                    <DropdownItem href={'/computers/apple'}>
+                                        Apple
                                     </DropdownItem>
-                                    <DropdownItem>
+                                    <DropdownItem href={'/computers/monitors'}>
                                         Monitors
                                     </DropdownItem>
                                     <DropdownItem>
