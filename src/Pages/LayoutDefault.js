@@ -81,7 +81,11 @@ class LayoutDefault extends Component {
                                                    data-productName={val[0].productName}
                                                    onClick={(event)=>{
                                                        this.state.searchTerm = ""
-                                                       this.nextPath(`/item-details/:${event.target.dataset.id}`)
+                                                       document.getElementById('searchBar').value =
+                                                           val[0].productName
+                                                       console.log(event.target.dataset.id)
+                                                       this.nextPath(`/item-details/${event.target.dataset.id}`)
+                                                       window.location.reload(false);
                                                    }}
                                                 >{val[0].productName}</p>
                                            )

@@ -18,9 +18,9 @@ class ItemDetails extends Component {
         description: "Apple Watch is a line of smart watches produced by Apple Inc. It incorporates fitness tracking, health-oriented capabilities, and wireless telecommunication, and integrates with iOS and other Apple products and services.\n" +
             "\n" +
             "The Apple Watch was released in April 2015[30][31] and quickly became the best-selling wearable device: 4.2 million were sold in the second quarter of fiscal 2015,[32][33] and more than 100 million people were estimated to use an Apple Watch as of December 2020.[34] Apple has introduced new generations of the Apple Watch with improved internal components each September —each labeled by Apple a 'Series', with certain exceptions.",
-        rate : 3,
+        rate : 0,
         stars: [],
-        price : '999',
+        price : '',
         brand : 'Apple',
         loading: 'initial',
         percentageRating :[
@@ -40,16 +40,7 @@ class ItemDetails extends Component {
             }
         ],
         comments :[
-            {
-                username: "ali2",
-                text : "comment2 comment2 comment2 comment2 comment2 comment2" +
-                    "The Apple Watch was released in April 2015[30][31] and quickly became the " +
-                    "The Apple Watch was released in April 2015[30][31] and quickly became the  " +
-                    "The Apple Watch was released in April 2015[30][31] and quickly became the",
-                date: "17/05/2020",
-                rate: 3,
-                status: "approved"
-            }
+
         ]
     }
     getDate(){
@@ -129,15 +120,16 @@ class ItemDetails extends Component {
 
         this.loadData()
             .then((data) => {
-                const {name,description} = data
+                const {name,description,price,rate} = data
                console.log(data)
                 this.setState({name})
+                this.setState({price})
                 this.setState({description})
+                this.setState({rate})
                 this.setState({
                     loading: 'false'
                 });
             });
-        console.log(this.state.stars)
     }
 
     ratingsBars(stars,percentage){
@@ -219,7 +211,7 @@ class ItemDetails extends Component {
             );
         }
         return (
-            <Card body>
+            <Card body style={{width: '111%'}}>
                 <Row>
                 <Col xl={4}>
                 <CardImg src={tmp1}/>
@@ -304,7 +296,7 @@ class ItemDetails extends Component {
                             </div>
                         </div>
                         <div>
-                            <img src={'https://smartyads.com/images/uploads/vertical-vs-horizontal-ad-strategy.png'} style={{height: '100%',width: '250px'}}/>
+                            {/*<img src={'https://smartyads.com/images/uploads/vertical-vs-horizontal-ad-strategy.png'} style={{height: '100%',width: '250px'}}/>*/}
                         </div>
                     </Col>
                     <Col xl={9}>
