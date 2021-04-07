@@ -21,18 +21,25 @@ class LoginForm extends Component {
                 "password": this.state.password
             }).then(res =>{
                 console.log(res.data)
+                sessionStorage.setItem("user_id", res.data.id);
+                sessionStorage.setItem("username", res.data.userName);
+                sessionStorage.setItem("email", res.data.email);
                 this.context.updateEmail(res.data.email);
-                this.context.updateUseID(res.data.id);
+                this.context.updateUserID(res.data.id);
                 this.context.updateUsername(res.data.userName)
                 this.context.updateIsLoggedIn(true);
                 if (res.data.userType == "Customer"){
+                    // console.log(res.data.id)
                     this.nextPath('/')
+                    console.log(this.context.user_id)
                 }else if (res.data.userType == "Sales Manager"){
                     this.nextPath('/dashBoard')
                 }else if (res.data.userType == "Product owner"){
                     this.nextPath('/product-owner-landing-page')
                 }else{
-                    this.nextPath('/')
+                    // console.log(res.data.id)
+                    // this.nextPath('/')
+                    console.log(this.context.userID)
                 }
             }).catch(error =>{
                 if(error.response.status == 401)

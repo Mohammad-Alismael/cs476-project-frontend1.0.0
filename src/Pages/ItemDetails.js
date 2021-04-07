@@ -10,6 +10,8 @@ import '../Pages/css/LandingPage.css';
 import ReactStars from "react-rating-stars-component";
 import classNames from "classnames";
 import axios from "axios";
+import GlobalContext from "../GlobalContext";
+import LoginForm from "./LoginForm";
 class ItemDetails extends Component {
     state = {
         activeTab : 1,
@@ -32,11 +34,11 @@ class ItemDetails extends Component {
         ],
         currentComment : [
             {
-                username: this.context.username,
+                username: sessionStorage.getItem("username"),
                 text: "",
-                date: this.getDate(),
+                // date: this.getDate(),
                 rate: 0,
-                status: ""
+                status: "pending"
             }
         ],
         comments :[
@@ -78,7 +80,8 @@ class ItemDetails extends Component {
 
                         response.data.map((element,index)=>{
                             var tmp ={}
-                            tmp.username = element.id
+                            tmp.username = element.userName
+                            tmp.date = element.date == null ? "no date" : element.date
                             tmp.text = element.commentDescription
                             tmp.rate = element.rating
                             tmp.status = element.approvedStatus === 0 ? "approved" : "pending"
@@ -174,19 +177,22 @@ class ItemDetails extends Component {
     addComment = (e)=>{
         var self = this;
         e.preventDefault()
+        console.log(sessionStorage.getItem("user_id").toString())
         axios.post(`https://localhost:5001/api/comments/add`,{
-            "userID": self.context.user_id.toString(),
+            "userID": sessionStorage.getItem("user_id").toString(),
+            "userName":sessionStorage.getItem("username"),
             // "userID": "441",
             // "productID": self.state.item_id,
             "productID": self.state.item_id.toString(),
             "commentDescription": self.state.currentComment[0].text,
             "rating":self.state.currentComment[0].rate,
-            "approvedStatus": 1
+            "approvedStatus": 1,
+            "AddedDate" : this.getDate()
         }).then((res)=>{
             this.setState({comments : [...self.state.comments, self.state.currentComment[0]]})
 
         }).catch(function (error) {
-            alert("error happened!!")
+            alert("you cannot add more than one comment!")
             console.log(error.message);
         })
 
@@ -329,12 +335,12 @@ class ItemDetails extends Component {
                                 <FormGroup>
                                     <Input type="textarea" name="currentComment" id="exampleText"
                                     placeholder="add a comment..."
-                                           onChange={()=>{
+                                           onChange={(event)=>{
                                                var tmp = {
                                                    ...this.state.currentComment[0],
                                                    status : 'pending',
-                                                   username :this.context.username,
-                                                   text: document.getElementsByName('currentComment')[0].value
+                                                   text: event.target.value
+                                                   // text: document.getElementsByName('currentComment')[0].value
                                                }
                                                // username: this.context.username,
                                                //     text: "",
@@ -356,5 +362,5 @@ class ItemDetails extends Component {
         );
     }
 }
-
+ItemDetails.contextType = GlobalContext
 export default ItemDetails;

@@ -17,7 +17,7 @@ export class GlobalProvider extends Component {
     updateUsername = (username1) => {
         this.setState({username : username1})
     }
-    updateUseID = (id) => {
+    updateUserID = (id) => {
         this.setState({user_id : id})
     }
     updateEmail = (email1) => {
@@ -27,10 +27,10 @@ export class GlobalProvider extends Component {
         this.setState({IsLoggedIn : IsLoggedIn})
     }
     render() {
-        const {shoppingCard,username,IsLoggedIn} = this.state;
+        const {shoppingCard,username,IsLoggedIn,user_id} = this.state;
         const {changeShoppingCard,
             updateUsername,
-            updateUseID,
+            updateUserID,
             updateEmail,
             updateIsLoggedIn} = this;
         return (
@@ -38,8 +38,9 @@ export class GlobalProvider extends Component {
                 shoppingCard,
                 username,
                 IsLoggedIn,
+                user_id,
                 updateUsername,
-                updateUseID,
+                updateUserID,
                 updateEmail,
                 updateIsLoggedIn,
                 changeShoppingCard
