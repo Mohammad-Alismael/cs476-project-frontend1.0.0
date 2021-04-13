@@ -1,5 +1,4 @@
-import logo from './logo.svg';
-// import './index.css';
+
 import {BrowserRouter as Router, Route,Redirect,Switch } from 'react-router-dom';
 import LandingPage from "./Pages/LandingPage";
 import LoginForm from "./Pages/LoginForm";
@@ -9,6 +8,7 @@ import GlobalContext,{GlobalProvider} from "./GlobalContext";
 import ItemDetails from "./Pages/ItemDetails";
 import LayoutDefault from "./Pages/LayoutDefault";
 import CategoryPage from "./Pages/CategoryPage";
+import AreNotLoggedIn from "./Pages/AreNotLoggedIn";
 
 function App() {
     const routes = [
@@ -38,7 +38,12 @@ function App() {
           <Router>
               <div>
                   <Switch>
-                      <LayoutDefault exact path="/" component={LandingPage}/>
+                      {sessionStorage.getItem("isLoggedIn") && sessionStorage.getItem("userType") == "Customer1" ? (
+                          <LayoutDefault exact path="/" component={LandingPage}/>
+                      ) : (
+                          <AreNotLoggedIn/>
+                      )}
+
                       <LayoutDefault exact path="/item-details/:item_id" component={ItemDetails} />
                       <LayoutDefault exact path="/computers/gpu" render={(props)=>
                           <CategoryPage {...props} category={2}/>}

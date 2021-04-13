@@ -202,7 +202,7 @@ class ItemDetails extends Component {
         if (this.state.loading === 'initial') {
             return (
                 <div>
-                    <Spinner color="danger" />
+                    <Spinner color="danger" style={{ width: '30rem', height: '30rem' }}/>
                 </div>
             );
         }
@@ -212,7 +212,7 @@ class ItemDetails extends Component {
         if (this.state.loading === 'true') {
             return (
                 <div>
-                    <Spinner color='rgb(120,60,237)' />
+                    <Spinner color="black" style={{ width: '20rem', height: '20rem',marginLeft: '45%',marginTop: '10%',marginBottom: '10%' }}/>
                 </div>
             );
         }
