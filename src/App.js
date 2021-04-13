@@ -9,6 +9,7 @@ import ItemDetails from "./Pages/ItemDetails";
 import LayoutDefault from "./Pages/LayoutDefault";
 import CategoryPage from "./Pages/CategoryPage";
 import AreNotLoggedIn from "./Pages/AreNotLoggedIn";
+import ShoppingCart from "./Pages/ShoppingCart";
 
 function App() {
     const routes = [
@@ -38,12 +39,8 @@ function App() {
           <Router>
               <div>
                   <Switch>
-                      {sessionStorage.getItem("isLoggedIn") && sessionStorage.getItem("userType") == "Customer1" ? (
-                          <LayoutDefault exact path="/" component={LandingPage}/>
-                      ) : (
-                          <AreNotLoggedIn/>
-                      )}
 
+                      <LayoutDefault exact path="/" component={LandingPage}/>
                       <LayoutDefault exact path="/item-details/:item_id" component={ItemDetails} />
                       <LayoutDefault exact path="/computers/gpu" render={(props)=>
                           <CategoryPage {...props} category={2}/>}
@@ -62,7 +59,19 @@ function App() {
                       }
                       <Route exact path="/login" component={LoginForm}/>
                       <Route exact path="/register" component={RegisterForm} />
-                      <Route exact path="/profile-settings" component={ProfileSettings}/>
+                      {
+                         sessionStorage.getItem("isLoggedIn") == "true" ?
+                              (<LayoutDefault exact path="/profile-settings" component={ProfileSettings}/>) :
+                              (<AreNotLoggedIn/>)
+
+                      }
+                      {
+                          sessionStorage.getItem("isLoggedIn") == "true" ?
+                              (<LayoutDefault exact path="/shopping-cart" component={ShoppingCart}/>) :
+                              (<AreNotLoggedIn/>)
+
+                      }
+
                       <Route exact path="/log-out">
                       <Redirect to="/login"/>
                   </Route>

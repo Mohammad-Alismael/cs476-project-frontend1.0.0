@@ -105,7 +105,7 @@ class LayoutDefault extends Component {
                                     {this.context.IsLoggedIn  ? `hello ${this.context.username}` : "My account"}
                                 </DropdownToggle>
                                 <DropdownMenu right>
-                                    <DropdownItem>
+                                    <DropdownItem href={'/profile-settings'}>
                                         <div className="options">
                                             <i className="material-icons">person</i>
                                             <span>profile</span>
@@ -136,7 +136,7 @@ class LayoutDefault extends Component {
                             </UncontrolledDropdown>
                         </Nav>
                         <NavbarText>
-                            <div className="cartBtn">
+                            <div className="cartBtn" onClick={()=> this.nextPath('/shopping-cart')}>
                                 <span>Cart</span>
                                 <i className="material-icons">local_grocery_store</i>
                             </div>
