@@ -20,7 +20,8 @@
     color: #ffc600;
 }
 .HowMany{
-    padding-left: 100px;
+    position: absolute;
+    right: 0px;
 }
 .slide-bar{
    background: white;
