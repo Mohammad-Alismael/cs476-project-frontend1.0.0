@@ -204,6 +204,7 @@ class LayoutDefault extends Component {
                 <Route {...this.props} />
                 <Card style={{width: '111%'}}>
                     <SimpleReactFooter
+                        style={{position:'sticky',bottom: "0px"}}
                         description={description}
                         title={title}
                         columns={columns}
