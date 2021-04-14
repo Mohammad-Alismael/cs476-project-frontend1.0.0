@@ -116,3 +116,11 @@ body{
     background: #e2e2e2;
     cursor: pointer;
 }
+
+#lblCartCount {
+    font-size: 6px;
+    background: #ff0000;
+    color: #fff;
+    padding: 0 5px;
+    vertical-align: top;
+}

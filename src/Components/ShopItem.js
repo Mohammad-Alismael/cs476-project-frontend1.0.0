@@ -40,7 +40,7 @@ class ShopItem extends Component {
                     loading: 'false'
                 });
             });
-        console.log(this.state.stars)
+
     }
 
     render() {

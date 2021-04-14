@@ -3,7 +3,7 @@ import React, { Component, createContext } from 'react'
 const GlobalContext = createContext();
 export class GlobalProvider extends Component {
     state = {
-        shoppingCard : 0,
+        shoppingCard : parseInt(localStorage.getItem("howManyItems")),
         IsLoggedIn : false,
         username : "",
         user_id : 0,
@@ -25,6 +25,13 @@ export class GlobalProvider extends Component {
     }
     updateIsLoggedIn = (IsLoggedIn) => {
         this.setState({IsLoggedIn : IsLoggedIn})
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        if (this.state.shoppingCard !== prevState.shoppingCard) {
+            // Whatever storage mechanism you end up deciding to use.
+            localStorage.setItem("howManyItems", this.state.shoppingCard)
+        }
     }
     render() {
         const {shoppingCard,username,IsLoggedIn,user_id} = this.state;
