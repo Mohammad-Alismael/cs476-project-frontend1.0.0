@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import {Button, Card, CardBody, CardImg, Col, Label, Row} from "reactstrap";
 import ReactStars from "react-rating-stars-component";
-
+import CounterInput from 'react-bootstrap-counter';
+import Counter from "./Counter";
 class ShoppingCartItems extends Component {
     render() {
         return (
@@ -13,8 +14,8 @@ class ShoppingCartItems extends Component {
                 <Col xl={9}>
                     <CardBody>
                         <p>{this.props.brand} - {this.props.productName}</p>
-                        <p>price: {this.props.price}</p>
-                        <p>quantity:{ this.props.quantity}</p>
+                        <p>{this.props.price}$</p>
+                        <Counter value={this.props.quantity}/>
                         <Button color={"danger"} style={{float: 'right'}}>Remove</Button>
                         <ReactStars
                             count={5}
