@@ -7,6 +7,8 @@ import tmpImg from '../Images/4.png';
 import '../Pages/css/LandingPage.css'
 import {withRouter} from 'react-router-dom';
 import ReactStars from "react-rating-stars-component";
+import GlobalContext from "../GlobalContext";
+import ItemDetails from "../Pages/ItemDetails";
 class ShopItem extends Component {
     state = {
         loading: 'initial',
@@ -77,11 +79,11 @@ class ShopItem extends Component {
                         edit={false}
                         activeColor="#ffd700"
                     />
-                    <Button style={{width : "100%"}} id={'btn'}>Add to cart</Button>
+                    <Button style={{width : "100%"}} id={'btn'} onClick={this.context.changeShoppingCard}>Add to cart</Button>
                 </CardBody>
             </Card>
         );
     }
 }
-
+ShopItem.contextType = GlobalContext
 export default withRouter(ShopItem);

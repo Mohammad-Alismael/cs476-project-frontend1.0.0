@@ -137,9 +137,9 @@ class LayoutDefault extends Component {
                         </Nav>
                         <NavbarText>
                             <div className="cartBtn" onClick={()=> this.nextPath('/shopping-cart')}>
-                                <span>Cart</span>
+                                <span className={"number"} data-units={this.context.shoppingCard}>Cart</span>
                                 <i className="material-icons">local_grocery_store</i>
-                                <label ID="lblCartCount" runat="server" CssClass="badge badge-warning"  ForeColor="White"/>{this.context.shoppingCard}
+                                {/*<label ID="lblCartCount" runat="server" CssClass="badge badge-warning"  ForeColor="White"/>{this.context.shoppingCard}*/}
                             </div>
                         </NavbarText>
                     </Collapse>
