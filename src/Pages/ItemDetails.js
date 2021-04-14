@@ -249,7 +249,7 @@ class ItemDetails extends Component {
                             </Input>
                         </FormGroup>
 
-                        <Button id={'btn'}>Add To Cart</Button>
+                        <Button id={'btn'} onClick={this.context.changeShoppingCard}>Add To Cart</Button>
                     </div>
                 </Col>
                 </Row>

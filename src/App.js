@@ -10,6 +10,7 @@ import LayoutDefault from "./Pages/LayoutDefault";
 import CategoryPage from "./Pages/CategoryPage";
 import AreNotLoggedIn from "./Pages/AreNotLoggedIn";
 import ShoppingCart from "./Pages/ShoppingCart";
+import Cart from "./Components/Cart";
 
 function App() {
     const routes = [
@@ -39,15 +40,8 @@ function App() {
           <Router>
               <div>
                   <Switch>
-
                       <LayoutDefault exact path="/" component={LandingPage}/>
                       <LayoutDefault exact path="/item-details/:item_id" component={ItemDetails} />
-                      <LayoutDefault exact path="/computers/gpu" render={(props)=>
-                          <CategoryPage {...props} category={2}/>}
-                      />
-                      <LayoutDefault exact path="/computers/cpu" render={(props)=>
-                          <CategoryPage {...props} category={1}/>}
-                      />
                       {
                           routes.map(({path,category})=>{
                               return(
