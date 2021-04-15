@@ -48,7 +48,51 @@ class LayoutDefault extends Component {
         },500)
 
     }
-
+    renderElement(){
+        if(sessionStorage.getItem("userType") == "Customer"){
+            return (
+                <>
+                    <DropdownItem>
+                        <div className="options">
+                            <i className="material-icons">payment</i>
+                            <span>payment</span>
+                        </div>
+                    </DropdownItem>
+                    <DropdownItem>
+                        <div className="options">
+                            <i className="material-icons">list</i>
+                            <span>Orders</span>
+                        </div>
+                    </DropdownItem>
+                    <DropdownItem divider />
+                </>
+            );
+        } else if(sessionStorage.getItem("userType") == "Product owner")
+            return (
+                <>
+                    <DropdownItem href={"/product-owner-landing-page/add-products"}>
+                        <div className="options">
+                            <i className="material-icons">create</i>
+                            <span>add products</span>
+                        </div>
+                    </DropdownItem>
+                    <DropdownItem href={"/product-owner-landing-page/edit-products"}>
+                        <div className="options">
+                            <i className="material-icons">edit</i>
+                            <span>edit products</span>
+                        </div>
+                    </DropdownItem>
+                    <DropdownItem href={"/product-owner-landing-page/delete-products"}>
+                        <div className="options">
+                            <i className="material-icons">delete_sweep</i>
+                            <span>delete products</span>
+                        </div>
+                    </DropdownItem>
+                    <DropdownItem divider />
+                </>
+            );
+        return null;
+    }
     render() {
         return (
             <Fragment>
@@ -110,22 +154,8 @@ class LayoutDefault extends Component {
                                             <i className="material-icons">person</i>
                                             <span>profile</span>
                                         </div>
-
                                     </DropdownItem>
-                                    <DropdownItem>
-                                        <div className="options">
-                                            <i className="material-icons">payment</i>
-                                            <span>payment</span>
-                                        </div>
-                                    </DropdownItem>
-                                    <DropdownItem/>
-                                    <DropdownItem>
-                                        <div className="options">
-                                            <i className="material-icons">list</i>
-                                            <span>Orders</span>
-                                        </div>
-                                    </DropdownItem>
-                                    <DropdownItem divider />
+                                    {this.renderElement()}
                                     <DropdownItem href={'/login'}>
                                         <div className="options">
                                             <i className="material-icons">logout</i>
