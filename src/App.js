@@ -11,6 +11,7 @@ import CategoryPage from "./Pages/CategoryPage";
 import AreNotLoggedIn from "./Pages/AreNotLoggedIn";
 import ShoppingCart from "./Pages/ShoppingCart";
 import Cart from "./Components/Cart";
+import ProductManager from "./Pages/ProductManager";
 
 function App() {
     const routes = [
@@ -66,6 +67,13 @@ function App() {
 
                       }
 
+                      {
+                          sessionStorage.getItem("isLoggedIn") == "true" &&
+                          sessionStorage.getItem("userType") == "Product owner"?
+                              (<LayoutDefault exact path="/product-owner-landing-page" component={ProductManager}/>) :
+                              (<AreNotLoggedIn/>)
+
+                      }
                       <Route exact path="/log-out">
                       <Redirect to="/login"/>
                   </Route>
