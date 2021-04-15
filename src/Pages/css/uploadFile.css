@@ -1,0 +1,53 @@
+input[type="file"] {
+    display: none;
+}
+.custom-file-upload {
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+}
+
+.upload-icon{
+    position: absolute;
+    left: 40%;
+
+    font-size: 240px;
+    color: black;
+}
+.upload-btn{
+    left: 150px;
+    top: 130px;
+}
+#txt{
+    position: absolute;
+    bottom: -7px;
+    left: 60px;
+}
+
+#uploaded-img{
+    height: 350px;
+    width: 350px;
+    border-radius: 50%;
+    position: absolute;
+    right: 150px;
+    top: 150px;
+}
+
+.drag-drop{
+    margin-top: 40px;
+    height: 300px;
+    position: relative;
+    /* background: red; */
+    cursor: pointer;
+    border: 5px dashed black;
+}
+
+.drag-drop p{
+    position: absolute;
+    bottom: 10px;
+    left: 235px;
+    font-size: 28px;
+    font-weight: bold;
+    color: black;
+}
