@@ -131,6 +131,7 @@ class LandingPage extends Component {
                                 this.state.recommendationProducts.map((element,index)=>(
                                     <Col>
                                         <ShopItem price={element.price} productName={element.name} key={index}
+                                                  addToCartbtn={true}
                                                   item_id={element.item_id} srcImg={element.srcImg} rate={3}/>
                                     </Col>
                                 ))
@@ -169,6 +170,7 @@ class LandingPage extends Component {
                                     this.state.recommendationProducts.map((element,index)=>(
                                         <Col>
                                             <ShopItem price={element.price} productName={element.name}
+                                                      addToCartbtn={true}
                                                       item_id={element.item_id} srcImg={element.srcImg} rate={3}/>
                                         </Col>
                                     ))
