@@ -53,6 +53,7 @@ class ProductManager extends Component {
                                         this.state.recommendationProducts.map((element,index)=>(
                                             <Col>
                                                 <ShopItem price={element.price} productName={element.name}
+                                                          addToCartbtn={false}
                                                           item_id={element.item_id} srcImg={element.srcImg} rate={3}/>
                                             </Col>
                                         ))

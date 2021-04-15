@@ -74,6 +74,27 @@ function App() {
                               (<AreNotLoggedIn/>)
 
                       }
+                      {
+                          sessionStorage.getItem("isLoggedIn") == "true" &&
+                          sessionStorage.getItem("userType") == "Product owner"?
+                              (<LayoutDefault exact path="/product-owner-landing-page/add-products" component={ProductManager}/>) :
+                              (<AreNotLoggedIn/>)
+
+                      }
+                      {
+                          sessionStorage.getItem("isLoggedIn") == "true" &&
+                          sessionStorage.getItem("userType") == "Product owner"?
+                              (<LayoutDefault exact path="/product-owner-landing-page/edit-products" component={ProductManager}/>) :
+                              (<AreNotLoggedIn/>)
+
+                      }
+                      {
+                          sessionStorage.getItem("isLoggedIn") == "true" &&
+                          sessionStorage.getItem("userType") == "Product owner"?
+                              (<LayoutDefault exact path="/product-owner-landing-page/delete-products" component={ProductManager}/>) :
+                              (<AreNotLoggedIn/>)
+
+                      }
                       <Route exact path="/log-out">
                       <Redirect to="/login"/>
                   </Route>

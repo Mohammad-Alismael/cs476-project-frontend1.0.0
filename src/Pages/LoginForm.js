@@ -38,7 +38,8 @@ class LoginForm extends Component {
                     this.nextPath('/dashBoard')
                 }else if (res.data.userType == "Product owner"){
                     this.nextPath('/product-owner-landing-page')
-                    // console.log(sessionStorage.getItem("userType") == "Product owner")
+                    // console.log(sessionStorage.getItem("userType") == "Product owner",
+                    //     sessionStorage.getItem("isLoggedIn") == "true")
                 }else{
                     // console.log(res.data.id)
                     this.nextPath('/')
