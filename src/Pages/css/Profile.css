@@ -1,0 +1,9 @@
+body {
+  font-family: 'Philosopher', sans-serif!important;
+}
+input {
+  margin-bottom: 3% !important;
+}
+.brief, .check{
+  opacity: 0.4;
+}
