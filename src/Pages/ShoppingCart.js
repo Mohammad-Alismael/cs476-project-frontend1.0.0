@@ -25,6 +25,13 @@ class ShoppingCart extends Component {
                             rating={4}
                             quantity={1}
                             srcImg={tmp2}/>
+                        <ShoppingCartItems
+                            productName={"msi"}
+                            price={2000}
+                            brand={"microsoft"}
+                            rating={1}
+                            quantity={10}
+                            srcImg={tmp2}/>
                     </Col>
                     <Col>
                         <Card>
