@@ -1,80 +1,93 @@
 import React, {Component} from 'react';
+import {Button, Card} from "reactstrap";
+import axios from "axios";
 
 class ProfileSettings extends Component {
-    render() {
+    state = {
+      userName: "",
+      name: "",
+      surname: "",
+      password: "",
+      email: "",
+      userType: null,
+      locker: true
+    }
+    componentWillMount() {
+      axios.get('https://localhost:5001/api/users/2')
+          .then((res)=>{
+              console.log(res.data)
+            var {userName,name,surname,password,email,userType}= res.data
+            this.setState({userName})
+            this.setState({name})
+            this.setState({surname})
+            this.setState({password})
+            this.setState({email})
+            this.setState({userType})
+
+          }).catch((error)=>{
+            alert("error !")
+            console.log(error)
+      })
+    }
+
+  render() {
         return (
-            <div>
-             <body>
-  <section class="personal">
+            <Card body>
 
-    <form>
+              <section>
+                <form>
+                  <div className={"float-right"}>
+                    <Button color={'primary'}  style={{margin : '5px 10px'}} onClick={()=> this.setState({locker : !this.state.locker})}>unlock</Button>
+                    <Button color={'primary'} style={{margin : '5px 10px'}}>update info</Button>
+                  </div>
+                  <div class="container">
+                    <h1>Personal Info</h1>
 
+                    <div class="row">
 
-      <div class="container">
-        <h1>Personal Info</h1>
-        <div class="row">
+                      <div class="col-lg-6 col-md-6 col-sm-6">
+                        <label for="text" class="form-label">First Name</label>
+                        <input class="form-control" type="text" name="fName"
+                               disabled={this.state.locker}
+                               value={this.state.name}/>
+                      </div>
+                      <div class="col-lg-6 col-md-6 col-sm-6">
+                        <label for="text" class="form-label">Last Name</label>
+                        <input class="form-control" type="email" name="lName"
+                               disabled={this.state.locker}
+                               value={this.state.surname}></input>
 
-          <div class="col-lg-6 col-md-6 col-sm-6">
-            <label for="text" class="form-label">First Name</label>
-            <input class="form-control" type="email" name="fName">
-          </div>
-          <div class="col-lg-6 col-md-6 col-sm-6">
-            <label for="text" class="form-label">Last Name</label>
-            <input class="form-control" type="email" name="lName">
+                      </div>
+                      <div class="col-lg-6 col-md-6 col-sm-6">
+                        <label for="email" class="form-label">Email address</label>
+                        <input class="form-control" type="email" name="email"
+                               disabled={this.state.locker}
+                               value={this.state.email}/>
 
-          </div>
-          <div class="col-lg-6 col-md-6 col-sm-6">
-            <label for="email" class="form-label">Email address</label>
-            <input class="form-control" type="email" name="email">
+                      </div>
+                      <div class="col-lg-6 col-md-6 col-sm-6">
+                        <label for="text" class="form-label">Username</label>
+                        <input class="form-control" type="text" name="username"
+                               disabled={this.state.locker}
+                               value={this.state.userName}/>
+                      </div>
+                      <div className="col-lg-6 col-md-6 col-sm-6">
+                        <label htmlFor="text" className="form-label">password</label>
+                        <input className="form-control" type="text" name="username"
+                               disabled={this.state.locker}
+                               value={this.state.password}/>
+                      </div>
+                      <div class="col-lg-6 col-md-6 col-sm-6">
+                        <label for="text" class="form-label">userType</label>
+                        <input class="form-control" type="text" name="display" disabled={this.state.locker}
+                               value={this.state.userType == null? "not specified" :this.state.userType }/>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </section>
 
-          </div>
-          <div class="col-lg-6 col-md-6 col-sm-6">
-            <p>Didn't get a verification email?</p>
-          </div>
-          <div class="col-lg-6 col-md-6 col-sm-6">
-            <label for="text" class="form-label">Username</label>
-            <input class="form-control" type="text" name="username">
-          </div>
-          <div class="col-lg-6 col-md-6 col-sm-6">
-            <label for="text" class="form-label">Display Name</label>
-            <input class="form-control" type="text" name="display">
-          </div>
-          <div class="col-lg-6 col-md-6 col-sm-6">
-            <p class="check">Check your inbox to confirm ownership of this email address.</p>
-          </div>
-          <div class="col-lg-12 col-md-12 col-sm-12">
-            <textarea class="form-control" rows="5"></textarea>
-            <p class="brief">Brief description for your profile</p>
-          </div>
-        </div>
-      </div>
-    </form>
-  </section>
-
-  <section class="social">
-    <div class="container">
-      <h1>Social profiles</h1>
-      <div class="row">
-
-        <div class="col-lg-12 col-md-12 col-sm-12">
-          <label for="text" class="form-label">Facebook</label>
-          <input class="form-control" type="text" name="facebook">
-
-        </div>
-        <div class="col-lg-12 col-md-12 col-sm-12">
-          <label for="text" class="form-label">Twitter</label>
-          <input class="form-control" type="text" name="twitter">
-
-        </div>
-        <div class="col-lg-12 col-md-12 col-sm-12">
-          <input class="form-control" type="text" name="another" placeholder="Add another social profile">
-
-
-        </div>
-
-
-  </section>
-            </div>
+            </Card>
         );
     }
 }
