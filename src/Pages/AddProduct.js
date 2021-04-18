@@ -26,8 +26,8 @@ class AddProduct extends Component {
             "Description": this.state.Description,
             "Comments": "No Comments",
             "Category": this.givesType(this.state.category),
-            // "UserId": sessionStorage.getItem("user_id")
-            "UserId": "12"
+            "UserId": sessionStorage.getItem("user_id")
+            // "UserId": "12"
         }).then(res =>{
             // console.log(res.data)
             alert("uploaded successfully !")
