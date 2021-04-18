@@ -25,6 +25,7 @@ class ItemDetails extends Component {
         price : '',
         brand : 'Apple',
         loading: 'initial',
+        seller: "seller",
         percentageRating :[
             34,
             23,
@@ -227,6 +228,7 @@ class ItemDetails extends Component {
                         <h3>{this.state.name}</h3>
                         <h6>{this.state.brand}</h6>
                         <h4>{this.state.price}$</h4>
+                        <h4>{this.state.seller}</h4>
                         <hr></hr>
                         <p>{this.state.description}</p>
                         <div className="options">
