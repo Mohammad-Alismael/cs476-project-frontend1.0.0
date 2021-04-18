@@ -20,12 +20,12 @@ class LoginForm extends Component {
                 "userName": this.state.username,
                 "password": this.state.password
             }).then(res =>{
-                console.log(res.data)
                 sessionStorage.setItem("user_id", res.data.id);
                 sessionStorage.setItem("username", res.data.userName);
                 sessionStorage.setItem("email", res.data.email);
                 sessionStorage.setItem("isLoggedIn", true);
                 sessionStorage.setItem("userType", res.data.userType);
+
                 this.context.updateEmail(res.data.email);
                 this.context.updateUserID(res.data.id);
                 this.context.updateUsername(res.data.userName)
@@ -61,7 +61,7 @@ class LoginForm extends Component {
     }
     render() {
         return (
-           <div class="container-fluid">
+           <div className="container-fluid">
             <div className="row">
               <div className="col-lg-6 col-md-6 col-sm-6 left">
                   <img className="middle-img" src={img} alt="" />
