@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Button, Card} from "reactstrap";
+import {Button, Card, Container} from "reactstrap";
 import axios from "axios";
 
 class ProfileSettings extends Component {
@@ -15,9 +15,7 @@ class ProfileSettings extends Component {
     componentWillMount() {
       axios.get('https://localhost:5001/api/users/2')
           .then((res)=>{
-              console.log(res.data)
-            var {userName,name,surname,password,email,userType}= res.data
-            this.setState({userName})
+              const {userName, name, surname, password, email, userType} = res.data;this.setState({userName})
             this.setState({name})
             this.setState({surname})
             this.setState({password})
@@ -32,8 +30,8 @@ class ProfileSettings extends Component {
 
   render() {
         return (
-            <Card body>
-
+            <Container>
+            <Card body style={{marginBottom:'60px', width: '100%'}}>
               <section>
                 <form>
                   <div className={"float-right"}>
@@ -44,7 +42,6 @@ class ProfileSettings extends Component {
                     <h1>Personal Info</h1>
 
                     <div class="row">
-
                       <div class="col-lg-6 col-md-6 col-sm-6">
                         <label for="text" class="form-label">First Name</label>
                         <input class="form-control" type="text" name="fName"
@@ -88,6 +85,7 @@ class ProfileSettings extends Component {
               </section>
 
             </Card>
+            </Container>
         );
     }
 }
