@@ -91,7 +91,7 @@ class RegisterForm extends Component {
                                 <option>User Type</option>
                                 <option>Sales Manager</option>
                                 <option>Customer</option>
-                                <option>Product owner</option>
+                                <option>Product Manager</option>
                             </Input>
                             <input type="checkbox" class="checkbox-form" name="terms" value="t"/>
                             <label for="terms"> I accept the terms & conditions.</label><br/>
