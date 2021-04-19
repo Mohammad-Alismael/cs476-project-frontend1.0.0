@@ -36,7 +36,7 @@ class LoginForm extends Component {
                     // console.log(sessionStorage.getItem("userType") == "Customer")
                 }else if (res.data.userType == "Sales Manager"){
                     this.nextPath('/dashBoard')
-                }else if (res.data.userType == "Product owner"){
+                }else if (res.data.userType == "Product Manager"){
                     this.nextPath('/product-owner-landing-page')
                     // console.log(sessionStorage.getItem("userType") == "Product owner",
                     //     sessionStorage.getItem("isLoggedIn") == "true")

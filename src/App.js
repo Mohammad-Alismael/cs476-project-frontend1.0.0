@@ -15,8 +15,10 @@ import ProductManager from "./Pages/ProductManager";
 import AddProduct from "./Pages/AddProduct";
 import EditProduct from "./Pages/EditProduct";
 import DeleteProduct from "./Pages/DeleteProduct";
+import {useContext, useEffect} from "react";
 
 function App() {
+
     const routes = [
         {
             path : "/computers/gpu",
@@ -39,6 +41,17 @@ function App() {
             category : 5
         }
     ]
+    // const app2 = () =>{
+    //     const [GlobalContext1, SetGlobalContext] = useContext(GlobalContext)
+    //     useEffect(() => {
+    //         console.log(GlobalContext1)
+    //     }, []);
+    // }
+    // useEffect(()=>{
+    //     const [GlobalContext1, SetGlobalContext] = useContext(GlobalContext)
+    //     console.log(GlobalContext1)
+    // },[])
+
   return (
       <GlobalProvider>
           <Router>
@@ -69,31 +82,30 @@ function App() {
                               (<AreNotLoggedIn/>)
 
                       }
-
                       {
                           sessionStorage.getItem("isLoggedIn") == "true" &&
-                          sessionStorage.getItem("userType") == "Product owner"?
+                          sessionStorage.getItem("userType") == "Product Manager"?
                               (<LayoutDefault exact path="/product-owner-landing-page" component={ProductManager}/>) :
                               (<AreNotLoggedIn/>)
 
                       }
                       {
                           sessionStorage.getItem("isLoggedIn") == "true" &&
-                          sessionStorage.getItem("userType") == "Product owner"?
+                          sessionStorage.getItem("userType") == "Product Manager"?
                               (<LayoutDefault exact path="/product-owner-landing-page/add-products" component={AddProduct}/>) :
                               (<AreNotLoggedIn/>)
 
                       }
                       {
                           sessionStorage.getItem("isLoggedIn") == "true" &&
-                          sessionStorage.getItem("userType") == "Product owner"?
+                          sessionStorage.getItem("userType") == "Product Manager"?
                               (<LayoutDefault exact path="/product-owner-landing-page/edit-products" component={EditProduct}/>) :
                               (<AreNotLoggedIn/>)
 
                       }
                       {
                           sessionStorage.getItem("isLoggedIn") == "true" &&
-                          sessionStorage.getItem("userType") == "Product owner"?
+                          sessionStorage.getItem("userType") == "Product Manager"?
                               (<LayoutDefault exact path="/product-owner-landing-page/delete-products" component={DeleteProduct}/>) :
                               (<AreNotLoggedIn/>)
 

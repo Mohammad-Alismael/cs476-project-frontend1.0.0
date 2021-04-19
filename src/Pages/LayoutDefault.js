@@ -67,7 +67,7 @@ class LayoutDefault extends Component {
                     <DropdownItem divider />
                 </>
             );
-        } else if(sessionStorage.getItem("userType") == "Product owner")
+        } else if(sessionStorage.getItem("userType") == "Product Manager")
             return (
                 <>
                     <DropdownItem href={"/product-owner-landing-page/add-products"}>
