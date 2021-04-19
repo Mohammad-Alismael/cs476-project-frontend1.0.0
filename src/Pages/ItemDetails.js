@@ -62,22 +62,6 @@ class ItemDetails extends Component {
             setTimeout(() => {
                 axios.get(`https://localhost:5001/api/comments/${this.state.item_id}`)
                     .then(function (response) {
-                        // handle success
-                        // {
-                        //     username: "ali",
-                        //         text : "comment1",
-                        //     date: "10/02/2020",
-                        //     rate: 2,
-                        //     status: "pending"
-                        // }
-                        // {
-                        //     "id": 5,
-                        //     "userID": "1",
-                        //     "productID": "5",
-                        //     "commentDescription": "So bad",
-                        //     "rating": 1,
-                        //     "approvedStatus": 1
-                        // },
 
                         response.data.map((element,index)=>{
                             var tmp ={}
@@ -98,14 +82,7 @@ class ItemDetails extends Component {
                 axios.get(`https://localhost:5001/api/products/${this.state.item_id}`)
                     .then(function (response) {
                         var tmp = {}
-                        // "id": 2,
-                        //     "productName": "i7-10700k",
-                        //     "price": 200,
-                        //     "description": "Such an awesome CPU, the best",
-                        //     "category": "1",
-                        //     "rating": 0
                         tmp.description = response.data.description
-                        tmp.rate = response.data.rating
                         tmp.price = response.data.price
                         tmp.name = response.data.productName
                         resolve(tmp);
@@ -113,6 +90,15 @@ class ItemDetails extends Component {
                     alert("error happened!!")
                     console.log(error);
                 })
+
+                axios.get(`https://localhost:5001/api/rating/productId/${this.state.item_id}`)
+                    .then(res => {
+                        var tmp = {}
+                        tmp.rate = Math.round(res.data)
+                        resolve(tmp);
+                    } ).catch(function (error) {
+                    alert("error happened for fetching !!")
+                    console.log(error);})
 
             }, 500);
         });
@@ -125,11 +111,13 @@ class ItemDetails extends Component {
         this.loadData()
             .then((data) => {
                 const {name,description,price,rate} = data
+                // const self = this
                console.log(data)
                 this.setState({name})
                 this.setState({price})
-                this.setState({description})
                 this.setState({rate})
+                this.setState({description})
+                // this.setState({rate})
                 this.setState({
                     loading: 'false'
                 });
@@ -142,7 +130,6 @@ class ItemDetails extends Component {
                 <p>{stars} stars</p>
                 <p>{percentage}%</p>
                 <Progress color="#61dafb" min={0} max={100} value={percentage} style={{width: '50%',marginLeft: '60px'}}/>
-
             </div>
         )
     }
@@ -178,7 +165,7 @@ class ItemDetails extends Component {
     addComment = (e)=>{
         var self = this;
         e.preventDefault()
-        console.log(sessionStorage.getItem("user_id").toString())
+        // console.log(sessionStorage.getItem("user_id").toString())
         axios.post(`https://localhost:5001/api/comments/add`,{
             "userID": sessionStorage.getItem("user_id").toString(),
             "userName":sessionStorage.getItem("username"),
