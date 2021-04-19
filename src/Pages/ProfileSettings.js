@@ -13,7 +13,7 @@ class ProfileSettings extends Component {
       locker: true
     }
     componentWillMount() {
-      axios.get('https://localhost:5001/api/users/2')
+      axios.get(`https://localhost:5001/api/users/${sessionStorage.getItem('user_id')}`)
           .then((res)=>{
               const {userName, name, surname, password, email, userType} = res.data;this.setState({userName})
             this.setState({name})
