@@ -134,6 +134,12 @@ body{
     transition: box-shadow 0.3s;
     box-shadow: 0px 20px 47px 14px rgba(0,0,0,0.1);
 }
+
+.DeleteItemsStars{
+        /*margin-left: 84%;*/
+        /*margin-bottom: 0px;*/
+
+}
 .shoppingCartItems p:nth-child(1){
     margin-top: 10px;
     font-weight: bolder;

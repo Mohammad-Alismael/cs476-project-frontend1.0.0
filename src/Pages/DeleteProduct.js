@@ -1,13 +1,15 @@
 import React, {Component} from 'react';
-import {Card, Container} from "reactstrap";
+import {Card, Container, Spinner} from "reactstrap";
 import ShoppingCartItems from "../Components/ShoppingCartItems";
 import tmp2 from "../Images/2.png";
 import axios from "axios";
+import DeleteProductItems from "../Components/DeleteProductItems";
 
 class DeleteProduct extends Component {
     constructor(props){
         super(props)
         this.state = {
+            loading: 'initial',
             productList : [],
             functions :[]
         };
@@ -31,12 +33,15 @@ class DeleteProduct extends Component {
     }
 
     componentDidMount() {
+        this.setState({ loading: 'true' });
         this.loadProducts().then((data)=>{
-            var newArray= data.filter((val)=>{
+            const newArray = data.filter((val) => {
                 return val['userId'] == sessionStorage.getItem("user_id")
-            })
+            });
             this.setState({productList : [newArray]})
-            console.log(newArray)
+            this.setState({
+                loading: 'false'
+            });
         })
 
     }
@@ -52,25 +57,40 @@ class DeleteProduct extends Component {
         this.setState({renderChild: [tmp]});
     }
     render() {
-        // "id": 8,
-        //     "productName": "rtx4070",
-        //     "price": 10,
-        //     "description": "2022 made gpu",
-        //     "category": "2",
-        //     "rating": 3,
-        //     "userId": 16
+
+        if (this.state.loading === 'initial') {
+            return (
+                <div>
+                    <Spinner color="danger" style={{ width: '30rem', height: '30rem' }}/>
+                </div>
+            );
+        }
+
+
+        if (this.state.loading === 'true') {
+            return (
+                <div>
+                    <Spinner color="black" style={{ width: '20rem', height: '20rem',marginLeft: '45%',marginTop: '10%',marginBottom: '10%' }}/>
+                </div>
+            );
+        }
         return (
             <Container>
                 {
-                    this.state.productList.map((val, index) => {
-                       return( <ShoppingCartItems
-                            srcImg={tmp2}
-                            productName={val[index].productName}
-                            price={val[index].price}
-                            rating={val[index].rating}
-                            brand={"dg"}
-                            quantity={0}
-                        />)
+                    this.state.productList[0].map((val, index) => {
+                       return(
+                           <DeleteProductItems
+                               id={val.id}
+                                srcImg={tmp2}
+                                productName={val.productName}
+                                description={val.description}
+                               category={val.category}
+                                price={val.price}
+                                rating={val.rating}
+                                brand={"no brand"}
+                        />
+
+                        )
                     })
                 }
             </Container>
