@@ -23,9 +23,8 @@ class LoginForm extends Component {
                 sessionStorage.setItem("user_id", res.data.id);
                 sessionStorage.setItem("username", res.data.userName);
                 sessionStorage.setItem("email", res.data.email);
-                sessionStorage.setItem("isLoggedIn", true);
+                sessionStorage.setItem("isLoggedIn", "true");
                 sessionStorage.setItem("userType", res.data.userType);
-
                 this.context.updateEmail(res.data.email);
                 this.context.updateUserID(res.data.id);
                 this.context.updateUsername(res.data.userName)
@@ -38,7 +37,7 @@ class LoginForm extends Component {
                     this.nextPath('/dashBoard')
                 }else if (res.data.userType == "Product Manager"){
                     this.nextPath('/product-owner-landing-page')
-                    // console.log(sessionStorage.getItem("userType") == "Product owner",
+                    // console.log(sessionStorage.getItem("userType") == "Product Manager",
                     //     sessionStorage.getItem("isLoggedIn") == "true")
                 }else{
                     // console.log(res.data.id)

@@ -50,6 +50,20 @@ class AddProduct extends Component {
                 return "5";
         }
     }
+    onDrop = (files) => {
+        files.map(file => {
+                Object.assign(file,
+                    {
+                        preview: URL.createObjectURL(file),
+
+                    }, {
+                        selected: false
+                    }
+                )
+
+            }
+        )
+    }
     render()  {
         return (
             <Card body style={{width:'111%'}}>
@@ -86,7 +100,7 @@ class AddProduct extends Component {
                         <Label for="exampleText">Text Area</Label>
                         <Input type="textarea" name="Description" id="exampleText" onChange={this.updateSate}/>
                     </FormGroup>
-                    <Dropzone onDrop={this.context.onDrop} multiple={false}>
+                    <Dropzone onDrop={this.onDrop} multiple={false}>
                         {({getRootProps, getInputProps}) => (
                             <section className="container">
                                 <div {...getRootProps({className: 'dropzone'})} className="drag-drop">
