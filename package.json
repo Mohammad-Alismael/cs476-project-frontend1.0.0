@@ -7,6 +7,8 @@
     "@testing-library/react": "^11.2.5",
     "@testing-library/user-event": "^12.8.3",
     "axios": "^0.21.1",
+    "chart.js": "^3.1.1",
+    "chartjs": "^0.3.24",
     "classnames": "^2.2.6",
     "react": "^17.0.1",
     "react-bootstrap-counter": "^1.0.1",
@@ -45,5 +47,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy" : "https://localhost:5001"
+  "proxy": "https://localhost:5001"
 }
