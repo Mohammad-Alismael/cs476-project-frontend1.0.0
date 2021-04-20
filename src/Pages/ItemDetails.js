@@ -98,25 +98,7 @@ class ItemDetails extends Component {
 
         return promise;
     }
-    // getPercentageRating(){
-    //     // var promise = new Promise((resolve, reject) => {
-    //     var flag;
-    //             axios.get(`https://localhost:5001/api/rating/productId/${this.state.item_id}`)
-    //                 .then(res => {
-    //                     flag = Math.round(res.data)
-    //                    return Math.round(res.data)
-    //
-    //                 }).catch(function (error) {
-    //                 alert("error happened for fetching !!")
-    //                 console.log(error);
-    //                 return 0
-    //             })
-    //
-    //             // })
-    //         return flag;
-    //
-    //
-    // }
+
     componentDidMount() {
         this.setState({ loading: 'true' });
 
