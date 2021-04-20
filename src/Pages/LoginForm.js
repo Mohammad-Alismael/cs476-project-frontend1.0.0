@@ -47,7 +47,7 @@ class LoginForm extends Component {
             }).catch(error =>{
                 if(error.response.status == 401)
                     alert("username or password is incorrect")
-                console.log(error)
+
             })
         }else {
             alert("check your info")
