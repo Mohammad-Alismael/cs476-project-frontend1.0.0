@@ -16,6 +16,8 @@ import AddProduct from "./Pages/AddProduct";
 import EditProduct from "./Pages/EditProduct";
 import DeleteProduct from "./Pages/DeleteProduct";
 import {useContext, useEffect} from "react";
+import DashBoard from "./Pages/DashBoard";
+import {ProtectedRoute} from "./protected.route";
 
 function App() {
 
@@ -41,18 +43,11 @@ function App() {
             category : 5
         }
     ]
-    // const app2 = () =>{
-    //     const [GlobalContext1, SetGlobalContext] = useContext(GlobalContext)
-    //     useEffect(() => {
-    //         console.log(GlobalContext1)
-    //     }, []);
-    // }
-    // useEffect(()=>{
-    //     const [GlobalContext1, SetGlobalContext] = useContext(GlobalContext)
-    //     console.log(GlobalContext1)
-    // },[])
+
+
 
   return (
+
       <GlobalProvider>
           <Router>
               <div>
@@ -70,46 +65,16 @@ function App() {
                       }
                       <Route exact path="/login" component={LoginForm}/>
                       <Route exact path="/register" component={RegisterForm} />
-                      {
-                         sessionStorage.getItem("isLoggedIn") == "true" ?
-                              (<LayoutDefault exact path="/profile-settings" component={ProfileSettings}/>) :
-                              (<AreNotLoggedIn/>)
-
-                      }
-                      {
-                          sessionStorage.getItem("isLoggedIn") == "true" ?
-                              (<LayoutDefault exact path="/shopping-cart" component={ShoppingCart}/>) :
-                              (<AreNotLoggedIn/>)
-
-                      }
-                      {
-                          sessionStorage.getItem("isLoggedIn") == "true" &&
-                          sessionStorage.getItem("userType") == "Product Manager"?
-                              (<LayoutDefault exact path="/product-owner-landing-page" component={ProductManager}/>) :
-                              (<AreNotLoggedIn/>)
-
-                      }
-                      {
-                          sessionStorage.getItem("isLoggedIn") == "true" &&
-                          sessionStorage.getItem("userType") == "Product Manager"?
-                              (<LayoutDefault exact path="/product-owner-landing-page/add-products" component={AddProduct}/>) :
-                              (<AreNotLoggedIn/>)
-
-                      }
-                      {
-                          sessionStorage.getItem("isLoggedIn") == "true" &&
-                          sessionStorage.getItem("userType") == "Product Manager"?
-                              (<LayoutDefault exact path="/product-owner-landing-page/edit-products" component={EditProduct}/>) :
-                              (<AreNotLoggedIn/>)
-
-                      }
-                      {
-                          sessionStorage.getItem("isLoggedIn") == "true" &&
-                          sessionStorage.getItem("userType") == "Product Manager"?
-                              (<LayoutDefault exact path="/product-owner-landing-page/delete-products" component={DeleteProduct}/>) :
-                              (<AreNotLoggedIn/>)
-
-                      }
+                      <Route exact path="/areNotLoggedIn" component={AreNotLoggedIn} />
+                      <LayoutDefault>
+                          <ProtectedRoute exact path="/profile-settings" component={ProfileSettings} userType={"all"} />
+                          <ProtectedRoute exact path="/shopping-cart" component={ShoppingCart} userType={"all"} />
+                          <ProtectedRoute exact path="/product-owner-landing-page" component={ProductManager} userType={"Product Manager"} />
+                          <ProtectedRoute exact path="/product-owner-landing-page/add-products" component={AddProduct} userType={"Product Manager"} />
+                          <ProtectedRoute exact path="/product-owner-landing-page/edit-products" component={EditProduct} userType={"Product Manager"} />
+                          <ProtectedRoute exact path="/product-owner-landing-page/delete-products" component={DeleteProduct} userType={"Product Manager"} />
+                          <ProtectedRoute exact path="/dashBoard" component={DashBoard} userType={"Sales Manager"} />
+                      </LayoutDefault>
                       <Route exact path="/log-out">
                       <Redirect to="/login"/>
                   </Route>

@@ -62,11 +62,10 @@ class ItemDetails extends Component {
             setTimeout(() => {
                 axios.get(`https://localhost:5001/api/comments/${this.state.item_id}`)
                     .then(function (response) {
-
                         response.data.map((element,index)=>{
                             var tmp ={}
                             tmp.username = element.userName
-                            tmp.date = element.date == null ? "no date" : element.date
+                            tmp.date = element.addedDate == null ? "no date" : element.addedDate
                             tmp.text = element.commentDescription
                             tmp.rate = element.rating
                             tmp.status = element.approvedStatus === 0 ? "approved" : "pending"
@@ -84,6 +83,7 @@ class ItemDetails extends Component {
                         var tmp = {}
                         tmp.description = response.data.description
                         tmp.price = response.data.price
+                        tmp.rate = response.data.rating
                         tmp.name = response.data.productName
                         resolve(tmp);
                     }).catch(function (error) {
@@ -91,31 +91,43 @@ class ItemDetails extends Component {
                     console.log(error);
                 })
 
-                axios.get(`https://localhost:5001/api/rating/productId/${this.state.item_id}`)
-                    .then(res => {
-                        var tmp = {}
-                        tmp.rate = Math.round(res.data)
-                        resolve(tmp);
-                    } ).catch(function (error) {
-                    alert("error happened for fetching !!")
-                    console.log(error);})
+
 
             }, 500);
         });
 
         return promise;
     }
+    // getPercentageRating(){
+    //     // var promise = new Promise((resolve, reject) => {
+    //     var flag;
+    //             axios.get(`https://localhost:5001/api/rating/productId/${this.state.item_id}`)
+    //                 .then(res => {
+    //                     flag = Math.round(res.data)
+    //                    return Math.round(res.data)
+    //
+    //                 }).catch(function (error) {
+    //                 alert("error happened for fetching !!")
+    //                 console.log(error);
+    //                 return 0
+    //             })
+    //
+    //             // })
+    //         return flag;
+    //
+    //
+    // }
     componentDidMount() {
         this.setState({ loading: 'true' });
 
         this.loadData()
             .then((data) => {
                 const {name,description,price,rate} = data
-                // const self = this
                console.log(data)
                 this.setState({name})
                 this.setState({price})
                 this.setState({rate})
+
                 this.setState({description})
                 // this.setState({rate})
                 this.setState({
@@ -187,6 +199,7 @@ class ItemDetails extends Component {
 
     }
     render() {
+
         if (this.state.loading === 'initial') {
             return (
                 <div>
@@ -194,7 +207,6 @@ class ItemDetails extends Component {
                 </div>
             );
         }
-
 
 
         if (this.state.loading === 'true') {

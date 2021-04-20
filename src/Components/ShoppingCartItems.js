@@ -4,6 +4,10 @@ import ReactStars from "react-rating-stars-component";
 import CounterInput from 'react-bootstrap-counter';
 import Counter from "./Counter";
 class ShoppingCartItems extends Component {
+    constructor(props) {
+        super(props);
+        this.counter = 0;
+    }
     dismiss = (e) => {
         this.props.unmountMe();
     }

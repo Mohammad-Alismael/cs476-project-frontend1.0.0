@@ -10,7 +10,7 @@ class AreNotLoggedIn extends Component {
     render() {
         return (
             <div>
-                <h1>you have to login in order to open this page</h1>
+                <h1>you have to login in order to open this page or you don't have permission to open this page</h1>
                 <Button onClick={() => this.nextPath('/login')} id={"btn"} style={{marginLeft: '100px'}}>go to log in page</Button>
             </div>
         );
