@@ -54,7 +54,8 @@ class ItemDetails extends Component {
         const day = String(dateObj.getDate()).padStart(2, '0');
         const year = dateObj.getFullYear();
         const output = month  + '\n'+ day  + ',' + year;
-        return output
+        const output2 = `${day}/${month}/${year}`
+        return output2
     }
     loadData() {
         var self = this
@@ -80,6 +81,7 @@ class ItemDetails extends Component {
                     })
                 axios.get(`https://localhost:5001/api/products/${this.state.item_id}`)
                     .then(function (response) {
+                        console.log("Ff",response)
                         var tmp = {}
                         tmp.description = response.data.description
                         tmp.price = response.data.price
@@ -109,7 +111,6 @@ class ItemDetails extends Component {
                 this.setState({name})
                 this.setState({price})
                 this.setState({rate})
-
                 this.setState({description})
                 // this.setState({rate})
                 this.setState({
@@ -132,8 +133,10 @@ class ItemDetails extends Component {
         ...this.state.currentComment[0],
             rate: newRating
         }
-        this.setState({currentComment: [tmp]});
-        // console.log(this.state.currentComment)
+        this.setState({currentComment: [tmp]}, function () {
+            console.log(this.state.currentComment,newRating)
+        });
+
     };
     loadingComments(username,text,rate,date,status){
         return(
@@ -269,7 +272,7 @@ class ItemDetails extends Component {
                                     count={5}
                                     fullIcon={<i className="material-icons">star</i>}
                                     emptyIcon={<i className="material-icons">star_border</i>}
-                                    onChange={this.ratingChanged}
+                                    onClick={this.ratingChanged}
                                     size={24}
                                     value={this.state.rate}
                                     edit={false}
