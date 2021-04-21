@@ -7,7 +7,9 @@ import axios from "axios";
 class DeleteProductItems extends Component {
     deleteItem = (e) =>{
         e.preventDefault();
-        axios.post(`https://localhost:5001/api/products/delete/${this.props.id}`).then((res)=>{
+        axios.post(`https://localhost:5001/api/products/delete/${this.props.id}`,{
+            "Id": sessionStorage.getItem("user_id")
+        }).then((res)=>{
             console.log(res)
             window.location.reload();
         }).catch((error)=>{

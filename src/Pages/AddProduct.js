@@ -97,7 +97,7 @@ class AddProduct extends Component {
                         </FormGroup>
                     </Form>
                     <FormGroup>
-                        <Label for="exampleText">Text Area</Label>
+                        <Label for="exampleText">Description</Label>
                         <Input type="textarea" name="Description" id="exampleText" onChange={this.updateSate}/>
                     </FormGroup>
                     <Dropzone onDrop={this.onDrop} multiple={false}>
