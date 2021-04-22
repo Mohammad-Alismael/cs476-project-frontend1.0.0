@@ -24,7 +24,7 @@ class CategoryPage extends Component {
                     var tmp = {}
                     tmp.price = val.price
                     tmp.name = val.productName
-                    tmp.rate = val.ratings
+                    tmp.rate = val.rating
                     tmp.item_id = val.id
                     tmp.srcImg = tmp1
                     this.setState({
@@ -54,7 +54,7 @@ class CategoryPage extends Component {
                                     <Col xl={3}>
                                         <ShopItem price={element[0].price} productName={element[0].name}
                                                   item_id={element[0].item_id} srcImg={element[0].srcImg}
-                                                  rate={element[0].rate}
+                                                  rate={element[0].rate} addToCartbtn={true}
                                         />
                                     </Col>
                                     )

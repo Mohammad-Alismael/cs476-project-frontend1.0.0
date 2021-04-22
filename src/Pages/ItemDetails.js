@@ -55,7 +55,7 @@ class ItemDetails extends Component {
         const year = dateObj.getFullYear();
         const output = month  + '\n'+ day  + ',' + year;
         const output2 = `${day}/${month}/${year}`
-        return output2
+        return output
     }
     loadData() {
         var self = this
