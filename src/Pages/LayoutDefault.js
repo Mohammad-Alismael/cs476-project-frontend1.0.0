@@ -48,8 +48,8 @@ class LayoutDefault extends Component {
         },500)
 
     }
-    renderElement(){
-        if(sessionStorage.getItem("userType") == "Customer"){
+    renderElement() {
+        if (sessionStorage.getItem("userType") == "Customer") {
             return (
                 <>
                     <DropdownItem>
@@ -64,10 +64,10 @@ class LayoutDefault extends Component {
                             <span>Orders</span>
                         </div>
                     </DropdownItem>
-                    <DropdownItem divider />
+                    <DropdownItem divider/>
                 </>
             );
-        } else if(sessionStorage.getItem("userType") == "Product Manager")
+        } else if (sessionStorage.getItem("userType") == "Product Manager"){
             return (
                 <>
                     <DropdownItem href={"/product-owner-landing-page/add-products"}>
@@ -88,9 +88,22 @@ class LayoutDefault extends Component {
                             <span>delete products</span>
                         </div>
                     </DropdownItem>
-                    <DropdownItem divider />
+                    <DropdownItem divider/>
+                </>
+            )
+    }
+        else if (sessionStorage.getItem("userType") == "Sales Manager") {
+            return (
+                <>
+                    <DropdownItem href={"/product-owner-landing-page/delete-products"}>
+                        <div className="options">
+                            <i className="material-icons">delete_sweep</i>
+                            <span>Invoices</span>
+                        </div>
+                    </DropdownItem>
                 </>
             );
+        }
         return null;
     }
     render() {
