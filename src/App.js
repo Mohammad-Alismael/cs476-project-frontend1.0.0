@@ -17,6 +17,7 @@ import EditProduct from "./Pages/EditProduct";
 import DeleteProduct from "./Pages/DeleteProduct";
 import {useContext, useEffect} from "react";
 import DashBoard from "./Pages/DashBoard";
+import FactorAuthentication from './Pages/FactorAuthentication'
 import {ProtectedRoute} from "./protected.route";
 
 function App() {
@@ -65,6 +66,7 @@ function App() {
                       }
                       <Route exact path="/login" component={LoginForm}/>
                       <Route exact path="/register" component={RegisterForm} />
+                      <Route exact path="/factor-authentication" component={FactorAuthentication} />
                       <Route exact path="/areNotLoggedIn" component={AreNotLoggedIn} />
                       <LayoutDefault>
                           <ProtectedRoute exact path="/profile-settings" component={ProfileSettings} userType={"all"} />
