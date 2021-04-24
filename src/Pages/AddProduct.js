@@ -56,13 +56,16 @@ class AddProduct extends Component {
                     {
                         preview: URL.createObjectURL(file),
 
-                    }, {
-                        selected: false
                     }
                 )
 
             }
         )
+        var fd = new FormData()
+        fd.append('image',files);
+        fd.append('imageName', files.name)
+        console.log(files)
+        console.log(fd)
     }
     render()  {
         return (

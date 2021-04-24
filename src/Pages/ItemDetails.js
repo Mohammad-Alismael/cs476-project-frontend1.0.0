@@ -69,7 +69,7 @@ class ItemDetails extends Component {
                             tmp.date = element.addedDate == null ? "no date" : element.addedDate
                             tmp.text = element.commentDescription
                             tmp.rate = element.rating
-                            tmp.status = element.approvedStatus === 0 ? "approved" : "pending"
+                            tmp.status = element.approvedStatus == 0 ? "pending" : "approved"
                             self.setState({comments : [...self.state.comments, tmp]})
                         })
 
@@ -324,7 +324,7 @@ class ItemDetails extends Component {
                                            onChange={(event)=>{
                                                var tmp = {
                                                    ...this.state.currentComment[0],
-                                                   status : 'pending',
+                                                   status : 'approved',
                                                    text: event.target.value
                                                    // text: document.getElementsByName('currentComment')[0].value
                                                }

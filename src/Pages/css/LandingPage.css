@@ -153,7 +153,7 @@ body{
 /* shopping cart number*/
 .number:after{
     content: attr(data-units);
-    background: #61dafb;
+    /*background: #61dafb;*/
     color: black;
     position: absolute;
     top: -10px;
