@@ -180,7 +180,8 @@ class LayoutDefault extends Component {
                         </Nav>
                         <NavbarText>
                             <div className="cartBtn" onClick={()=> this.nextPath('/shopping-cart')}>
-                                <span className={"number"} data-units={this.context.shoppingCard}>Cart</span>
+                                {/*adding this.context.shoppingCard*/}
+                                <span className={"number"} data-units={0}>Cart</span>
                                 <i className="material-icons">local_grocery_store</i>
                                 {/*<label ID="lblCartCount" runat="server" CssClass="badge badge-warning"  ForeColor="White"/>{this.context.shoppingCard}*/}
                             </div>
