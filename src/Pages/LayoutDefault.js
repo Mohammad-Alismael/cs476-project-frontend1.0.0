@@ -76,16 +76,16 @@ class LayoutDefault extends Component {
                             <span>add products</span>
                         </div>
                     </DropdownItem>
-                    <DropdownItem href={"/product-owner-landing-page/edit-products"}>
+                    {/*<DropdownItem href={"/product-owner-landing-page/edit-products"}>*/}
+                    {/*    <div className="options">*/}
+                    {/*        <i className="material-icons">edit</i>*/}
+                    {/*        <span>edit products</span>*/}
+                    {/*    </div>*/}
+                    {/*</DropdownItem>*/}
+                    <DropdownItem href={"/product-owner-landing-page/delete-products"}>
                         <div className="options">
                             <i className="material-icons">edit</i>
                             <span>edit products</span>
-                        </div>
-                    </DropdownItem>
-                    <DropdownItem href={"/product-owner-landing-page/delete-products"}>
-                        <div className="options">
-                            <i className="material-icons">delete_sweep</i>
-                            <span>delete products</span>
                         </div>
                     </DropdownItem>
                     <DropdownItem divider/>

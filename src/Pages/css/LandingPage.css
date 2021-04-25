@@ -129,6 +129,7 @@ body{
 .shoppingCartItems{
     position: relative;
     margin-bottom: 20px;
+    margin-left: 10%;
     border: none;
     cursor: pointer;
     transition: box-shadow 0.3s;
