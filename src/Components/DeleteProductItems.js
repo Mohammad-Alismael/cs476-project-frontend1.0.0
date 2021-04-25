@@ -1,10 +1,13 @@
 import React, {Component} from 'react';
 import Counter from "./Counter";
 import ReactStars from "react-rating-stars-component";
-import {Card, Col,CardBody,CardImg,Button,Row} from "reactstrap";
+import {Card, Col,CardBody,CardImg,Button,Row,FormGroup,Label,Input} from "reactstrap";
 import axios from "axios";
 
 class DeleteProductItems extends Component {
+    state = {
+        locker : true
+    }
     deleteItem = (e) =>{
         e.preventDefault();
         axios.post(`https://localhost:5001/api/products/delete/${this.props.id}`,{
@@ -33,36 +36,55 @@ class DeleteProductItems extends Component {
         }
     }
     render() {
-        // "id": 8,
-        //     "productName": "rtx4070",
-        //     "price": 10,
-        //     "description": "2022 made gpu",
-        //     "category": "2",
-        //     "rating": 3,
-        //     "userId": 16
         return (
             <Card className={"shoppingCartItems"}>
                 <Row>
                     <Col xl={3} style={{borderRight: '1px solid black'}}>
                         <CardImg src={this.props.srcImg} />
+                        <Row style={{marginLeft: '12px'}}>
+                        <ReactStars
+                            count={5}
+                            fullIcon={<i className="material-icons">star</i>}
+                            emptyIcon={<i className="material-icons">star_border</i>}
+                            size={24}
+                            value={this.props.rating}
+                            edit={false}
+                            activeColor="#ffd700"
+                        />
+                        </Row>
                     </Col>
                     <Col xl={9}>
                         <CardBody>
-                            <ReactStars
-                                count={5}
-                                fullIcon={<i className="material-icons">star</i>}
-                                emptyIcon={<i className="material-icons">star_border</i>}
-                                size={24}
-                                value={this.props.rating}
-                                edit={false}
-                                classNames={"DeleteItemsStars"}
-                                activeColor="#ffd700"
-                            />
-                            <p>{this.props.brand} - {this.props.productName}</p>
-                            <p>{this.props.price}$</p>
-                            <p>{this.givesType(this.props.category)}</p>
-                            <p>{this.props.description}</p>
-                            <Button color={"danger"} style={{float: 'right',margin: '20px'}} onClick={this.deleteItem}>Remove</Button>
+                            <FormGroup>
+                                <Label for="exampleEmail">brand</Label>
+                                <Input type="text" name="brand" placeholder={this.props.brand} disabled={this.state.locker}/>
+                            </FormGroup>
+                            <FormGroup>
+                                <Label for="exampleEmail">Product name</Label>
+                                <Input type="text" name="brand" placeholder={this.props.productName} disabled={this.state.locker}/>
+                            </FormGroup>
+                            <FormGroup>
+                                <Label for="exampleEmail">Price</Label>
+                                <Input type="number" name="brand" value={this.props.price} disabled={this.state.locker}/>
+                            </FormGroup>
+                            <FormGroup>
+                                <Label for="exampleSelect">category</Label>
+                                <Input type="select" name="category" disabled={this.state.locker}>
+                                    <option selected={this.givesType(this.props.category) == "CPU"}>CPU</option>
+                                    <option selected={this.givesType(this.props.category) == "GPU"}>GPU</option>
+                                    <option selected={this.givesType(this.props.category) == "Motherboard"}>Motherboard</option>
+                                    <option selected={this.givesType(this.props.category) == "Apple"}>Apple</option>
+                                    <option selected={this.givesType(this.props.category) == "Monitor"}>Monitor</option>
+                                </Input>
+                            </FormGroup>
+                            <FormGroup>
+                                <Label for="exampleEmail">Description</Label>
+                                <Input type="textarea" name="brand" placeholder={this.props.description} disabled={this.state.locker}/>
+                            </FormGroup>
+                            <Button color={"danger"} style={{float: 'right',margin: '20px 10px'}} onClick={this.deleteItem}>Remove</Button>
+                            <Button color={'primary'} style={{margin : '20px 10px',float: 'right'}}>update info</Button>
+                            <Button color={'primary'}  style={{margin : '20px 10px',float: 'right'}}
+                                    onClick={()=> this.setState({locker : !this.state.locker})}>{this.state.locker ? "unlock" : "lock"}</Button>
 
                         </CardBody>
                     </Col>
