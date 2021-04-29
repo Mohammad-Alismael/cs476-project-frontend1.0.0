@@ -17,11 +17,13 @@ class CategoryPage extends Component {
                 //     srcImg : tmp1
                 // }
 
-            ]
+            ],
+            newProductList : []
         }
         this.updateState = this.updateState.bind(this);
     }
     updateState = (newProductList) =>{
+        this.setState({newProductList})
         console.log("from category page",newProductList)
     }
     componentDidMount() {
@@ -56,7 +58,7 @@ class CategoryPage extends Component {
                     <Col xl={9} style={{marginTop: '-120px'}}>
                         <Row>
                         {
-                            this.state.Products.map((element,index)=> {
+                            this.state.newProductList.map((element,index)=> {
                                 return (
                                     <Col xl={3}>
                                         <ShopItem price={element[0].price} productName={element[0].name}
