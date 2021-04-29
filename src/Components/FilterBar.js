@@ -7,6 +7,7 @@ class FilterBar extends Component {
         min: 0,
         max:0,
         maxValueForAllProducts : 0,
+        sortBy: "",
         filteredProducts : [],
         stars:[]
     }
@@ -43,9 +44,12 @@ class FilterBar extends Component {
         this.filterTerm(this.state.searchTerm).then((data)=>{
             console.log("After filtering name", data)
             this.setState({filteredProducts: data})
-            this.filterPrice().then((data)=>{
+            this.filterPrice(data).then((data)=>{
                 console.log("After filtering price", data)
-                this.props.updateMethod(data)
+                this.sort(data).then((data)=>{
+                    console.log("After sorting", data)
+                    this.props.updateMethod(data)
+                })
             })
 
         })
@@ -71,10 +75,10 @@ class FilterBar extends Component {
 
     }
 
-    filterPrice(){
+    filterPrice(data){
         const promise = new Promise((resolve, reject) => {
             const copyOfOldProducts = [...this.state.filteredProducts]
-            const filteredProducts = copyOfOldProducts.filter((val) => {
+            const filteredProducts = data.filter((val) => {
                 if (val[0].price <= this.state.max && val[0].price >= this.state.min) {
                     return val
                 }
@@ -88,6 +92,36 @@ class FilterBar extends Component {
         return promise;
 
     }
+    sort(data){
+        const promise = new Promise((resolve, reject) => {
+            // this.setState({sortBy: "High to Low"})
+            var filteredProducts = []
+            const copyOfOldProducts = [...this.state.filteredProducts]
+            if(this.state.sortBy == "Low to High"){
+                console.log("loh")
+                filteredProducts = data.sort((a,b)=>{
+                    console.log('sorting',a[0].price,b[0].price)
+                    if (a[0].price > b[0].price) return 1;
+                    else if (b[0].price > a[0].price) return -1;
+                    else return 0;
+                })
+            }else if (this.state.sortBy == "High to Low"){
+                console.log("hol")
+                filteredProducts = data.sort((a,b)=>{
+                    return b[0].price - a[0].price
+                })
+            }else{
+                filteredProducts = data
+            }
+
+            // this.setState({filteredProducts})
+            console.log("selected",this.state.sortBy)
+            resolve(filteredProducts)
+        })
+        return promise;
+    }
+
+
     render() {
         // console.log(this.state.filteredProducts,"from this")
         // console.log("max price for all products",this.state.maxValueForAllProducts)
@@ -124,7 +158,7 @@ class FilterBar extends Component {
                                             />
                                 </Col>
                                 <Col xl={4}>
-                                    To <Input type="number" min={0} max={this.state.maxValueForAllProducts} onChange={(event)=>{
+                                    To <Input type="number" min={0} max={this.state.maxValueForAllProducts}  onChange={(event)=>{
                                     this.setState({max: event.target.value})}}
                                 />
                                 </Col>
@@ -136,7 +170,8 @@ class FilterBar extends Component {
                         <hr/>
                         <FormGroup>
                             <Label>Sort By</Label>
-                            <Input type="select">
+                            <Input type="select" name="sortBy" onChange={(event)=>{
+                                this.setState({sortBy: event.target.value})}}>
                                 <option>Recommend</option>
                                 <option>Low to High</option>
                                 <option>High to Low</option>
