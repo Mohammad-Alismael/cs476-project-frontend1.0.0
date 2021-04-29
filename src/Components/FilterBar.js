@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Button, Card, CardBody, Col, FormGroup, Input, Label, Row} from "reactstrap";
+import {Button, Card, CardBody, Col, FormGroup, Input, Label, Row,Spinner} from "reactstrap";
 import '../Pages/css/FilterBar.css'
 class FilterBar extends Component {
     state = {
@@ -9,38 +9,49 @@ class FilterBar extends Component {
         maxValueForAllProducts : 0,
         sortBy: "",
         filteredProducts : [],
-        stars:[]
+        stars:[0,0,0,0,0],
+        loading: 'initial',
+        selectedRatings : -1
+    }
+    setup(){
+        const promise = new Promise((resolve, reject) => {
+            setTimeout(()=>{
+                const tmp = {};
+                tmp.tmpArray =[];
+                tmp.stars = [];
+                const stars2 = [0,0,0,0,0];
+                this.props.products.map((val,index)=>{
+                    tmp.tmpArray[index] = val[0].price
+                    for (let i=0; i <5; i++){
+                        if (parseInt(val[0].rate) == i+1){
+                            stars2[i] += 1;
+                        }
+                    }
+                })
+                tmp.stars = stars2
+                resolve(tmp)
+            },500)
+        })
+
+        return promise
     }
     componentDidMount() {
-        var tmpArray = []
-        var stars = [];
-        setTimeout(()=>{
-            this.props.products.map((val,index)=>{
-                tmpArray[index] = val[0].price
-                if (val[0].rate == 1){
-                    stars[0]+=1;
-                }else if(val[0].rate == 2){
-                    stars[1]+=1;
-                }else if(val[0].rate == 3){
-                    stars[2]+=1;
-                }else if(val[0].rate == 4){
-                    stars[3]+=1;
-                }else if(val[0].rate == 5){
-                    stars[4]+=1;
-                }
+        this.setState({ loading: 'true' });
+        this.setup().then((data)=>{
+            console.log(data)
+            this.setState({maxValueForAllProducts : Math.max.apply(null, data.tmpArray)},function () {
+                console.log(this.state.maxValueForAllProducts,"aa")
             })
-        },200)
-
-        this.setState({maxValueForAllProducts : Math.max.apply(null, tmpArray)},function () {
-            console.log(this.state.maxValueForAllProducts,"aa")
+            this.setState({stars: data.stars})
         })
-        console.log(stars)
-        this.setState({stars})
+
+        this.setState({
+            loading: 'false'
+        });
     }
 
     update = ()=>{
         // i write the algorithm here
-        // console.log(this.state.searchTerm)
         this.filterTerm(this.state.searchTerm).then((data)=>{
             console.log("After filtering name", data)
             this.setState({filteredProducts: data})
@@ -48,7 +59,12 @@ class FilterBar extends Component {
                 console.log("After filtering price", data)
                 this.sort(data).then((data)=>{
                     console.log("After sorting", data)
-                    this.props.updateMethod(data)
+                    this.filterUsingRating(data).then((data)=>{
+                        console.log("After selecting rate", data)
+                        this.props.updateMethod(data)
+                    })
+
+
                 })
             })
 
@@ -121,10 +137,38 @@ class FilterBar extends Component {
         return promise;
     }
 
-
+    filterUsingRating(data){
+        const promise = new Promise((resolve, reject) => {
+            if (this.state.selectedRatings == -1){
+                const tmp = data.filter((val) => {
+                    if (parseInt(val[0].rate) == this.state.selectedRatings) {
+                        return val
+                    }
+            })
+                resolve(tmp)
+            }else {
+                resolve(data)
+            }
+        })
+        return promise
+    }
     render() {
-        // console.log(this.state.filteredProducts,"from this")
-        // console.log("max price for all products",this.state.maxValueForAllProducts)
+        if (this.state.loading === 'initial') {
+            return (
+                <div>
+                    <Spinner color="danger" style={{ width: '30rem', height: '30rem' }}/>
+                </div>
+            );
+        }
+
+
+        if (this.state.loading === 'true') {
+            return (
+                <div>
+                    <Spinner color="black" />
+                </div>
+            );
+        }
         return (
             <React.Fragment>
                 <Card className="slide-bar">
@@ -158,8 +202,10 @@ class FilterBar extends Component {
                                             />
                                 </Col>
                                 <Col xl={4}>
-                                    To <Input type="number" min={0} max={this.state.maxValueForAllProducts}  onChange={(event)=>{
-                                    this.setState({max: event.target.value})}}
+                                    To <Input type="number" name="max" min={0} max={this.state.maxValueForAllProducts}
+                                              value={this.state.maxValueForAllProducts}
+                                              onChange={(event)=>{
+                                            this.setState({max: event.target.value})}}
                                 />
                                 </Col>
                                 <Col xl={4}>
@@ -189,7 +235,7 @@ class FilterBar extends Component {
                         <hr/>
                         <h6 className="filter-heading d-none d-lg-block">Ratings</h6>
                         <Col>
-                            <Row onClick={()=>(alert("4 stars"))}>
+                            <Row onClick={()=>(this.setState({selectedRatings : 4}))}>
                                 <i className="material-icons ratingStars">star</i>
                                 <i className="material-icons ratingStars">star</i>
                                 <i className="material-icons ratingStars">star</i>
@@ -197,7 +243,7 @@ class FilterBar extends Component {
                                 <i className="material-icons ratingStars">star_border</i>
                                 <span className={'HowMany'}>({this.state.stars[3]})</span>
                             </Row>
-                            <Row onClick={()=>(alert("3 stars"))}>
+                            <Row onClick={()=>(this.setState({selectedRatings : 3}))}>
                                 <i className="material-icons ratingStars">star</i>
                                 <i className="material-icons ratingStars">star</i>
                                 <i className="material-icons ratingStars">star</i>
@@ -205,7 +251,7 @@ class FilterBar extends Component {
                                 <i className="material-icons ratingStars">star_border</i>
                                 <span className={'HowMany'}>({this.state.stars[2]})</span>
                             </Row>
-                            <Row onClick={()=>(alert("2 stars"))}>
+                            <Row onClick={()=>(this.setState({selectedRatings : 2}))}>
                                 <i className="material-icons ratingStars">star</i>
                                 <i className="material-icons ratingStars">star</i>
                                 <i className="material-icons ratingStars">star_border</i>
@@ -213,7 +259,7 @@ class FilterBar extends Component {
                                 <i className="material-icons ratingStars">star_border</i>
                                 <span className={'HowMany'}>({this.state.stars[1]})</span>
                             </Row>
-                            <Row onClick={()=>(alert("1 stars"))}>
+                            <Row onClick={()=>(this.setState({selectedRatings : 1}))}>
                                 <i className="material-icons ratingStars">star</i>
                                 <i className="material-icons ratingStars">star_border</i>
                                 <i className="material-icons ratingStars">star_border</i>
