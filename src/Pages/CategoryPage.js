@@ -5,17 +5,25 @@ import ShopItem from "../Components/ShopItem";
 import tmp1 from "../Images/1.png";
 import axios from "axios";
 class CategoryPage extends Component {
-    state = {
-        Products : [
+    constructor(props) {
+        super(props);
+        this.state = {
+            Products : [
 
-            // {
-            //     price : 400,
-            //     name : "Apple watch",
-            //     item_id : 12,
-            //     srcImg : tmp1
-            // }
+                // {
+                //     price : 400,
+                //     name : "Apple watch",
+                //     item_id : 12,
+                //     srcImg : tmp1
+                // }
 
-        ]
+            ],
+            test : 1
+        }
+        this.updateState = this.updateState.bind(this);
+    }
+    updateState = (x) =>{
+        alert(x)
     }
     componentDidMount() {
         setTimeout(()=>{
@@ -44,7 +52,7 @@ class CategoryPage extends Component {
             <Container fluid>
                 <Row>
                 <Col xl={3}>
-                    <FilterBar/>
+                    <FilterBar updateMethod={this.updateState} products={this.state.Products}/>
                 </Col>
                     <Col xl={9} style={{marginTop: '-120px'}}>
                         <Row>

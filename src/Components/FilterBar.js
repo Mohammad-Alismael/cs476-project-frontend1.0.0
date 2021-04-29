@@ -2,6 +2,10 @@ import React, {Component} from 'react';
 import {Button, Card, CardBody, Col, FormGroup, Input, Label, Row} from "reactstrap";
 import '../Pages/css/FilterBar.css'
 class FilterBar extends Component {
+    update = ()=>{
+        // i write the algorithm here
+        this.props.updateMethod(this.props.products)
+    }
     render() {
         return (
             <React.Fragment>
@@ -98,7 +102,7 @@ class FilterBar extends Component {
                             </Row>
                         </Col>
                         <hr/>
-                        <Button id={'filter-btn'}>CLEAR ALL FILTERS</Button>
+                        <Button id={'filter-btn'} onClick={this.update}>CLEAR ALL FILTERS</Button>
                     </CardBody>
                 </Card>
             </React.Fragment>
