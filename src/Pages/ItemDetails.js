@@ -212,7 +212,7 @@ class ItemDetails extends Component {
                         <h3>{this.state.name}</h3>
                         <h6>{this.state.brand}</h6>
                         <h4>{this.state.price}$</h4>
-                        <h4>{this.state.seller}</h4>
+                        {/*<h4>{this.state.seller}</h4>*/}
                         <hr></hr>
                         <p>{this.state.description}</p>
                         <div className="options">
@@ -279,13 +279,13 @@ class ItemDetails extends Component {
                                     activeColor="#ffd700"
                                 />
                             </div>
-                            <div>
-                                {
-                                    this.state.percentageRating.map((element,index)=>{
-                                       return ( this.ratingsBars(index+1,element))
-                                    })
-                                }
-                            </div>
+                            {/*<div>*/}
+                            {/*    {*/}
+                            {/*        this.state.percentageRating.map((element,index)=>{*/}
+                            {/*           return ( this.ratingsBars(index+1,element))*/}
+                            {/*        })*/}
+                            {/*    }*/}
+                            {/*</div>*/}
                         </div>
                         <div>
                             {/*<img src={'https://smartyads.com/images/uploads/vertical-vs-horizontal-ad-strategy.png'} style={{height: '100%',width: '250px'}}/>*/}
@@ -328,11 +328,6 @@ class ItemDetails extends Component {
                                                    text: event.target.value
                                                    // text: document.getElementsByName('currentComment')[0].value
                                                }
-                                               // username: this.context.username,
-                                               //     text: "",
-                                               //     date: this.getDate(),
-                                               //     rate: 0,
-                                               //     status: ""
 
                                                this.setState({currentComment:
                                                [tmp]
