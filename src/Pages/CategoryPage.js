@@ -17,13 +17,12 @@ class CategoryPage extends Component {
                 //     srcImg : tmp1
                 // }
 
-            ],
-            test : 1
+            ]
         }
         this.updateState = this.updateState.bind(this);
     }
-    updateState = (x) =>{
-        alert(x)
+    updateState = (newProductList) =>{
+        console.log("from category page",newProductList)
     }
     componentDidMount() {
         setTimeout(()=>{
