@@ -49,6 +49,11 @@ class CategoryPage extends Component {
     }
 
     render() {
+        if (this.state.newProductList.length == 0){
+
+        }else{
+            alert("f")
+        }
         return (
             <Container fluid>
                 <Row>

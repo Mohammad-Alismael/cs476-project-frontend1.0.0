@@ -6,12 +6,14 @@
     width : 100%;
     background:rgb(234,94,211);
     border-color: transparent;
+    cursor: pointer;
 }
 #Go-btn{
     background: transparent;
     border: none;
     color: #61dafb;
     margin-top:25px ;
+    cursor: pointer;
 }
 #Go-btn:hover{
     color: #4691ad;

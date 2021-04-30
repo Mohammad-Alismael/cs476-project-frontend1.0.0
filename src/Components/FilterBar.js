@@ -23,7 +23,7 @@ class FilterBar extends Component {
                 this.props.products.map((val,index)=>{
                     tmp.tmpArray[index] = val[0].price
                     for (let i=0; i <5; i++){
-                        if (parseInt(val[0].rate) == i+1){
+                        if (parseInt(val[0].rate) >= i+1){
                             stars2[i] += 1;
                         }
                     }
@@ -48,6 +48,8 @@ class FilterBar extends Component {
         this.setState({
             loading: 'false'
         });
+
+        this.changeStateLister()
     }
 
     update = ()=>{
@@ -70,9 +72,8 @@ class FilterBar extends Component {
 
         })
 
-
-
     }
+
     filterTerm(term){
         const promise = new Promise((resolve, reject) => {
             const copyOfOldProducts = [...this.props.products]
@@ -116,7 +117,6 @@ class FilterBar extends Component {
             if(this.state.sortBy == "Low to High"){
                 console.log("loh")
                 filteredProducts = data.sort((a,b)=>{
-                    console.log('sorting',a[0].price,b[0].price)
                     if (a[0].price > b[0].price) return 1;
                     else if (b[0].price > a[0].price) return -1;
                     else return 0;
@@ -130,7 +130,6 @@ class FilterBar extends Component {
                 filteredProducts = data
             }
 
-            // this.setState({filteredProducts})
             console.log("selected",this.state.sortBy)
             resolve(filteredProducts)
         })
@@ -139,9 +138,9 @@ class FilterBar extends Component {
 
     filterUsingRating(data){
         const promise = new Promise((resolve, reject) => {
-            if (this.state.selectedRatings == -1){
+            if (this.state.selectedRatings != -1){
                 const tmp = data.filter((val) => {
-                    if (parseInt(val[0].rate) == this.state.selectedRatings) {
+                    if (parseInt(val[0].rate) >= this.state.selectedRatings) {
                         return val
                     }
             })
@@ -151,6 +150,13 @@ class FilterBar extends Component {
             }
         })
         return promise
+    }
+
+    changeStateLister = () =>{
+        this.setState({sortBy : "Recommend"})
+        this.setState({selectedRatings : -1})
+        this.setState({searchTerm : ""})
+        this.props.updateMethod(this.props.products)
     }
     render() {
         if (this.state.loading === 'initial') {
@@ -203,7 +209,7 @@ class FilterBar extends Component {
                                 </Col>
                                 <Col xl={4}>
                                     To <Input type="number" name="max" min={0} max={this.state.maxValueForAllProducts}
-                                              value={this.state.maxValueForAllProducts}
+                                              // value={this.state.maxValueForAllProducts}
                                               onChange={(event)=>{
                                             this.setState({max: event.target.value})}}
                                 />
@@ -269,7 +275,7 @@ class FilterBar extends Component {
                             </Row>
                         </Col>
                         <hr/>
-                        <Button id={'filter-btn'} onClick={this.update}>CLEAR ALL FILTERS</Button>
+                        <Button id={'filter-btn'} onClick={this.changeStateLister}>CLEAR ALL FILTERS</Button>
                     </CardBody>
                 </Card>
             </React.Fragment>
