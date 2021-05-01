@@ -57,11 +57,14 @@ class FilterBar extends Component {
         this.filterTerm(this.state.searchTerm).then((data)=>{
             console.log("After filtering name", data)
             this.setState({filteredProducts: data})
-            this.filterPrice(data).then((data)=>{
+            //this.props.updateMethod(data)
+            this.filterPrice(this.state.filteredProducts).then((data)=>{
                 console.log("After filtering price", data)
-                this.sort(data).then((data)=>{
+                this.setState({filteredProducts: data})
+                this.sort(this.state.filteredProducts).then((data)=>{
                     console.log("After sorting", data)
-                    this.filterUsingRating(data).then((data)=>{
+                    this.setState({filteredProducts: data})
+                    this.filterUsingRating(this.state.filteredProducts).then((data)=>{
                         console.log("After selecting rate", data)
                         this.props.updateMethod(data)
                     })
@@ -105,7 +108,6 @@ class FilterBar extends Component {
             console.log("min",this.state.min)
             resolve(filteredProducts)
         })
-        // console.log(filteredProducts,"after filtering price")
         return promise;
 
     }
@@ -180,24 +182,12 @@ class FilterBar extends Component {
                 <Card className="slide-bar">
                     <h5 id="filter-heading">Filters</h5>
                     <CardBody>
-                            <h6 className="filter-heading d-none d-lg-block">Brands</h6>
+                            <h6 className="filter-heading d-none d-lg-block">Name</h6>
                             <FormGroup>
                                 <Input type="text" placeholder="search" onChange={(event)=>{
                                     this.setState({searchTerm: event.target.value})
                                 }}/>
                             </FormGroup>
-                                <FormGroup check>
-                                    <Label check>
-                                        <Input type="radio" name="radio1" />{' '}
-                                        Intel
-                                    </Label>
-                                </FormGroup>
-                                <FormGroup check>
-                                    <Label check>
-                                        <Input type="radio" name="radio1" />{' '}
-                                        AMD
-                                    </Label>
-                                </FormGroup>
                         <hr/>
                         <h6 className="filter-heading d-none d-lg-block">Price</h6>
                         <FormGroup>
@@ -224,7 +214,6 @@ class FilterBar extends Component {
                             <Label>Sort By</Label>
                             <Input type="select" name="sortBy" onChange={(event)=>{
                                 this.setState({sortBy: event.target.value})}}>
-                                <option>Recommend</option>
                                 <option>Low to High</option>
                                 <option>High to Low</option>
                             </Input>

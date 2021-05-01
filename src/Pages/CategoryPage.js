@@ -50,37 +50,63 @@ class CategoryPage extends Component {
 
     render() {
         if (this.state.newProductList.length == 0){
+            return (
+                <Container fluid>
+                    <Row>
+                        <Col xl={3}>
+                            <FilterBar updateMethod={this.updateState} products={this.state.Products}/>
+                        </Col>
+                        <Col xl={9} style={{marginTop: '-120px'}}>
+                            <Row>
+                                {
+                                    this.state.Products.map((element,index)=> {
+                                        return (
+                                            <Col xl={3}>
+                                                <ShopItem price={element[0].price} productName={element[0].name}
+                                                          item_id={element[0].item_id} srcImg={element[0].srcImg}
+                                                          rate={element[0].rate} addToCartbtn={true}
+                                                />
+                                            </Col>
+                                        )
 
-        }else{
-            alert("f")
-        }
-        return (
-            <Container fluid>
-                <Row>
-                <Col xl={3}>
-                    <FilterBar updateMethod={this.updateState} products={this.state.Products}/>
-                </Col>
-                    <Col xl={9} style={{marginTop: '-120px'}}>
-                        <Row>
-                        {
-                            this.state.newProductList.map((element,index)=> {
-                                return (
-                                    <Col xl={3}>
-                                        <ShopItem price={element[0].price} productName={element[0].name}
-                                                  item_id={element[0].item_id} srcImg={element[0].srcImg}
-                                                  rate={element[0].rate} addToCartbtn={true}
-                                        />
-                                    </Col>
-                                    )
-
-                            })
-                        }
-                        </Row>
-                    </Col>
+                                    })
+                                }
+                            </Row>
+                        </Col>
                     </Row>
 
-            </Container>
-        );
+                </Container>
+            );
+        }else{
+            return (
+                <Container fluid>
+                    <Row>
+                        <Col xl={3}>
+                            <FilterBar updateMethod={this.updateState} products={this.state.Products}/>
+                        </Col>
+                        <Col xl={9} style={{marginTop: '-120px'}}>
+                            <Row>
+                                {
+                                    this.state.newProductList.map((element,index)=> {
+                                        return (
+                                            <Col xl={3}>
+                                                <ShopItem price={element[0].price} productName={element[0].name}
+                                                          item_id={element[0].item_id} srcImg={element[0].srcImg}
+                                                          rate={element[0].rate} addToCartbtn={true}
+                                                />
+                                            </Col>
+                                        )
+
+                                    })
+                                }
+                            </Row>
+                        </Col>
+                    </Row>
+
+                </Container>
+            );
+        }
+
     }
 }
 
