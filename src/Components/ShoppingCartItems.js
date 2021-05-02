@@ -3,13 +3,24 @@ import {Button, Card, CardBody, CardImg, Col, Label, Row} from "reactstrap";
 import ReactStars from "react-rating-stars-component";
 import CounterInput from 'react-bootstrap-counter';
 import Counter from "./Counter";
+import axios from "axios";
 class ShoppingCartItems extends Component {
     constructor(props) {
         super(props);
         this.counter = 0;
     }
     dismiss = (e) => {
-        this.props.unmountMe();
+        axios.post(`https://localhost:5001/api/carts/delete/${this.props.id}`, {
+            "Id": 3,
+            "userId": parseInt(sessionStorage.getItem('user_id')),
+            "product": this.props.id
+
+        }).then((product) => {
+
+        }).catch((error) => {
+            console.log(error)
+            alert("error happened while deleting")
+        })
     }
     render() {
         return (

@@ -19,6 +19,7 @@ import {useContext, useEffect} from "react";
 import DashBoard from "./Pages/DashBoard";
 import FactorAuthentication from './Pages/FactorAuthentication'
 import {ProtectedRoute} from "./protected.route";
+import Checkout from "./Pages/Checkout";
 
 function App() {
 
@@ -71,6 +72,7 @@ function App() {
                       <LayoutDefault>
                           <ProtectedRoute exact path="/profile-settings" component={ProfileSettings} userType={"all"} />
                           <ProtectedRoute exact path="/shopping-cart" component={ShoppingCart} userType={"all"} />
+                          <ProtectedRoute exact path="/checkout" component={Checkout} userType={"all"} />
                           <ProtectedRoute exact path="/product-owner-landing-page" component={ProductManager} userType={"Product Manager"} />
                           <ProtectedRoute exact path="/product-owner-landing-page/add-products" component={AddProduct} userType={"Product Manager"} />
                           <ProtectedRoute exact path="/product-owner-landing-page/edit-products" component={EditProduct} userType={"Product Manager"} />

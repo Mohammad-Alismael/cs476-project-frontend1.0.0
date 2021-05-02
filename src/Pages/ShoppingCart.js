@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import GlobalContext from "../GlobalContext";
 import ItemDetails from "./ItemDetails";
 import tmp2 from '../Images/2.png';
-import {Card, Col, Container, Row} from "reactstrap";
+import {Button, Card, CardBody, CardHeader, Col, Container, FormGroup, Input, Row} from "reactstrap";
 import ShoppingCartItems from "../Components/ShoppingCartItems";
 
 class ShoppingCart extends Component {
@@ -31,31 +31,22 @@ class ShoppingCart extends Component {
                                 )
                             })
                         }
-                        {/*<ShoppingCartItems*/}
-                        {/*    productName={"mouse"}*/}
-                        {/*    price={300}*/}
-                        {/*    brand={"google"}*/}
-                        {/*    rating={5}*/}
-                        {/*    quantity={2}*/}
-                        {/*    srcImg={tmp2}/>*/}
-                        {/*<ShoppingCartItems*/}
-                        {/*    productName={"keyboard"}*/}
-                        {/*    price={600}*/}
-                        {/*    brand={"microsoft"}*/}
-                        {/*    rating={4}*/}
-                        {/*    quantity={1}*/}
-                        {/*    srcImg={tmp2}/>*/}
-                        {/*<ShoppingCartItems*/}
-                        {/*    productName={"msi"}*/}
-                        {/*    price={2000}*/}
-                        {/*    brand={"microsoft"}*/}
-                        {/*    rating={1}*/}
-                        {/*    quantity={10}*/}
-                        {/*    srcImg={tmp2}/>*/}
                     </Col>
                     <Col>
-                        <Card>
-                            gdfg
+                        <Card style={{width: '230%'}}>
+                            <CardHeader>Price Details</CardHeader>
+                            <CardBody>
+                                <FormGroup>
+                                    <Input type="text" name="brand" placeholder={"coupons"} />
+                                    <Button id={'Go-btn'} >APPLY</Button>
+                                </FormGroup>
+                                <hr/>
+                                <p>Price before discount:</p>
+                                <p>Discount:</p>
+                                <span>Price after discount:</span>
+                                <hr/>
+                                <Button id={'btn'} size={'lg'} style={{width : '100%'}}>Place order</Button>
+                            </CardBody>
                         </Card>
                     </Col>
                 </Row>
