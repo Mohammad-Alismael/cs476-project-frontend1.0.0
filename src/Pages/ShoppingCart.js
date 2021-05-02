@@ -6,6 +6,12 @@ import {Card, Col, Container, Row} from "reactstrap";
 import ShoppingCartItems from "../Components/ShoppingCartItems";
 
 class ShoppingCart extends Component {
+    componentDidMount() {
+        this.context.setCartItems().then((data)=>{
+            this.context.changeShoppingCard(data)
+        })
+    }
+
     render() {
         return (
             <Container>

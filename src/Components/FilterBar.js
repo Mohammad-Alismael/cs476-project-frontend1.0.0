@@ -122,6 +122,7 @@ class FilterBar extends Component {
                                 <i className="material-icons ratingStars">star</i>
                                 <i className="material-icons ratingStars">star</i>
                                 <i className="material-icons ratingStars">star_border</i>
+                                <span>& up</span>
                                 <span className={'HowMany'}>({this.props.stars[3]})</span>
                             </Row>
                             <Row onClick={()=>(this.setState({selectedRatings : 3}))}>
@@ -131,6 +132,7 @@ class FilterBar extends Component {
                                 <i className="material-icons ratingStars">star_border</i>
                                 <i className="material-icons ratingStars">star_border</i>
                                 <span className={'HowMany'}>({this.props.stars[2]})</span>
+                                <span>& up</span>
                             </Row>
                             <Row onClick={()=>(this.setState({selectedRatings : 2}))}>
                                 <i className="material-icons ratingStars">star</i>
@@ -139,6 +141,7 @@ class FilterBar extends Component {
                                 <i className="material-icons ratingStars">star_border</i>
                                 <i className="material-icons ratingStars">star_border</i>
                                 <span className={'HowMany'}>({this.props.stars[1]})</span>
+                                <span>& up</span>
                             </Row>
                             <Row onClick={()=>(this.setState({selectedRatings : 1}))}>
                                 <i className="material-icons ratingStars">star</i>
@@ -147,6 +150,7 @@ class FilterBar extends Component {
                                 <i className="material-icons ratingStars">star_border</i>
                                 <i className="material-icons ratingStars">star_border</i>
                                 <span className={'HowMany'}>({this.props.stars[0]})</span>
+                                <span>& up</span>
                             </Row>
                         </Col>
                         <hr/>

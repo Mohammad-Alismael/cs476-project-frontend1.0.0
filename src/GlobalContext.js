@@ -1,18 +1,39 @@
 import React, { Component, createContext } from 'react'
+import axios from "axios";
 
 const GlobalContext = createContext();
 export class GlobalProvider extends Component {
-    state = {
-        shoppingCard : parseInt(localStorage.getItem("howManyItems")),
-        IsLoggedIn : false,
-        username : "",
-        user_id : 0,
-        email : ""
+    constructor(props) {
+        super(props);
+        this.state = {
+            shoppingCard : -1,
+            IsLoggedIn : false,
+            username : "",
+            user_id : 0,
+            email : ""
+        }
     }
 
-    changeShoppingCard = () => {
+    setCartItems(){
+        const promise = new Promise((resolve, reject) => {
+            axios.get(`https://localhost:5001/api/carts/getByUser/${12}`)
+                .then((res) => {
+                    console.log(res.data.length, "length")
+                    resolve(res.data.length);
+                }).catch((error) => {
+                console.log(error)
+                alert(" error happened fetch cart items")
+                resolve(-11);
+            })
+        })
+        return promise
+    }
+
+
+    changeShoppingCard = (cartLength) => {
+
         var {shoppingCard} = this.state
-        this.setState({shoppingCard : shoppingCard + 1})
+        this.setState({shoppingCard :cartLength })
     }
     updateUsername = (username1) => {
         this.setState({username : username1})
@@ -28,10 +49,13 @@ export class GlobalProvider extends Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        if (this.state.shoppingCard !== prevState.shoppingCard) {
+
             // Whatever storage mechanism you end up deciding to use.
-            localStorage.setItem("howManyItems", this.state.shoppingCard)
-        }
+            // localStorage.setItem("howManyItems", this.state.shoppingCard)
+
+            // this.setState({shoppingCard :x})
+
+
     }
     render() {
         const {shoppingCard,username,IsLoggedIn,user_id} = this.state;
@@ -39,7 +63,9 @@ export class GlobalProvider extends Component {
             updateUsername,
             updateUserID,
             updateEmail,
-            updateIsLoggedIn} = this;
+            updateIsLoggedIn,
+            setCartItems
+        } = this;
         return (
             <GlobalContext.Provider value={{
                 shoppingCard,
@@ -50,7 +76,8 @@ export class GlobalProvider extends Component {
                 updateUserID,
                 updateEmail,
                 updateIsLoggedIn,
-                changeShoppingCard
+                changeShoppingCard,
+                setCartItems
             }}>
                 {this.props.children}
             </GlobalContext.Provider>

@@ -4,6 +4,8 @@ import FilterBar from "../Components/FilterBar";
 import ShopItem from "../Components/ShopItem";
 import tmp1 from "../Images/1.png";
 import axios from "axios";
+import GlobalContext from "../GlobalContext";
+import ShoppingCart from "./ShoppingCart";
 class CategoryPage extends Component {
     constructor(props) {
         super(props);
@@ -21,7 +23,7 @@ class CategoryPage extends Component {
             newProductList: [],
             stars: [0, 0, 0, 0, 0],
             maxPrice: 0,
-            loading: 'initial'
+            loading: 'initial',
         }
         this.updateState = this.updateState.bind(this);
     }
@@ -30,9 +32,7 @@ class CategoryPage extends Component {
         this.setState({newProductList})
         console.log("from category page", newProductList)
     }
-    loadData(){
 
-    }
     componentDidMount() {
         this.setState({loading: 'true'});
         setTimeout(() => {
@@ -47,6 +47,9 @@ class CategoryPage extends Component {
                     this.setState({
                         Products: [...this.state.Products, [tmp]]
                     })
+                    this.setState({
+                        newProductList: [...this.state.newProductList, [tmp]]
+                    })
                 })
                 this.countStars()
             }).catch((error) => {
@@ -57,11 +60,13 @@ class CategoryPage extends Component {
 
 
         }, 500)
-
-        this.setState({newProductList : this.state.Products})
         this.setState({
             loading: 'false'
         });
+
+        this.context.setCartItems().then((data)=>{
+            this.context.changeShoppingCard(data)
+        })
     }
 
     countStars(){
@@ -137,5 +142,5 @@ class CategoryPage extends Component {
     }
 
 }
-
+CategoryPage.contextType = GlobalContext
 export default CategoryPage;
