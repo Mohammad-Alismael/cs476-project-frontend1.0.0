@@ -64,9 +64,7 @@ class CategoryPage extends Component {
             loading: 'false'
         });
 
-        this.context.setCartItems().then((data)=>{
-            this.context.changeShoppingCard(data)
-        })
+        this.context.setCartItems()
     }
 
     countStars(){

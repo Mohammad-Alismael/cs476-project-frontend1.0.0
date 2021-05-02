@@ -6,10 +6,10 @@ import {Card, Col, Container, Row} from "reactstrap";
 import ShoppingCartItems from "../Components/ShoppingCartItems";
 
 class ShoppingCart extends Component {
+
     componentDidMount() {
-        this.context.setCartItems().then((data)=>{
-            this.context.changeShoppingCard(data)
-        })
+        this.context.setCartItems()
+        console.log(this.context.cartItems,"this is from shopping cart global")
     }
 
     render() {
@@ -17,27 +17,41 @@ class ShoppingCart extends Component {
             <Container>
                 <Row>
                     <Col xl={10}>
-                        <ShoppingCartItems
-                            productName={"mouse"}
-                            price={300}
-                            brand={"google"}
-                            rating={5}
-                            quantity={2}
-                            srcImg={tmp2}/>
-                        <ShoppingCartItems
-                            productName={"keyboard"}
-                            price={600}
-                            brand={"microsoft"}
-                            rating={4}
-                            quantity={1}
-                            srcImg={tmp2}/>
-                        <ShoppingCartItems
-                            productName={"msi"}
-                            price={2000}
-                            brand={"microsoft"}
-                            rating={1}
-                            quantity={10}
-                            srcImg={tmp2}/>
+                        {
+                            this.context.cartItems.map((val,index)=>{
+                                return (
+                                    <ShoppingCartItems
+                                        id={val.id}
+                                        productName={val.productName}
+                                        price={val.price}
+                                        brand={"no brand"}
+                                        rating={val.rating}
+                                        quantity={0}
+                                        srcImg={tmp2}/>
+                                )
+                            })
+                        }
+                        {/*<ShoppingCartItems*/}
+                        {/*    productName={"mouse"}*/}
+                        {/*    price={300}*/}
+                        {/*    brand={"google"}*/}
+                        {/*    rating={5}*/}
+                        {/*    quantity={2}*/}
+                        {/*    srcImg={tmp2}/>*/}
+                        {/*<ShoppingCartItems*/}
+                        {/*    productName={"keyboard"}*/}
+                        {/*    price={600}*/}
+                        {/*    brand={"microsoft"}*/}
+                        {/*    rating={4}*/}
+                        {/*    quantity={1}*/}
+                        {/*    srcImg={tmp2}/>*/}
+                        {/*<ShoppingCartItems*/}
+                        {/*    productName={"msi"}*/}
+                        {/*    price={2000}*/}
+                        {/*    brand={"microsoft"}*/}
+                        {/*    rating={1}*/}
+                        {/*    quantity={10}*/}
+                        {/*    srcImg={tmp2}/>*/}
                     </Col>
                     <Col>
                         <Card>

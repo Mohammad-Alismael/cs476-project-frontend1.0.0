@@ -6,7 +6,7 @@ import LayoutDefault from "./Pages/LayoutDefault";
 
 export const ProtectedRoute = ({component: Component, ...rest}) => {
     useEffect(() => {
-        console.log(rest,"frgrhrseh")
+
     });
     if (rest.userType == "all"){
         return (

@@ -149,7 +149,7 @@ body{
 .shoppingCartItemsStars{
     position: absolute;
     top: -140px;
-    left: 520px;
+    left: 445px;
 }
 /* shopping cart number*/
 .number:after{
