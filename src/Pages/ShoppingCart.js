@@ -6,11 +6,21 @@ import {Button, Card, CardBody, CardHeader, Col, Container, FormGroup, Input, Ro
 import ShoppingCartItems from "../Components/ShoppingCartItems";
 
 class ShoppingCart extends Component {
-
-    componentDidMount() {
-        this.context.setCartItems()
-        console.log(this.context.cartItems,"this is from shopping cart global")
+    state = {
+        priceBeforeDisc : 0,
+        discount:0,
+        priceAfterDisc:0
     }
+    componentDidMount() {
+        console.log(this.context.cartItems,"this is from shopping cart global")
+        var priceBeforeDisc= 0
+        this.context.cartItems.map((val,index)=>{
+
+            priceBeforeDisc+= val.price * 0
+        })
+        this.setState({priceBeforeDisc})
+    }
+
 
     render() {
         return (
@@ -26,7 +36,7 @@ class ShoppingCart extends Component {
                                         price={val.price}
                                         brand={"no brand"}
                                         rating={val.rating}
-                                        quantity={0}
+                                        // quantity={val.quentity}
                                         srcImg={tmp2}/>
                                 )
                             })
@@ -41,9 +51,9 @@ class ShoppingCart extends Component {
                                     <Button id={'Go-btn'} >APPLY</Button>
                                 </FormGroup>
                                 <hr/>
-                                <p>Price before discount:</p>
-                                <p>Discount:</p>
-                                <span>Price after discount:</span>
+                                <p>Price before discount:     {this.state.priceBeforeDisc}$</p>
+                                <p>Discount:     {this.state.discount}</p>
+                                <span>Price after discount:   {this.state.priceAfterDisc}$</span>
                                 <hr/>
                                 <Button id={'btn'} size={'lg'} style={{width : '100%'}}>Place order</Button>
                             </CardBody>

@@ -28,6 +28,31 @@ class ProfileSettings extends Component {
       })
     }
 
+    updateInfo = (e)=>{
+        e.preventDefault();
+        axios.post(`https://localhost:5001/api/account/update/${parseInt(sessionStorage.getItem('user_id'))}`,{
+            "Id":parseInt(sessionStorage.getItem('user_id')),
+            "userName": this.state.userName,
+            "Name": this.state.name,
+            "Surname": this.state.surname,
+            "Age": "no data",
+            "Password": this.state.password,
+            "Email": this.state.email,
+            "UserType": this.state.userType
+        }).then((res)=>{
+            console.log(res)
+            window.location.reload();
+        }).catch((error)=>{
+            alert("error happened for updating data!!")
+            console.log(error)
+        })
+        console.log(this.state)
+    }
+    updateSate = (e) =>{
+        e.preventDefault()
+        this.setState({[e.target.name] : e.target.value})
+    }
+
   render() {
         return (
             <Container>
@@ -36,7 +61,7 @@ class ProfileSettings extends Component {
                 <form>
                   <div className={"float-right"}>
                     <Button color={'primary'}  style={{margin : '5px 10px'}} onClick={()=> this.setState({locker : !this.state.locker})}>unlock</Button>
-                    <Button color={'primary'} style={{margin : '5px 10px'}}>update info</Button>
+                    <Button color={'primary'} style={{margin : '5px 10px'}} onClick={this.updateInfo}>update info</Button>
                   </div>
                   <div class="container">
                     <h1>Personal Info</h1>
@@ -44,14 +69,16 @@ class ProfileSettings extends Component {
                     <div class="row">
                       <div class="col-lg-6 col-md-6 col-sm-6">
                         <label for="text" class="form-label">First Name</label>
-                        <input class="form-control" type="text" name="fName"
+                        <input class="form-control" type="text" name="name"
                                disabled={this.state.locker}
+                               onChange={this.updateSate}
                                value={this.state.name}/>
                       </div>
                       <div class="col-lg-6 col-md-6 col-sm-6">
                         <label for="text" class="form-label">Last Name</label>
-                        <input class="form-control" type="email" name="lName"
+                        <input class="form-control" type="email" name="surname"
                                disabled={this.state.locker}
+                               onChange={this.updateSate}
                                value={this.state.surname}></input>
 
                       </div>
@@ -59,24 +86,27 @@ class ProfileSettings extends Component {
                         <label for="email" class="form-label">Email address</label>
                         <input class="form-control" type="email" name="email"
                                disabled={this.state.locker}
+                               onChange={this.updateSate}
                                value={this.state.email}/>
 
                       </div>
                       <div class="col-lg-6 col-md-6 col-sm-6">
                         <label for="text" class="form-label">Username</label>
-                        <input class="form-control" type="text" name="username"
+                        <input class="form-control" type="text" name="userName"
                                disabled={this.state.locker}
+                               onChange={this.updateSate}
                                value={this.state.userName}/>
                       </div>
                       <div className="col-lg-6 col-md-6 col-sm-6">
                         <label htmlFor="text" className="form-label">password</label>
-                        <input className="form-control" type="text" name="username"
+                        <input className="form-control" type="text" name="password"
                                disabled={this.state.locker}
+                               onChange={this.updateSate}
                                value={this.state.password}/>
                       </div>
                       <div class="col-lg-6 col-md-6 col-sm-6">
                         <label for="text" class="form-label">userType</label>
-                        <input class="form-control" type="text" name="display" disabled={this.state.locker}
+                        <input class="form-control" type="text" name="display" disabled={true}
                                value={this.state.userType == null? "not specified" :this.state.userType }/>
                       </div>
                     </div>

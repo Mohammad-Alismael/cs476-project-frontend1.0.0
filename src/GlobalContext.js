@@ -20,7 +20,7 @@ export class GlobalProvider extends Component {
 
     setCartItems(){
 
-            axios.get(`https://localhost:5001/api/carts/getByUser/${12}`)
+            axios.get(`https://localhost:5001/api/carts/getByUser/${parseInt(sessionStorage.getItem('user_id'))}`)
                 .then((res) => {
                     res.data.map((val,index)=>{
                         var productId = val.product

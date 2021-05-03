@@ -91,7 +91,7 @@ class DeleteProductItems extends Component {
                             value={this.props.rating}
                             edit={false}
                             activeColor="#ffd700"
-                        />
+                        />      ({this.props.rating.toFixed(2)})
                         </Row>
                     </Col>
                     <Col xl={9}>

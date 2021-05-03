@@ -46,6 +46,7 @@ class LayoutDefault extends Component {
                 console.log(error)
             })
         },500)
+        this.context.setCartItems()
 
     }
     renderElement() {

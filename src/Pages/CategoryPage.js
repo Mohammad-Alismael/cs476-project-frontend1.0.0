@@ -64,7 +64,6 @@ class CategoryPage extends Component {
             loading: 'false'
         });
 
-        this.context.setCartItems()
     }
 
     countStars(){
