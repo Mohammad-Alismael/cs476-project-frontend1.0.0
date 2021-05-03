@@ -15,7 +15,15 @@
     margin-top:25px ;
     cursor: pointer;
 }
-#Go-btn:hover{
+#APPLY-btn{
+    background: transparent;
+    border: none;
+    color: #61dafb;
+    float: right;
+    margin-top: -35px;
+    cursor: pointer;
+}
+#Go-btn:hover,#APPLY-btn:hover{
     color: #4691ad;
 }
 .ratingStars{

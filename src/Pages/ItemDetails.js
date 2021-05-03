@@ -8,10 +8,10 @@ import tmp1 from '../Images/1.png';
 import '../Pages/css/ItemDetails.css'
 import '../Pages/css/LandingPage.css';
 import ReactStars from "react-rating-stars-component";
-import classNames from "classnames";
+
 import axios from "axios";
 import GlobalContext from "../GlobalContext";
-import LoginForm from "./LoginForm";
+
 class ItemDetails extends Component {
     state = {
         activeTab : 1,
@@ -117,6 +117,7 @@ class ItemDetails extends Component {
                     loading: 'false'
                 });
             });
+
     }
 
     ratingsBars(stars,percentage){
@@ -183,6 +184,24 @@ class ItemDetails extends Component {
 
 
     }
+    addItemCart = (e) =>{
+        e.preventDefault()
+        this.context.fetchProducts(this.state.item_id).then((data)=>{
+            // don't forget to add an api to add the item here
+            axios.post(`https://localhost:5001/api/carts/add`, {
+                "userId": parseInt(sessionStorage.getItem("user_id")),
+                "product": this.state.item_id
+            }).then((res)=>{
+                this.context.addItemCart(data)
+                this.context.setCartItems()
+                // this.context.changeShoppingCard(this.context.cartItems.length + 1)
+            }).catch((error) => {
+                console.log(error)
+                alert("error happened while adding product to cart")
+            })
+
+        })
+    }
     render() {
 
         if (this.state.loading === 'initial') {
@@ -235,7 +254,7 @@ class ItemDetails extends Component {
                             </Input>
                         </FormGroup>
 
-                        <Button id={'btn'} onClick={this.context.addItemCart()}>Add To Cart</Button>
+                        <Button id={'btn'} onClick={this.addItemCart}>Add To Cart</Button>
                     </div>
                 </Col>
                 </Row>
@@ -340,6 +359,7 @@ class ItemDetails extends Component {
                     </Col>
                 </Row>
             </Card>
+
         );
     }
 }

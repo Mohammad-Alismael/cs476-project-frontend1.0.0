@@ -15,10 +15,10 @@ class ShoppingCart extends Component {
         console.log(this.context.cartItems,"this is from shopping cart global")
         var priceBeforeDisc= 0
         this.context.cartItems.map((val,index)=>{
-
             priceBeforeDisc+= val.price * 0
         })
         this.setState({priceBeforeDisc})
+        this.context.setCartItems()
     }
 
 
@@ -36,19 +36,19 @@ class ShoppingCart extends Component {
                                         price={val.price}
                                         brand={"no brand"}
                                         rating={val.rating}
-                                        // quantity={val.quentity}
+                                        quantity={val.quantity}
                                         srcImg={tmp2}/>
                                 )
                             })
                         }
                     </Col>
                     <Col>
-                        <Card style={{width: '230%'}}>
+                        <Card style={{width: '230%',boxShadow: '0px 20px 47px 14px rgba(0,0,0,0.1)'}}>
                             <CardHeader>Price Details</CardHeader>
                             <CardBody>
                                 <FormGroup>
-                                    <Input type="text" name="brand" placeholder={"coupons"} />
-                                    <Button id={'Go-btn'} >APPLY</Button>
+                                    <Input type="text" name="brand" placeholder={"coupons"} style={{width: '100px'}}/>
+                                    <Button id={'APPLY-btn'} >APPLY</Button>
                                 </FormGroup>
                                 <hr/>
                                 <p>Price before discount:     {this.state.priceBeforeDisc}$</p>

@@ -10,13 +10,12 @@ class ShoppingCartItems extends Component {
         this.counter = 0;
     }
     dismiss = (e) => {
-        axios.post(`https://localhost:5001/api/carts/delete/${this.props.id}`, {
-            "Id": 3,
+        axios.post(`https://localhost:5001/api/carts/delete`, {
             "userId": parseInt(sessionStorage.getItem('user_id')),
-            "product": this.props.id
+            "product": parseInt(this.props.id)
 
         }).then((product) => {
-
+            window.location.reload()
         }).catch((error) => {
             console.log(error)
             alert("error happened while deleting")
