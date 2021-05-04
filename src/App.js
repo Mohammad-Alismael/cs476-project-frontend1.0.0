@@ -20,7 +20,8 @@ import DashBoard from "./Pages/DashBoard";
 import FactorAuthentication from './Pages/FactorAuthentication'
 import {ProtectedRoute} from "./protected.route";
 import Checkout from "./Pages/Checkout";
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 function App() {
 
     const routes = [
@@ -46,11 +47,12 @@ function App() {
         }
     ]
 
-
+    const notify = () => toast("Wow so easy!");
 
   return (
 
       <GlobalProvider>
+          <ToastContainer/>
           <Router>
               <div>
                   <Switch>
@@ -85,6 +87,7 @@ function App() {
                   </Switch>
               </div>
           </Router>
+
       </GlobalProvider>
 
   );

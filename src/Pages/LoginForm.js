@@ -4,7 +4,8 @@ import img from '../Pages/css/Design.png'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 import GlobalContext from "../GlobalContext";
-import RegisterForm from "./RegisterForm";
+import {toast} from "react-toastify";
+
 class LoginForm extends Component {
     state = {
         username: "",
@@ -46,11 +47,20 @@ class LoginForm extends Component {
                 }
             }).catch(error =>{
                 if(error.response.status == 401)
-                    alert("username or password is incorrect")
+                    toast.error("username or password is incorrect")
+                    // alert("username or password is incorrect")
 
             })
         }else {
-            alert("check your info")
+            toast.warn("check your info",{
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            })
         }
         console.log(this.state)
     }

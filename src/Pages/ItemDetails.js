@@ -11,6 +11,7 @@ import ReactStars from "react-rating-stars-component";
 
 import axios from "axios";
 import GlobalContext from "../GlobalContext";
+import Comments from "../Components/Comments";
 
 class ItemDetails extends Component {
     state = {
@@ -65,15 +66,14 @@ class ItemDetails extends Component {
                     .then(function (response) {
                         response.data.map((element,index)=>{
                             var tmp ={}
+                            tmp.id = element.id
                             tmp.username = element.userName
                             tmp.date = element.addedDate == null ? "no date" : element.addedDate
                             tmp.text = element.commentDescription
                             tmp.rate = element.rating
-                            tmp.status = element.approvedStatus == 0 ? "pending" : "approved"
+                            tmp.status = element.approvedStatus
                             self.setState({comments : [...self.state.comments, tmp]})
                         })
-
-                        // console.log(response,"k");
                     })
                     .catch(function (error) {
                         alert("error happened!!")
@@ -140,48 +140,32 @@ class ItemDetails extends Component {
 
     };
     loadingComments(username,text,rate,date,status){
-        return(
-        <div className="comment">
-            <p>{username}</p>
-            <p>{date}</p>
-            <p>{text}</p>
-            <p>{status}</p>
-            <ReactStars
-                count={5}
-                fullIcon={<i className="material-icons">star</i>}
-                emptyIcon={<i className="material-icons">star_border</i>}
-                onChange={this.ratingChanged}
-                size={24}
-                value={rate}
-                edit={false}
-                classNames={"stars"}
-                activeColor="#ffd700"
-            />
-        </div>
-        )
+
     }
     addComment = (e)=>{
         var self = this;
         e.preventDefault()
-        // console.log(sessionStorage.getItem("user_id").toString())
-        axios.post(`https://localhost:5001/api/comments/add`,{
-            "userID": sessionStorage.getItem("user_id").toString(),
-            "userName":sessionStorage.getItem("username"),
-            // "userID": "441",
-            // "productID": self.state.item_id,
-            "productID": self.state.item_id.toString(),
-            "commentDescription": self.state.currentComment[0].text,
-            "rating":self.state.currentComment[0].rate,
-            "approvedStatus": 1,
-            "AddedDate" : this.getDate()
-        }).then((res)=>{
-            this.setState({comments : [...self.state.comments, self.state.currentComment[0]]})
+        if(sessionStorage.getItem("userType") != "Product Manager") {
+            axios.post(`https://localhost:5001/api/comments/add`, {
+                "userID": sessionStorage.getItem("user_id").toString(),
+                "userName": sessionStorage.getItem("username"),
+                // "userID": "441",
+                // "productID": self.state.item_id,
+                "productID": self.state.item_id.toString(),
+                "commentDescription": self.state.currentComment[0].text,
+                "rating": self.state.currentComment[0].rate,
+                "approvedStatus": 1,
+                "AddedDate": this.getDate()
+            }).then((res) => {
+                this.setState({comments: [...self.state.comments, self.state.currentComment[0]]})
 
-        }).catch(function (error) {
-            alert("you cannot add more than one comment!")
-            console.log(error.message);
-        })
-
+            }).catch(function (error) {
+                alert("you cannot add more than one comment!")
+                console.log(error.message);
+            })
+        }else{
+            alert("you can't add comments ")
+        }
 
     }
     addItemCart = (e) =>{
@@ -229,6 +213,16 @@ class ItemDetails extends Component {
                 <Col xl={8}>
                     <div className={'details'}>
                         <h3>{this.state.name}</h3>
+                        <ReactStars
+                            count={5}
+                            fullIcon={<i className="material-icons">star</i>}
+                            emptyIcon={<i className="material-icons">star_border</i>}
+                            onClick={this.ratingChanged}
+                            size={24}
+                            value={this.state.rate}
+                            edit={false}
+                            activeColor="#ffd700"
+                        />
                         <h6>{this.state.brand}</h6>
                         <h4>{this.state.price}$</h4>
                         {/*<h4>{this.state.seller}</h4>*/}
@@ -283,41 +277,38 @@ class ItemDetails extends Component {
                 </Row>
                 <hr></hr>
                 <Row>
-                    <Col xl={3}>
-                        <div className="addComments">
-                            <h4>Customer & Reviews</h4>
-                            <div style={{marginBottom: '20px'}}>
-                                <ReactStars
-                                    count={5}
-                                    fullIcon={<i className="material-icons">star</i>}
-                                    emptyIcon={<i className="material-icons">star_border</i>}
-                                    onClick={this.ratingChanged}
-                                    size={24}
-                                    value={this.state.rate}
-                                    edit={false}
-                                    activeColor="#ffd700"
-                                />
-                            </div>
-                            {/*<div>*/}
-                            {/*    {*/}
-                            {/*        this.state.percentageRating.map((element,index)=>{*/}
-                            {/*           return ( this.ratingsBars(index+1,element))*/}
-                            {/*        })*/}
-                            {/*    }*/}
-                            {/*</div>*/}
-                        </div>
-                        <div>
-                            {/*<img src={'https://smartyads.com/images/uploads/vertical-vs-horizontal-ad-strategy.png'} style={{height: '100%',width: '250px'}}/>*/}
-                        </div>
-                    </Col>
-                    <Col xl={9}>
+                    {/*<Col xl={3}>*/}
+                    {/*    <div className="addComments">*/}
+                            <h4 style={{margin: '30px'}}>Latest Comments</h4>
+                    {/*        <div style={{marginBottom: '20px'}}>*/}
+
+                    {/*        </div>*/}
+                    {/*        /!*<div>*!/*/}
+                    {/*        /!*    {*!/*/}
+                    {/*        /!*        this.state.percentageRating.map((element,index)=>{*!/*/}
+                    {/*        /!*           return ( this.ratingsBars(index+1,element))*!/*/}
+                    {/*        /!*        })*!/*/}
+                    {/*        /!*    }*!/*/}
+                    {/*        /!*</div>*!/*/}
+                    {/*    </div>*/}
+                    {/*    <div>*/}
+                    {/*        /!*<img src={'https://smartyads.com/images/uploads/vertical-vs-horizontal-ad-strategy.png'} style={{height: '100%',width: '250px'}}/>*!/*/}
+                    {/*    </div>*/}
+                    {/*</Col>*/}
+                    <Col xl={12}>
                         <div className="addComments">
                             <div>
                                 {
                                     this.state.comments.map((element,index)=>{
-                                        return ( this.loadingComments(element.username,
-                                            element.text,element.rate,element.date,element.status
-                                        ))
+                                        return (  <Comments
+                                                    commentId={element.id}
+                                                    username={element.username}
+                                                    date={element.date}
+                                                    rate={element.rate}
+                                                    text={element.text}
+                                                    userType={sessionStorage.getItem("userType")}
+                                                    approved={element.status}
+                                                    />)
                                     })
                                 }
                             </div>
@@ -343,7 +334,7 @@ class ItemDetails extends Component {
                                            onChange={(event)=>{
                                                var tmp = {
                                                    ...this.state.currentComment[0],
-                                                   status : 'approved',
+                                                   status : 1,
                                                    text: event.target.value
                                                    // text: document.getElementsByName('currentComment')[0].value
                                                }

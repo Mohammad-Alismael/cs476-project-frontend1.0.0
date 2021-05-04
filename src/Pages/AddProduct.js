@@ -26,7 +26,9 @@ class AddProduct extends Component {
             "Description": this.state.Description,
             "Comments": "No Comments",
             "Category": this.givesType(this.state.category),
-            "UserId": sessionStorage.getItem("user_id")
+            "UserId": sessionStorage.getItem("user_id"),
+            "Quantity":this.state.Quantity,
+            "brand":this.state.Brand
             // "UserId": "12"
         }).then(res =>{
             // console.log(res.data)

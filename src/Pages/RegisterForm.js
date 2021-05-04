@@ -6,20 +6,41 @@ import {Row, Container, Col, Input} from "reactstrap";
 import axios from 'axios';
 import GlobalContext from "../GlobalContext";
 import LandingPage from "./LandingPage";
+import {toast} from "react-toastify";
 class RegisterForm extends Component {
     state = {
         username: "",
         password: "",
         email: "",
         confirmPassword: "",
-        userType : ""
+        userType : "",
+        productManagerList: [],
+        isHeSalesManager: false
     }
+    componentDidMount() {
+        axios.get('https://localhost:5001/api/users').then((res)=>{
+            var productManagerList ;
+            productManagerList = res.data.filter((val)=>{
+                if (val.userType == "Product Manager"){
+                    return val
+                }
+            })
+            this.setState({productManagerList})
+            console.log(productManagerList)
+        })
+    }
+
     nextPath(path) {
         this.props.history.push(path);
     }
     updateSate = (e) =>{
         e.preventDefault()
         this.setState({[e.target.name] : e.target.value})
+        if (e.target.value == "Sales Manager"){
+            this.setState({isHeSalesManager: true})
+        }else{
+            this.setState({isHeSalesManager: false})
+        }
     }
     createAccount = (e) =>{
         e.preventDefault()
@@ -43,16 +64,16 @@ class RegisterForm extends Component {
                     this.nextPath('/login')
                 }).catch(error =>{
                     if(error.response.status == 400)
-                        alert("username is taken")
-                    alert("error happened")
+                        toast.info("username is taken")
+                    toast.error("error happened")
                     console.log(error)
             })
 
         }else{
             if (this.state.userType == "" ||this.state.userType == "User Type"){
-                alert("choose user type")
+                toast.warn("choose user type")
             }else{
-                alert("check your info")
+                toast.warn("check your info")
             }
 
         }
@@ -93,8 +114,19 @@ class RegisterForm extends Component {
                                 <option>Customer</option>
                                 <option>Product Manager</option>
                             </Input>
-                            <input type="checkbox" class="checkbox-form" name="terms" value="t"/>
-                            <label for="terms"> I accept the terms & conditions.</label><br/>
+                            {
+                                (this.state.isHeSalesManager)? (
+                                    <Input type="select" name="whichProductManger" className="userType"
+                                           onChange={this.updateSate}
+                                           style={{border : '1px solid rgb(111, 107, 232)',height : '3rem',marginBottom: '8px'}}>
+                                        {
+                                            this.state.productManagerList.map((data)=>{
+                                                return (<option data-id={data.id}>{data.userName}</option>)
+                                            })
+                                        }
+                                    </Input>
+                                ): null
+                            }
                             <button className="register" type="button" name="button"
                                     onClick={this.createAccount}
                                     style={{marginTop: '10px'}}>Log in</button>
