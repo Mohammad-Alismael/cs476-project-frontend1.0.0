@@ -12,6 +12,7 @@ import ReactStars from "react-rating-stars-component";
 import axios from "axios";
 import GlobalContext from "../GlobalContext";
 import Comments from "../Components/Comments";
+import {toast} from "react-toastify";
 
 class ItemDetails extends Component {
     state = {
@@ -85,6 +86,7 @@ class ItemDetails extends Component {
                         var tmp = {}
                         tmp.description = response.data.description
                         tmp.price = response.data.price
+                        tmp.brand = response.data.brand == null ? "no brand" : response.data.brand
                         tmp.rate = response.data.rating
                         tmp.name = response.data.productName
                         resolve(tmp);
@@ -106,11 +108,12 @@ class ItemDetails extends Component {
 
         this.loadData()
             .then((data) => {
-                const {name,description,price,rate} = data
+                const {name,description,price,rate,brand} = data
                console.log(data)
                 this.setState({name})
                 this.setState({price})
                 this.setState({rate})
+                this.setState({brand})
                 this.setState({description})
                 // this.setState({rate})
                 this.setState({
@@ -164,7 +167,7 @@ class ItemDetails extends Component {
                 console.log(error.message);
             })
         }else{
-            alert("you can't add comments ")
+            toast.info("you can't add comments ")
         }
 
     }

@@ -15,7 +15,7 @@ class ShoppingCart extends Component {
         console.log(this.context.cartItems,"this is from shopping cart global")
         var priceBeforeDisc= 0
         this.context.cartItems.map((val,index)=>{
-            priceBeforeDisc+= val.price * 0
+            priceBeforeDisc+= val.price * val.quantity
         })
         this.setState({priceBeforeDisc})
         this.context.setCartItems()
@@ -34,7 +34,7 @@ class ShoppingCart extends Component {
                                         id={val.id}
                                         productName={val.productName}
                                         price={val.price}
-                                        brand={"no brand"}
+                                        brand={val.brand}
                                         rating={val.rating}
                                         quantity={val.quantity}
                                         srcImg={tmp2}/>

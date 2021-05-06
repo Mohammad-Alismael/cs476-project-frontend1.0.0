@@ -37,9 +37,9 @@ class Comments extends Component {
                                     />
                                     <span className="m-b-15 d-block">{this.props.text}</span>
                                     <div className="btnDiv">
-                                        <Button color={"success"} className={"btn-success"}
+                                        <Button color={"success"} className={"btn-success AnotherBtn"}
                                                 onClick={() => this.changeStatus(2)}>Approve</Button>
-                                        <Button color={"danger"} className={"btn-danger"}
+                                        <Button color={"danger"} className={"btn-danger AnotherBtn"}
                                                 onClick={() => this.changeStatus(0)}> Decline</Button>
                                     </div>
                                     <div className="comment-footer">

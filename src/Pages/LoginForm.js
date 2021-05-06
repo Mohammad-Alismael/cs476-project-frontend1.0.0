@@ -5,6 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 import GlobalContext from "../GlobalContext";
 import {toast} from "react-toastify";
+import {Card} from "reactstrap";
 
 class LoginForm extends Component {
     state = {
@@ -75,7 +76,7 @@ class LoginForm extends Component {
               <div className="col-lg-6 col-md-6 col-sm-6 left">
                   <img className="middle-img" src={img} alt="" />
               </div>
-          <div className="col-lg-4 col-md-4 col-sm-4 right">
+          <div className="col-lg-4 col-md-4 col-sm-4 right" >
             <h1>Login</h1>
                     <form className="user-info">
                         <p className={"p-welcome"}>Welcome back, please login to your account.</p>

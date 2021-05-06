@@ -15,7 +15,8 @@ class RegisterForm extends Component {
         confirmPassword: "",
         userType : "",
         productManagerList: [],
-        isHeSalesManager: false
+        isHeSalesManager: false,
+        whichProductManger : 0
     }
     componentDidMount() {
         axios.get('https://localhost:5001/api/users').then((res)=>{
@@ -35,12 +36,22 @@ class RegisterForm extends Component {
     }
     updateSate = (e) =>{
         e.preventDefault()
+
         this.setState({[e.target.name] : e.target.value})
         if (e.target.value == "Sales Manager"){
+
             this.setState({isHeSalesManager: true})
         }else{
             this.setState({isHeSalesManager: false})
         }
+    }
+    getProductManagerName =(e)=>{
+        if (e.target.value == "select product Manager"){
+            toast.info("select product Manager")
+        }else {
+            this.setState({whichProductManger : e.target.options[e.target.selectedIndex].dataset.id})
+        }
+
     }
     createAccount = (e) =>{
         e.preventDefault()
@@ -53,14 +64,13 @@ class RegisterForm extends Component {
                 "age": "no data",
                 "password": this.state.password,
                 "email": this.state.email,
-                "userType" : this.state.userType
+                "userType" : this.state.userType,
+                linking_id : this.state.whichProductManger
             })
                 .then(res => {
-                    const persons = res.data;
-                    // console.log(res)
                     this.context.updateUsername(this.state.username)
                     this.context.updateEmail(this.state.email)
-                    alert("successfully added")
+                    toast.success("successfully added")
                     this.nextPath('/login')
                 }).catch(error =>{
                     if(error.response.status == 400)
@@ -68,9 +78,9 @@ class RegisterForm extends Component {
                     toast.error("error happened")
                     console.log(error)
             })
-
+            console.log(this.state)
         }else{
-            if (this.state.userType == "" ||this.state.userType == "User Type"){
+            if (this.state.userType == "" || this.state.userType == "User Type"){
                 toast.warn("choose user type")
             }else{
                 toast.warn("check your info")
@@ -117,8 +127,9 @@ class RegisterForm extends Component {
                             {
                                 (this.state.isHeSalesManager)? (
                                     <Input type="select" name="whichProductManger" className="userType"
-                                           onChange={this.updateSate}
+                                           onChange={this.getProductManagerName}
                                            style={{border : '1px solid rgb(111, 107, 232)',height : '3rem',marginBottom: '8px'}}>
+                                        <option>select product Manager</option>
                                         {
                                             this.state.productManagerList.map((data)=>{
                                                 return (<option data-id={data.id}>{data.userName}</option>)

@@ -6,6 +6,7 @@ import tmp1 from "../Images/1.png";
 import axios from "axios";
 import GlobalContext from "../GlobalContext";
 import ShoppingCart from "./ShoppingCart";
+import {toast} from "react-toastify";
 class CategoryPage extends Component {
     constructor(props) {
         super(props);
@@ -36,30 +37,56 @@ class CategoryPage extends Component {
     componentDidMount() {
         this.setState({loading: 'true'});
         setTimeout(() => {
-            axios.get(`https://localhost:5001/api/categories/${this.props.category}`).then((res) => {
-                res.data.map((val, key) => {
-                    const tmp = {};
-                    tmp.price = val.price
-                    tmp.name = val.productName
-                    tmp.rate = val.rating
-                    tmp.item_id = val.id
-                    tmp.srcImg = tmp1
-                    this.setState({
-                        Products: [...this.state.Products, [tmp]]
+            if (sessionStorage.getItem("userType") != "Product Manager") {
+                axios.get(`https://localhost:5001/api/categories/${this.props.category}`).then((res) => {
+                    res.data.map((val, key) => {
+                        const tmp = {};
+                        tmp.price = val.price
+                        tmp.name = val.productName
+                        tmp.rate = val.rating
+                        tmp.item_id = val.id
+                        tmp.srcImg = tmp1
+                        this.setState({
+                            Products: [...this.state.Products, [tmp]]
+                        })
+                        this.setState({
+                            newProductList: [...this.state.newProductList, [tmp]]
+                        })
                     })
-                    this.setState({
-                        newProductList: [...this.state.newProductList, [tmp]]
-                    })
+                    this.countStars()
+                }).catch((error) => {
+                    toast.error('fetching data error')
+                    console.log(error)
                 })
-                this.countStars()
-            }).catch((error) => {
-                alert('fetching data error')
-                console.log(error)
-            })
-
-
+            }else{
+                axios.get(`https://localhost:5001/api/products/getByPM/${parseInt(sessionStorage.getItem("user_id"))}`)
+                    .then((res) => {
+                    res.data.filter((val)=>{
+                        if (val.category == this.props.category)
+                            return val
+                    }).map((val, key) => {
+                        const tmp = {};
+                        tmp.price = val.price
+                        tmp.name = val.productName
+                        tmp.rate = val.rating
+                        tmp.item_id = val.id
+                        tmp.srcImg = tmp1
+                        this.setState({
+                            Products: [...this.state.Products, [tmp]]
+                        })
+                        this.setState({
+                            newProductList: [...this.state.newProductList, [tmp]]
+                        })
+                    })
+                    this.countStars()
+                }).catch((error) => {
+                    toast.error('fetching data error')
+                    console.log(error)
+                })
+            }
 
         }, 500)
+
         this.setState({
             loading: 'false'
         });

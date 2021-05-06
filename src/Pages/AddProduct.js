@@ -4,6 +4,7 @@ import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 import Dropzone from 'react-dropzone';
 import '../Pages/css/uploadFile.css'
 import axios from "axios";
+import {toast} from "react-toastify";
 class AddProduct extends Component {
     state = {
         productName : "",
@@ -32,9 +33,9 @@ class AddProduct extends Component {
             // "UserId": "12"
         }).then(res =>{
             // console.log(res.data)
-            alert("uploaded successfully !")
+            toast.success("uploaded successfully !")
         }).catch((error)=>{
-            alert("product name is taken")
+            toast.info("product name is taken")
             console.log(error)
         })
     }
@@ -89,6 +90,7 @@ class AddProduct extends Component {
                         <FormGroup>
                             <Label for="exampleSelect">category</Label>
                                 <Input type="select" name="category" onChange={this.updateSate}>
+                                    <option>choose category</option>
                                     <option>CPU</option>
                                     <option>GPU</option>
                                     <option>Motherboard</option>
