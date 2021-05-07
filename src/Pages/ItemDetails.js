@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {
     Card, CardImg, Col, Row
     , FormGroup, Label, Input, Button,
-    CardTitle, CardBody, CardHeader, CardText, TabPane, TabContent, NavLink, NavItem, Nav, Container, Spinner, Progress
+    CardBody, CardHeader, Spinner,
 } from "reactstrap";
 import tmp1 from '../Images/1.png';
 import '../Pages/css/ItemDetails.css'
@@ -39,7 +39,6 @@ class ItemDetails extends Component {
             {
                 username: sessionStorage.getItem("username"),
                 text: "",
-                // date: this.getDate(),
                 rate: 0,
                 status: "pending"
             }
@@ -56,7 +55,6 @@ class ItemDetails extends Component {
         const day = String(dateObj.getDate()).padStart(2, '0');
         const year = dateObj.getFullYear();
         const output = month  + '\n'+ day  + ',' + year;
-        const output2 = `${day}/${month}/${year}`
         return output
     }
     loadData() {
@@ -80,18 +78,20 @@ class ItemDetails extends Component {
                         alert("error happened!!")
                         console.log(error);
                     })
-                axios.get(`https://localhost:5001/api/products/${this.state.item_id}`)
+
+                this.context.fetchProducts(this.state.item_id)
                     .then(function (response) {
                         console.log("Ff",response)
+                        const {description,price,brand,rating,productName} = response;
                         var tmp = {}
-                        tmp.description = response.data.description
-                        tmp.price = response.data.price
-                        tmp.brand = response.data.brand == null ? "no brand" : response.data.brand
-                        tmp.rate = response.data.rating
-                        tmp.name = response.data.productName
+                        tmp.description = description
+                        tmp.price = price
+                        tmp.brand = brand == null ? "no brand" : brand
+                        tmp.rate = rating
+                        tmp.name = productName
                         resolve(tmp);
                     }).catch(function (error) {
-                    alert("error happened!!")
+                    toast.error("error happened fetching product data")
                     console.log(error);
                 })
 
@@ -115,7 +115,6 @@ class ItemDetails extends Component {
                 this.setState({rate})
                 this.setState({brand})
                 this.setState({description})
-                // this.setState({rate})
                 this.setState({
                     loading: 'false'
                 });
@@ -123,15 +122,6 @@ class ItemDetails extends Component {
 
     }
 
-    ratingsBars(stars,percentage){
-        return (
-            <div className={'ratingBars'}>
-                <p>{stars} stars</p>
-                <p>{percentage}%</p>
-                <Progress color="#61dafb" min={0} max={100} value={percentage} style={{width: '50%',marginLeft: '60px'}}/>
-            </div>
-        )
-    }
     ratingChanged = (newRating) => {
         var tmp = {
         ...this.state.currentComment[0],
@@ -142,9 +132,6 @@ class ItemDetails extends Component {
         });
 
     };
-    loadingComments(username,text,rate,date,status){
-
-    }
     addComment = (e)=>{
         var self = this;
         e.preventDefault()
@@ -152,8 +139,6 @@ class ItemDetails extends Component {
             axios.post(`https://localhost:5001/api/comments/add`, {
                 "userID": sessionStorage.getItem("user_id").toString(),
                 "userName": sessionStorage.getItem("username"),
-                // "userID": "441",
-                // "productID": self.state.item_id,
                 "productID": self.state.item_id.toString(),
                 "commentDescription": self.state.currentComment[0].text,
                 "rating": self.state.currentComment[0].rate,
@@ -174,14 +159,13 @@ class ItemDetails extends Component {
     addItemCart = (e) =>{
         e.preventDefault()
         this.context.fetchProducts(this.state.item_id).then((data)=>{
-            // don't forget to add an api to add the item here
             axios.post(`https://localhost:5001/api/carts/add`, {
                 "userId": parseInt(sessionStorage.getItem("user_id")),
                 "product": this.state.item_id
             }).then((res)=>{
                 this.context.addItemCart(data)
+                // to make the cart up to date
                 this.context.setCartItems()
-                // this.context.changeShoppingCard(this.context.cartItems.length + 1)
             }).catch((error) => {
                 console.log(error)
                 alert("error happened while adding product to cart")
@@ -280,24 +264,7 @@ class ItemDetails extends Component {
                 </Row>
                 <hr></hr>
                 <Row>
-                    {/*<Col xl={3}>*/}
-                    {/*    <div className="addComments">*/}
-                            <h4 style={{margin: '30px'}}>Latest Comments</h4>
-                    {/*        <div style={{marginBottom: '20px'}}>*/}
-
-                    {/*        </div>*/}
-                    {/*        /!*<div>*!/*/}
-                    {/*        /!*    {*!/*/}
-                    {/*        /!*        this.state.percentageRating.map((element,index)=>{*!/*/}
-                    {/*        /!*           return ( this.ratingsBars(index+1,element))*!/*/}
-                    {/*        /!*        })*!/*/}
-                    {/*        /!*    }*!/*/}
-                    {/*        /!*</div>*!/*/}
-                    {/*    </div>*/}
-                    {/*    <div>*/}
-                    {/*        /!*<img src={'https://smartyads.com/images/uploads/vertical-vs-horizontal-ad-strategy.png'} style={{height: '100%',width: '250px'}}/>*!/*/}
-                    {/*    </div>*/}
-                    {/*</Col>*/}
+                    <h4 style={{margin: '30px'}}>Latest Comments</h4>
                     <Col xl={12}>
                         <div className="addComments">
                             <div>
@@ -327,7 +294,6 @@ class ItemDetails extends Component {
                                     emptyIcon={<i className="material-icons">star_border</i>}
                                     onChange={this.ratingChanged}
                                     size={24}
-                                    // value={0}
                                     edit={true}
                                     activeColor="#ffd700"
                                 />
@@ -339,7 +305,6 @@ class ItemDetails extends Component {
                                                    ...this.state.currentComment[0],
                                                    status : 1,
                                                    text: event.target.value
-                                                   // text: document.getElementsByName('currentComment')[0].value
                                                }
 
                                                this.setState({currentComment:

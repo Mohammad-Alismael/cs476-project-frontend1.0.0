@@ -30,7 +30,7 @@ class ShoppingCartItems extends Component {
                 </Col>
                 <Col xl={9}>
                     <CardBody>
-                        <p>{this.props.brand} - {this.props.productName}</p>
+                        <p>{this.props.brand == null ? "no brand" : this.props.brand} - {this.props.productName}</p>
                         <p>{this.props.price}$</p>
                         <Counter value={this.props.quantity}/>
                         <Button color={"danger"} style={{float: 'right',marginTop:'100px',marginRight:'-120px'}} onClick={this.dismiss}>Remove</Button>

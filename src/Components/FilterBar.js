@@ -33,7 +33,11 @@ class FilterBar extends Component {
             }
             // filter price
         }).filter((val) => {
-            if (val[0].price <= this.state.max && val[0].price >= this.state.min) {
+            if (this.state.max != "") {
+                if (val[0].price <= this.state.max && val[0].price >= this.state.min) {
+                    return val
+                }
+            }else {
                 return val
             }
             // filter rate

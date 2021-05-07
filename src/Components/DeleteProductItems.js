@@ -122,7 +122,7 @@ class DeleteProductItems extends Component {
                                 <Label for="exampleEmail">Description</Label>
                                 <Input type="textarea" name="description" placeholder={this.props.description} disabled={this.state.locker} onChange={this.updateSate}/>
                             </FormGroup>
-                            <Button color={"danger"} style={{float: 'right',margin: '20px 10px'}} onClick={this.deleteItem}>Remove</Button>
+                            <Button color={"danger"}  style={{marginTop: '475px',marginRight: '100px'}}onClick={this.deleteItem}>Remove</Button>
                             <Button color={'primary'} style={{margin : '20px 10px',float: 'right'}} onClick={this.updateInfo}>update info</Button>
                             <Button color={'primary'}  style={{margin : '20px 10px',float: 'right'}}
                                     onClick={()=> this.setState({locker : !this.state.locker})}>{this.state.locker ? "unlock" : "lock"}</Button>

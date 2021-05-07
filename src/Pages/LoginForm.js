@@ -48,7 +48,7 @@ class LoginForm extends Component {
                 }
             }).catch(error =>{
                 if(error.response.status == 401)
-                    toast.error("username or password is incorrect")
+                    toast.error("username or password are incorrect")
                     // alert("username or password is incorrect")
 
             })
