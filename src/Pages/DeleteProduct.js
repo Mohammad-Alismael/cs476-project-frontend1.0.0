@@ -13,8 +13,6 @@ class DeleteProduct extends Component {
             productList : [],
             functions :[]
         };
-        this.handleChildUnmount = this.handleChildUnmount.bind(this);
-        this.handleChildUnmount2 = this.handleChildUnmount2.bind(this);
     }
 
     loadProducts(){
@@ -38,7 +36,8 @@ class DeleteProduct extends Component {
             const newArray = data.filter((val) => {
                 return val['userId'] == sessionStorage.getItem("user_id")
             });
-            this.setState({productList : [newArray]})
+            console.log(newArray)
+            this.setState({productList : newArray})
             this.setState({
                 loading: 'false'
             });
@@ -46,16 +45,6 @@ class DeleteProduct extends Component {
 
     }
 
-    handleChildUnmount(){
-        var tmp = [...this.state.children]
-        tmp[0] = false
-        this.setState({children: [tmp]});
-    }
-    handleChildUnmount2(){
-        var tmp = [...this.state.children]
-        tmp[1] = false
-        this.setState({renderChild: [tmp]});
-    }
     render() {
 
         if (this.state.loading === 'initial') {
@@ -74,27 +63,43 @@ class DeleteProduct extends Component {
                 </div>
             );
         }
-        return (
-            <Container>
-                {
-                    this.state.productList[0].map((val, index) => {
-                       return(
-                           <DeleteProductItems
-                               id={val.id}
-                                srcImg={tmp2}
-                                productName={val.productName}
-                                description={val.description}
-                               category={val.category}
-                                price={val.price}
-                                rating={val.rating}
-                                brand={"no brand"}
-                        />
+        if (this.props.match.params.item_id == "") {
+            return (
+                <Container>
+                    {
+                        this.state.productList.map((val, index) => {
+                            return (
+                                <DeleteProductItems
+                                    id={val.id}
+                                    srcImg={tmp2}
+                                    productName={val.productName}
+                                    description={val.description}
+                                    category={val.category}
+                                    price={val.price}
+                                    rating={val.rating}
+                                    brand={val.brand == null ? "no brand" : val.brand}
+                                />
 
-                        )
-                    })
-                }
-            </Container>
-        );
+                            )
+                        })
+                    }
+                </Container>
+            );
+        }else {
+            return (
+                <DeleteProductItems
+                    id={this.props.match.params.item_id}
+                    srcImg={tmp2}
+                    productName={"productName"}
+                    description={"description"}
+                    category={"val.category"}
+                    price={this.props.match.params.item_id}
+                    rating={5}
+                    brand={"brand" == null ? "no brand" : "val.brand"}
+                />
+
+            );
+        }
     }
 }
 

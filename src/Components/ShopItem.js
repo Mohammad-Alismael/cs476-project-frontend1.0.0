@@ -80,9 +80,9 @@ class ShopItem extends Component {
                         activeColor="#ffd700"
                     />
                     {
-                        this.props.addToCartbtn ?
-                            (<Button style={{width : "100%"}} id={'btn'} onClick={this.context.changeShoppingCard}>Add to cart</Button>)
-                            : <></>
+                        this.props.addToCartbtn && this.props.userType == "Product Manager" ?
+                            (<Button style={{width : "100%"}} id={'btn'}>Edit product</Button>)
+                            : null
                     }
 
                 </CardBody>

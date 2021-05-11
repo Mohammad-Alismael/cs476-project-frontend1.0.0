@@ -3,14 +3,16 @@ import Counter from "./Counter";
 import ReactStars from "react-rating-stars-component";
 import {Card, Col,CardBody,CardImg,Button,Row,FormGroup,Label,Input} from "reactstrap";
 import axios from "axios";
+import {toast} from "react-toastify";
 
 class DeleteProductItems extends Component {
     state = {
         locker : true,
-        productName:"",
-        price:0,
-        description:"",
-        category:"",
+        productName:this.props.productName,
+        price:this.props.price,
+        brand:this.props.brand,
+        description:this.props.description,
+        category:this.givesType(this.props.category),
 
     }
     deleteItem = (e) =>{
@@ -62,15 +64,15 @@ class DeleteProductItems extends Component {
             "productName": this.state.productName,
             "price": this.state.price,
             "description": this.state.description,
-            "category": this.givesTypeString(this.state.category)
+            "brand": this.state.brand,
+            "category": this.props.category
         }).then((res)=>{
             console.log(res)
             window.location.reload();
         }).catch((error)=>{
-            alert("error happened for updating data!!")
+            toast.error("error happened for updating data!!")
             console.log(error)
         })
-        console.log(this.state)
     }
     updateSate = (e) =>{
         e.preventDefault()
@@ -98,19 +100,30 @@ class DeleteProductItems extends Component {
                         <CardBody>
                             <FormGroup>
                                 <Label for="exampleEmail">brand</Label>
-                                <Input type="text" name="brand" placeholder={this.props.brand} disabled={this.state.locker} onChange={this.updateSate}/>
+                                <Input type="text" name="brand"
+                                       value={this.state.brand}
+                                       disabled={this.state.locker}
+                                       onChange={this.updateSate}/>
                             </FormGroup>
                             <FormGroup>
                                 <Label for="exampleEmail">Product name</Label>
-                                <Input type="text" name="productName" placeholder={this.props.productName} disabled={this.state.locker} onChange={this.updateSate}/>
+                                <Input type="text" name="productName"
+                                       value={this.state.productName}
+                                       disabled={this.state.locker}
+                                       onChange={this.updateSate}/>
                             </FormGroup>
                             <FormGroup>
                                 <Label for="exampleEmail">Price</Label>
-                                <Input type="text" name="price" placeholder={this.props.price} disabled={this.state.locker} onChange={this.updateSate}/>
+                                <Input type="text" name="price"
+                                       value={this.state.price}
+                                       disabled={this.state.locker}
+                                       onChange={this.updateSate}/>
                             </FormGroup>
                             <FormGroup>
                                 <Label for="exampleSelect">category</Label>
-                                <Input type="select" name="category" disabled={this.state.locker} onChange={this.updateSate}>
+                                <Input type="select" name="category"
+                                       disabled={this.state.locker}
+                                       onChange={this.updateSate}>
                                     <option selected={this.givesType(this.props.category) == "CPU"}>CPU</option>
                                     <option selected={this.givesType(this.props.category) == "GPU"}>GPU</option>
                                     <option selected={this.givesType(this.props.category) == "Motherboard"}>Motherboard</option>
@@ -120,7 +133,10 @@ class DeleteProductItems extends Component {
                             </FormGroup>
                             <FormGroup>
                                 <Label for="exampleEmail">Description</Label>
-                                <Input type="textarea" name="description" placeholder={this.props.description} disabled={this.state.locker} onChange={this.updateSate}/>
+                                <Input type="textarea" name="description"
+                                       value={this.state.description}
+                                       disabled={this.state.locker}
+                                       onChange={this.updateSate}/>
                             </FormGroup>
                             <Button color={"danger"}  style={{marginTop: '475px',marginRight: '100px'}}onClick={this.deleteItem}>Remove</Button>
                             <Button color={'primary'} style={{margin : '20px 10px',float: 'right'}} onClick={this.updateInfo}>update info</Button>

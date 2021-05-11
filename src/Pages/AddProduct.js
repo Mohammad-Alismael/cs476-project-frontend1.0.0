@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Card, CardBody, Col} from "reactstrap";
+import {Card, CardBody, Col, Container} from "reactstrap";
 import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 import Dropzone from 'react-dropzone';
 import '../Pages/css/uploadFile.css'
@@ -72,7 +72,8 @@ class AddProduct extends Component {
     }
     render()  {
         return (
-            <Card body style={{width:'111%'}}>
+            <Container style={{marginLeft: '11%'}}>
+            <Card style={{margin: '20px'}}>
                 <CardBody>
                     <Form>
                         <FormGroup>
@@ -123,6 +124,7 @@ class AddProduct extends Component {
                     onClick={this.uploadProduct}>Add product</Button>
                 </CardBody>
             </Card>
+            </Container>
         );
     }
 }

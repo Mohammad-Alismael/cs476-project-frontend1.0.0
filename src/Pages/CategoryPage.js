@@ -142,7 +142,7 @@ class CategoryPage extends Component {
                             stars={this.state.stars}
                         />
                     </Col>
-                    <Col xl={9} style={{marginTop: '-120px'}}>
+                    <Col xl={9}>
                         <Row>
                             {
                                 this.state.newProductList.map((element, index) => {
@@ -150,7 +150,8 @@ class CategoryPage extends Component {
                                         <Col xl={3}>
                                             <ShopItem price={element[0].price} productName={element[0].name}
                                                       item_id={element[0].item_id} srcImg={element[0].srcImg}
-                                                      rate={element[0].rate} addToCartbtn={true}
+                                                      rate={element[0].rate} addToCartbtn={false}
+                                                      userType={""}
                                             />
                                         </Col>
                                     )

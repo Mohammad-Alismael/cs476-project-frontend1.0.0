@@ -10,12 +10,9 @@ import LayoutDefault from "./Pages/LayoutDefault";
 import CategoryPage from "./Pages/CategoryPage";
 import AreNotLoggedIn from "./Pages/AreNotLoggedIn";
 import ShoppingCart from "./Pages/ShoppingCart";
-import Cart from "./Components/Cart";
 import ProductManager from "./Pages/ProductManager";
 import AddProduct from "./Pages/AddProduct";
-import EditProduct from "./Pages/EditProduct";
 import DeleteProduct from "./Pages/DeleteProduct";
-import {useContext, useEffect} from "react";
 import DashBoard from "./Pages/DashBoard";
 import FactorAuthentication from './Pages/FactorAuthentication'
 import {ProtectedRoute} from "./protected.route";
@@ -47,8 +44,6 @@ function App() {
         }
     ]
 
-    const notify = () => toast("Wow so easy!");
-
   return (
 
       <GlobalProvider>
@@ -77,7 +72,7 @@ function App() {
                           <ProtectedRoute exact path="/checkout" component={Checkout} userType={"all"} />
                           <ProtectedRoute exact path="/product-owner-landing-page" component={ProductManager} userType={"Product Manager"} />
                           <ProtectedRoute exact path="/product-owner-landing-page/add-products" component={AddProduct} userType={"Product Manager"} />
-                          <ProtectedRoute exact path="/product-owner-landing-page/edit-products" component={EditProduct} userType={"Product Manager"} />
+                          <ProtectedRoute exact path="/product-owner-landing-page/delete-products/:item_id" component={DeleteProduct} userType={"Product Manager"} />
                           <ProtectedRoute exact path="/product-owner-landing-page/delete-products" component={DeleteProduct} userType={"Product Manager"} />
                           <ProtectedRoute exact path="/dashBoard" component={DashBoard} userType={"Sales Manager"} />
                       </LayoutDefault>

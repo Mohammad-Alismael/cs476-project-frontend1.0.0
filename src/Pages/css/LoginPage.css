@@ -13,6 +13,7 @@ img {
 
 .middle-img {
   height: 100%;
+  width: 400px;
 }
 .create-right{
   padding-left: 2% !important;
@@ -29,22 +30,22 @@ img {
 }
 
 .right {
-  padding-left: 2% !important;
+  /*padding-left: 2% !important;*/
   background-color: white;
   text-align: left;
-  padding-bottom: 10%;
-}
+  /*padding-bottom: 10%;*/
+  width: auto;
+  position: relative;
 
-/* Div section  */
-.container-fluid {
-  margin-top: 10%;
-  margin-left: 20%;
 }
+.right h1{
+ padding-top: 15px;
+}
+.right p{
+   padding-top: 5px;
+ }
 
-.user-info {
-  padding: 0;
-  margin: 0;
-}
+
 
 .form-input {
   border-radius: 8px;
@@ -69,7 +70,7 @@ img {
 }
 
 .password, .email {
-  font-size: 0.8rem;
+  font-size: 1rem;
   color: black;
 }
 
@@ -86,7 +87,21 @@ img {
   margin-bottom: 5%;
 }
 
+.noPadding {
+  position: absolute;
+  left: 10%;
+  top: 18%;
+  /*background: red;*/
+  boxShadow: 0px 20px 47px 14px rgba(0,0,0,0.1);
+}
 
+.noPadding2 {
+  position: absolute;
+  left: 12%;
+  top: 13%;
+  /*background: red;*/
+  boxShadow: 0px 20px 47px 14px rgba(0,0,0,0.1);
+}
 
 .register-button {
   position: absolute;
@@ -100,10 +115,8 @@ img {
   border-radius: 5px;
 }
 
-.register {
-  position: absolute;
-  left: 10%;
-  margin-top: 10%;
+.register,.registerBtn {
+  margin: 10%;
   color: white;
   border-style: solid;
   border-color: rgb(111, 107, 232);
@@ -112,7 +125,11 @@ img {
   padding: 1.5% 6% 1.5% 6%;
   border-radius: 5px;
 }
-.register:hover{
+.registerBtn{
+  width: 200px;
+  margin-left: 80px;
+}
+.register:hover,.registerBtn:hover{
   border-color: rgb(83, 80, 174);
   color: rgb(83, 80, 174);
 }
@@ -128,8 +145,7 @@ img {
 }
 
 .login {
-  position: absolute;
-  right: 25%;
+  /*margin-right: 10%;*/
   margin-top: 10%;
   color: white;
   border-style: solid;

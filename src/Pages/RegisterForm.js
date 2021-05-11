@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import '../Pages/css/LoginPage.css'
 import img from '../Pages/css/U.png'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {Row, Container, Col, Input} from "reactstrap";
+import {Row, Container, Col, Input, Button} from "reactstrap";
 import axios from 'axios';
 import GlobalContext from "../GlobalContext";
 import LandingPage from "./LandingPage";
@@ -92,57 +92,58 @@ class RegisterForm extends Component {
     }
     render() {
         return (
-            <Container fluid>
+            <Container fuild className={'noPadding2'}>
                 <Row>
-                    <div class="col-lg-6 col-md-6 col-sm-6 create-left" >
-                        <img className={"middle-img"} src={img} alt="" />
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-4 create-right">
+                    <Col lg={6} md={6} sm={0} className="left">
+                        <img className="middle-img" src={img} alt="" />
+                    </Col>
+                    <Col lg={4} md={4} sm={12} xs={12} className="right" >
                         <h1>Create Account</h1>
-                        <p>Fill the below form to create a new account.</p>
-                        <form class="user-info">
-                            <input type="text" class="form-input" name="username" placeholder="Username"
-                                   onChange={this.updateSate}
-                                   required/><br/>
-                            <label for="fname"></label><br/>
-                            <input type="email" className="form-input" name="email" id="email" placeholder="Email"
-                                   onChange={this.updateSate}
-                                   title={"@gmail.com"}
-                                   required pattern={'/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$/'}/><br/>
-                            <label for="password"></label><br/>
-                            <input type="password" class="form-input" name="password" placeholder="Password"
-                                   onChange={this.updateSate}
-                                   required/><br/>
-                            <label for="confirm-password"></label><br/>
-                            <input type="password" className="form-input confirm-password" name="confirmPassword" placeholder="Confirm Password"
-                                   onChange={this.updateSate}required/><br/>
+
+                        <div class="user-info">
+                            <label className="email" htmlFor="email">Username</label><br/>
+                            <input type="text" className="form-input" name="username" required
+                                               onChange={this.updateSate}/><br/>
+                            <label className="email">Email</label><br/>
+                            <input type="email" className="form-input" name="email" id="email"
+                                               onChange={this.updateSate}
+                                               required pattern={'/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$/'}/><br/>
+                            <label className="email">Password</label><br/>
+                            <input type="password" class="form-input" name="password"
+                                               onChange={this.updateSate}
+                                               required/><br/>
+                            <label className="email">confirmPassword</label><br/>
+                            <input type="password" className="form-input confirm-password" name="confirmPassword"
+                                               onChange={this.updateSate}required/><br/>
+                            <label className="email">User type</label><br/>
                             <Input type="select" name="userType" className="userType"
-                                   onChange={this.updateSate}
-                                   style={{border : '1px solid rgb(111, 107, 232)',height : '3rem',marginBottom: '8px'}}>
-                                <option>User Type</option>
-                                <option>Sales Manager</option>
-                                <option>Customer</option>
-                                <option>Product Manager</option>
+                                               onChange={this.updateSate}
+                                               style={{border : '1px solid rgb(111, 107, 232)',height : '3rem',marginBottom: '8px'}}>
+                                            <option>User Type</option>
+                                            <option>Sales Manager</option>
+                                            <option>Customer</option>
+                                            <option>Product Manager</option>
                             </Input>
-                            {
-                                (this.state.isHeSalesManager)? (
-                                    <Input type="select" name="whichProductManger" className="userType"
-                                           onChange={this.getProductManagerName}
-                                           style={{border : '1px solid rgb(111, 107, 232)',height : '3rem',marginBottom: '8px'}}>
-                                        <option>select product Manager</option>
                                         {
-                                            this.state.productManagerList.map((data)=>{
-                                                return (<option data-id={data.id}>{data.userName}</option>)
-                                            })
+                                            (this.state.isHeSalesManager)? (
+                            <Input type="select" name="whichProductManger" className="userType"
+                                                       onChange={this.getProductManagerName}
+                                                       style={{border : '1px solid rgb(111, 107, 232)',height : '3rem',marginBottom: '8px'}}>
+                                                    <option>select product Manager</option>
+                                                    {
+                                                        this.state.productManagerList.map((data)=>{
+                                                            return (<option data-id={data.id}>{data.userName}</option>)
+                                                        })
+                                                    }
+                            </Input>
+                                            ): null
                                         }
-                                    </Input>
-                                ): null
-                            }
-                            <button className="register" type="button" name="button"
-                                    onClick={this.createAccount}
-                                    style={{marginTop: '10px'}}>Log in</button>
-                        </form>
-                    </div>
+                            <button className="registerBtn"
+                                    type="button"
+                                    name="button"
+                                    onClick={this.createAccount}>Log in</button>
+                        </div>
+                    </Col>
                 </Row>
             </Container>
     );

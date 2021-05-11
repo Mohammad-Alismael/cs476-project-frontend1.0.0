@@ -68,21 +68,6 @@ class ProfileSettings extends Component {
 
                     <div class="row">
                       <div class="col-lg-6 col-md-6 col-sm-6">
-                        <label for="text" class="form-label">First Name</label>
-                        <input class="form-control" type="text" name="name"
-                               disabled={this.state.locker}
-                               onChange={this.updateSate}
-                               value={this.state.name}/>
-                      </div>
-                      <div class="col-lg-6 col-md-6 col-sm-6">
-                        <label for="text" class="form-label">Last Name</label>
-                        <input class="form-control" type="email" name="surname"
-                               disabled={this.state.locker}
-                               onChange={this.updateSate}
-                               value={this.state.surname}></input>
-
-                      </div>
-                      <div class="col-lg-6 col-md-6 col-sm-6">
                         <label for="email" class="form-label">Email address</label>
                         <input class="form-control" type="email" name="email"
                                disabled={this.state.locker}
