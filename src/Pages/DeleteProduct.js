@@ -63,7 +63,7 @@ class DeleteProduct extends Component {
                 </div>
             );
         }
-        if (this.props.match.params.item_id == "") {
+        // if (this.props.match.params.item_id == "") {
             return (
                 <Container>
                     {
@@ -71,7 +71,7 @@ class DeleteProduct extends Component {
                             return (
                                 <DeleteProductItems
                                     id={val.id}
-                                    srcImg={tmp2}
+                                    srcImg={val.picture}
                                     productName={val.productName}
                                     description={val.description}
                                     category={val.category}
@@ -85,21 +85,21 @@ class DeleteProduct extends Component {
                     }
                 </Container>
             );
-        }else {
-            return (
-                <DeleteProductItems
-                    id={this.props.match.params.item_id}
-                    srcImg={tmp2}
-                    productName={"productName"}
-                    description={"description"}
-                    category={"val.category"}
-                    price={this.props.match.params.item_id}
-                    rating={5}
-                    brand={"brand" == null ? "no brand" : "val.brand"}
-                />
-
-            );
-        }
+        // }else {
+        //     return (
+        //         <DeleteProductItems
+        //             id={this.props.match.params.item_id}
+        //             srcImg={tmp2}
+        //             productName={"productName"}
+        //             description={"description"}
+        //             category={"val.category"}
+        //             price={this.props.match.params.item_id}
+        //             rating={5}
+        //             brand={"brand" == null ? "no brand" : val.brand}
+        //         />
+        //
+        //     );
+        // }
     }
 }
 

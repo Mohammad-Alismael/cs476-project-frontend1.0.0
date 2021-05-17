@@ -12,7 +12,8 @@ class AddProduct extends Component {
         price:"",
         category : "",
         Description : "",
-        Quantity : ""
+        Quantity : "",
+        img:""
 
     }
     updateSate = (e) =>{
@@ -29,8 +30,8 @@ class AddProduct extends Component {
             "Category": this.givesType(this.state.category),
             "UserId": sessionStorage.getItem("user_id"),
             "Quantity":this.state.Quantity,
-            "brand":this.state.Brand
-            // "UserId": "12"
+            "brand":this.state.Brand,
+            "picture": this.state.img
         }).then(res =>{
             // console.log(res.data)
             toast.success("uploaded successfully !")
@@ -64,11 +65,26 @@ class AddProduct extends Component {
 
             }
         )
-        var fd = new FormData()
-        fd.append('image',files);
-        fd.append('imageName', files.name)
-        console.log(files)
-        console.log(fd)
+        let base64String = "";
+        let imageBase64Stringsep = "";
+        const reader = new FileReader();
+        const self = this;
+        reader.onload = function () {
+            base64String = reader.result.replace("data:", "")
+                .replace(/^.+,/, "");
+            imageBase64Stringsep = base64String;
+            self.setState({img : imageBase64Stringsep},function () {
+                this.renderImg()
+            })
+        }
+        var file = document.querySelector(
+            'input[type=file]')['files'][0]
+        reader.readAsDataURL(file);
+
+
+    }
+    renderImg(){
+        console.log(this.state.img,"dd")
     }
     render()  {
         return (

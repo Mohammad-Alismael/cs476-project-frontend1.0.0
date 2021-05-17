@@ -28,13 +28,8 @@ class ItemDetails extends Component {
         brand : 'Apple',
         loading: 'initial',
         seller: "seller",
-        percentageRating :[
-            34,
-            23,
-            12,
-            89,
-            99
-        ],
+        picture : "",
+        quantityAr: [],
         currentComment : [
             {
                 username: sessionStorage.getItem("username"),
@@ -82,20 +77,20 @@ class ItemDetails extends Component {
                 this.context.fetchProducts(this.state.item_id)
                     .then(function (response) {
                         console.log("Ff",response)
-                        const {description,price,brand,rating,productName} = response;
+                        const {description,price,brand,rating,productName,picture,quantity} = response;
                         var tmp = {}
                         tmp.description = description
                         tmp.price = price
-                        tmp.brand = brand == null ? "no brand" : brand
-                        tmp.rate = rating
-                        tmp.name = productName
+                        tmp.brand = brand == null ? "no brand" : brand;
+                        tmp.rate = rating;
+                        tmp.quantity = quantity;
+                        tmp.name = productName;
+                        tmp.picture = picture
                         resolve(tmp);
                     }).catch(function (error) {
                     toast.error("error happened fetching product data")
                     console.log(error);
                 })
-
-
 
             }, 500);
         });
@@ -108,12 +103,14 @@ class ItemDetails extends Component {
 
         this.loadData()
             .then((data) => {
-                const {name,description,price,rate,brand} = data
-               console.log(data)
+                const {name,description,price,rate,brand,picture,quantity} = data
+               console.log(data,"Ffgfgaef")
                 this.setState({name})
                 this.setState({price})
                 this.setState({rate})
                 this.setState({brand})
+                this.setState({quantity})
+                this.setState({picture})
                 this.setState({description})
                 this.setState({
                     loading: 'false'
@@ -173,6 +170,9 @@ class ItemDetails extends Component {
 
         })
     }
+    loadQuantity(){
+
+    }
     render() {
 
         if (this.state.loading === 'initial') {
@@ -195,7 +195,7 @@ class ItemDetails extends Component {
             <Card body style={{width: '111%'}}>
                 <Row>
                 <Col xl={4}>
-                <CardImg src={tmp1}/>
+                <CardImg src={'data:image/jpeg;base64,' + this.state.picture}/>
                 </Col>
                 <Col xl={8}>
                     <div className={'details'}>
@@ -227,6 +227,9 @@ class ItemDetails extends Component {
                         <FormGroup style={{width: '7%'}}>
                             <Label for="exampleSelect">Quantity</Label>
                             <Input type="select" name="select" id="exampleSelect">
+                                {
+
+                                }
                                 <option>1</option>
                                 <option>2</option>
                                 <option>3</option>

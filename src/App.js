@@ -19,6 +19,7 @@ import {ProtectedRoute} from "./protected.route";
 import Checkout from "./Pages/Checkout";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import FundPage from "./Pages/FundPage";
 function App() {
 
     const routes = [
@@ -66,6 +67,7 @@ function App() {
                       <Route exact path="/register" component={RegisterForm} />
                       <Route exact path="/factor-authentication" component={FactorAuthentication} />
                       <Route exact path="/areNotLoggedIn" component={AreNotLoggedIn} />
+                      <Route exact path="/fund-page" component={FundPage} />
                       <LayoutDefault>
                           <ProtectedRoute exact path="/profile-settings" component={ProfileSettings} userType={"all"} />
                           <ProtectedRoute exact path="/shopping-cart" component={ShoppingCart} userType={"all"} />

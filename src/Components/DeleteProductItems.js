@@ -65,7 +65,8 @@ class DeleteProductItems extends Component {
             "price": this.state.price,
             "description": this.state.description,
             "brand": this.state.brand,
-            "category": this.props.category
+            "category": this.givesTypeString(this.state.category),
+            "picture": this.props.srcImg
         }).then((res)=>{
             console.log(res)
             window.location.reload();
@@ -83,7 +84,7 @@ class DeleteProductItems extends Component {
             <Card className={"shoppingCartItems"}>
                 <Row>
                     <Col xl={3} style={{borderRight: '1px solid black'}}>
-                        <CardImg src={this.props.srcImg} />
+                        <CardImg src={'data:image/jpeg;base64,' + this.props.srcImg} />
                         <Row style={{marginLeft: '12px'}}>
                         <ReactStars
                             count={5}

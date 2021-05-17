@@ -45,7 +45,7 @@ class CategoryPage extends Component {
                         tmp.name = val.productName
                         tmp.rate = val.rating
                         tmp.item_id = val.id
-                        tmp.srcImg = tmp1
+                        tmp.srcImg = val.picture
                         this.setState({
                             Products: [...this.state.Products, [tmp]]
                         })
@@ -70,7 +70,7 @@ class CategoryPage extends Component {
                         tmp.name = val.productName
                         tmp.rate = val.rating
                         tmp.item_id = val.id
-                        tmp.srcImg = tmp1
+                        tmp.srcImg = val.picture
                         this.setState({
                             Products: [...this.state.Products, [tmp]]
                         })
@@ -146,6 +146,7 @@ class CategoryPage extends Component {
                         <Row>
                             {
                                 this.state.newProductList.map((element, index) => {
+                                    console.log(element[0].srcImg)
                                     return (
                                         <Col xl={3}>
                                             <ShopItem price={element[0].price} productName={element[0].name}

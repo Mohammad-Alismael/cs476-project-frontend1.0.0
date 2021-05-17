@@ -65,7 +65,7 @@ class ShopItem extends Component {
         }
         return (
             <Card sm="6" className={"shopItem"} onClick={() => this.nextPath(`/item-details/${this.props.item_id}`)}>
-                <CardImg top width="100%" src={this.props.srcImg} alt="Card image cap" />
+                <CardImg top width="100%" src={'data:image/jpeg;base64,' + this.props.srcImg} alt="product Img" />
                 <CardBody>
                     <CardTitle tag="h5">{this.props.productName}</CardTitle>
                     <CardSubtitle tag="h6" className="mb-2 text-muted">{this.props.price}$</CardSubtitle>
