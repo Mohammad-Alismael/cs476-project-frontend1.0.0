@@ -29,6 +29,7 @@ class ItemDetails extends Component {
         loading: 'initial',
         seller: "seller",
         picture : "",
+        quantity: 1,
         quantityAr: [],
         currentComment : [
             {
@@ -104,17 +105,19 @@ class ItemDetails extends Component {
         this.loadData()
             .then((data) => {
                 const {name,description,price,rate,brand,picture,quantity} = data
-               console.log(data,"Ffgfgaef")
                 this.setState({name})
                 this.setState({price})
                 this.setState({rate})
                 this.setState({brand})
-                this.setState({quantity})
+                // this.setState({quantity})
                 this.setState({picture})
                 this.setState({description})
                 this.setState({
                     loading: 'false'
                 });
+
+                this.loadQuantity(quantity)
+                console.log(this.state, "checking options")
             });
 
     }
@@ -155,23 +158,53 @@ class ItemDetails extends Component {
     }
     addItemCart = (e) =>{
         e.preventDefault()
-        this.context.fetchProducts(this.state.item_id).then((data)=>{
-            axios.post(`https://localhost:5001/api/carts/add`, {
-                "userId": parseInt(sessionStorage.getItem("user_id")),
-                "product": this.state.item_id
-            }).then((res)=>{
-                this.context.addItemCart(data)
-                // to make the cart up to date
-                this.context.setCartItems()
-            }).catch((error) => {
-                console.log(error)
-                alert("error happened while adding product to cart")
+        if(!this.context.cartItems.some(item => item.productName === this.state.name)){
+            this.context.fetchProducts(this.state.item_id).then((data)=>{
+                axios.post(`https://localhost:5001/api/carts/add`, {
+                    "userId": parseInt(sessionStorage.getItem("user_id")),
+                    "product": this.state.item_id,
+                    "quantity" : this.state.quantity
+                }).then((res)=>{
+                    this.context.addItemCart(data,this.state.quantity)
+                    // to make the cart up to date
+                    this.context.setCartItems()
+                }).catch((error) => {
+                    console.log(error)
+                    toast.error("error happened while adding product to cart")
+                })
+
             })
+        }else{
+            // this part for the product if the product exists in cart or not
+            var oldQnty = 0;
+            this.context.cartItems.map((val,index)=>{
+                if (val.id == this.state.item_id){
+                    oldQnty  = val.chosenQuantity
+                }
+            })
+            var newQnty = this.state.quantity+oldQnty;
+            if(newQnty <= this.state.quantityAr.length) {
+                axios.post(`https://localhost:5001/api/carts/update/${this.state.item_id}/${parseInt(sessionStorage.getItem("user_id"))}/${newQnty}`)
+                    .then((res) => {
+                        // to make the cart up to date
+                        this.context.setCartItems()
+                    }).catch((error) => {
+                    console.log(error)
+                    toast.error("error happened while changing the quantity fro global")
+                })
+            }else {
+                toast.info("you can't buy more than the stock")
+            }
+        }
 
-        })
+
+
+
     }
-    loadQuantity(){
-
+    loadQuantity(quantity){
+        for (let i = 1; i <= quantity; i++) {
+            this.setState({quantityAr: [...this.state.quantityAr, <option>{i}</option>]})
+        }
     }
     render() {
 
@@ -226,15 +259,11 @@ class ItemDetails extends Component {
                         <hr></hr>
                         <FormGroup style={{width: '7%'}}>
                             <Label for="exampleSelect">Quantity</Label>
-                            <Input type="select" name="select" id="exampleSelect">
+                            <Input type="select" name="select" id="exampleSelect"
+                                onChange={(e)=> {this.setState({quantity : parseInt(e.target.value)})}}>
                                 {
-
+                                    this.state.quantityAr
                                 }
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
                             </Input>
                         </FormGroup>
 

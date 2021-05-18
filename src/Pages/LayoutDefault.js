@@ -160,7 +160,7 @@ class LayoutDefault extends Component {
                             </NavbarText>
                             <UncontrolledDropdown>
                                 <DropdownToggle caret style={otherDropDown}>
-                                    {this.context.IsLoggedIn  ? `hello ${this.context.username}` : "My account"}
+                                    {sessionStorage.getItem('isLoggedIn') == "true"  ? `hello ${sessionStorage.getItem('username')}` : "My account"}
                                 </DropdownToggle>
                                 <DropdownMenu right>
                                     <DropdownItem href={'/profile-settings'}>
@@ -181,7 +181,6 @@ class LayoutDefault extends Component {
                         </Nav>
                         <NavbarText>
                             <div className="cartBtn" onClick={()=> this.nextPath('/shopping-cart')}>
-                                {/*adding this.context.shoppingCard*/}
                                 <span className={"number"} data-units={this.context.shoppingCard}>Cart</span>
                                 <i className="material-icons">local_grocery_store</i>
                             </div>

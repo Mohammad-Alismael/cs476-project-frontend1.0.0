@@ -1,5 +1,6 @@
 import React, { Component, createContext } from 'react'
 import axios from "axios";
+import {toast} from "react-toastify";
 
 const GlobalContext = createContext();
 export class GlobalProvider extends Component {
@@ -19,13 +20,12 @@ export class GlobalProvider extends Component {
 
 
     setCartItems(){
-
             axios.get(`https://localhost:5001/api/carts/getByUser/${parseInt(sessionStorage.getItem('user_id'))}`)
                 .then((res) => {
                     res.data.map((val,index)=>{
                         var productId = val.product
                         this.fetchProducts(productId).then((data)=>{
-                            this.addItemCart(data)
+                            this.addItemCart(data,val.quantity)
                         })
                     })
                     this.changeShoppingCard(res.data.length)
@@ -45,20 +45,25 @@ export class GlobalProvider extends Component {
                     resolve(product.data)
                 }).catch((error) => {
                 console.log(error)
-                alert("error happened fetch cart items")
+                toast.error("error happened fetch cart items")
             })
         })
 
     }
-    addItemCart(product){
-        if(this.state.cartItems.some(item => item.productName === product.productName)){
-
-        } else{
+    addItemCart(product,quantity){
+        product.chosenQuantity = quantity
+        if(!this.state.cartItems.some(item => item.productName === product.productName)){
             this.setState({cartItems : [...this.state.cartItems,product]})
         }
-        // this.setState({cartItems : [...this.state.cartItems,product]})
-    }
 
+    }
+    calculateTotalPrice =()=>{
+        var priceBeforeDisc= 0;
+        this.state.cartItems.map((val,index)=>{
+            priceBeforeDisc+= val.price * val.chosenQuantity
+        })
+        return priceBeforeDisc
+    }
     changeShoppingCard = (cartLength) => {
         this.setState({shoppingCard :cartLength })
     }
@@ -75,12 +80,6 @@ export class GlobalProvider extends Component {
         this.setState({IsLoggedIn : IsLoggedIn})
     }
 
-    componentDidUpdate(prevProps, prevState) {
-
-
-
-
-    }
     render() {
         const {shoppingCard,username,IsLoggedIn,user_id,cartItems} = this.state;
         const {changeShoppingCard,
@@ -90,7 +89,8 @@ export class GlobalProvider extends Component {
             updateIsLoggedIn,
             setCartItems,
             fetchProducts,
-            addItemCart
+            addItemCart,
+            calculateTotalPrice
         } = this;
         return (
             <GlobalContext.Provider value={{
@@ -106,7 +106,8 @@ export class GlobalProvider extends Component {
                 changeShoppingCard,
                 setCartItems,
                 fetchProducts,
-                addItemCart
+                addItemCart,
+                calculateTotalPrice
             }}>
                 {this.props.children}
             </GlobalContext.Provider>

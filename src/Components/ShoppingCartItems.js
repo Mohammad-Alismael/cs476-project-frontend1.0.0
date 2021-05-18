@@ -4,10 +4,14 @@ import ReactStars from "react-rating-stars-component";
 import CounterInput from 'react-bootstrap-counter';
 import Counter from "./Counter";
 import axios from "axios";
+import {toast} from "react-toastify";
+import {withRouter} from "react-router-dom";
 class ShoppingCartItems extends Component {
     constructor(props) {
         super(props);
-        this.counter = 0;
+        this.state = {
+            Quantity : this.props.chosenQuantity
+        }
     }
     dismiss = (e) => {
         axios.post(`https://localhost:5001/api/carts/delete`, {
@@ -21,18 +25,25 @@ class ShoppingCartItems extends Component {
             alert("error happened while deleting")
         })
     }
+
+    nextPath(path) {
+        this.props.history.push(path);
+    }
     render() {
         return (
-            <Card className={"shoppingCartItems"}>
+            <Card className={"shoppingCartItems"} >
                 <Row>
-                <Col xl={3} style={{borderRight: '1px solid black'}}>
-                    <CardImg src={this.props.srcImg} />
+                <Col xl={3} style={{borderRight: '1px solid black'}} onClick={() => this.nextPath(`/item-details/${this.props.id}`)}>
+                    <CardImg src={'data:image/jpeg;base64,' + this.props.srcImg}  alt={"product img"}/>
                 </Col>
                 <Col xl={9}>
                     <CardBody>
                         <p>{this.props.brand == null ? "no brand" : this.props.brand} - {this.props.productName}</p>
                         <p>{this.props.price}$</p>
-                        <Counter value={this.props.quantity}/>
+                        <Counter
+                            maxQuantity={this.props.maxQuantity}
+                            chosenQuantity={this.props.chosenQuantity}
+                            productId={this.props.id}/>
                         <Button color={"danger"} style={{float: 'right',marginTop:'100px',marginRight:'-120px'}} onClick={this.dismiss}>Remove</Button>
                         <ReactStars
                             count={5}
@@ -53,4 +64,4 @@ class ShoppingCartItems extends Component {
     }
 }
 
-export default ShoppingCartItems;
+export default withRouter(ShoppingCartItems);

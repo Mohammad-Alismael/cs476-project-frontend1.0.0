@@ -13,11 +13,9 @@ class ShoppingCart extends Component {
     }
     componentDidMount() {
         console.log(this.context.cartItems,"this is from shopping cart global")
-        var priceBeforeDisc= 0
-        this.context.cartItems.map((val,index)=>{
-            priceBeforeDisc+= val.price * val.quantity
-        })
-        this.setState({priceBeforeDisc})
+
+        console.log(this.context.calculateTotalPrice())
+        this.setState({priceBeforeDisc : this.context.calculateTotalPrice()})
         this.context.setCartItems()
     }
 
@@ -36,8 +34,9 @@ class ShoppingCart extends Component {
                                         price={val.price}
                                         brand={val.brand}
                                         rating={val.rating}
-                                        quantity={val.quantity}
-                                        srcImg={tmp2}/>
+                                        maxQuantity={val.quantity}
+                                        chosenQuantity={val.chosenQuantity}
+                                        srcImg={val.picture}/>
                                 )
                             })
                         }
@@ -51,7 +50,7 @@ class ShoppingCart extends Component {
                                     <Button id={'APPLY-btn'} >APPLY</Button>
                                 </FormGroup>
                                 <hr/>
-                                <p>Price before discount:     {this.state.priceBeforeDisc}$</p>
+                                <p>Price before discount:     {this.context.calculateTotalPrice()}$</p>
                                 <p>Discount:     {this.state.discount}</p>
                                 <span>Price after discount:   {this.state.priceAfterDisc}$</span>
                                 <hr/>
