@@ -13,6 +13,7 @@ import axios from "axios";
 import GlobalContext from "../GlobalContext";
 import Comments from "../Components/Comments";
 import {toast} from "react-toastify";
+import Campaigns from "../Components/Campaigns";
 
 class ItemDetails extends Component {
     state = {
@@ -148,7 +149,7 @@ class ItemDetails extends Component {
                 this.setState({comments: [...self.state.comments, self.state.currentComment[0]]})
 
             }).catch(function (error) {
-                alert("you cannot add more than one comment!")
+                toast.info("you cannot add more than one comment!")
                 console.log(error.message);
             })
         }else{
@@ -176,13 +177,7 @@ class ItemDetails extends Component {
             })
         }else{
             // this part for the product if the product exists in cart or not
-            var oldQnty = 0;
-            this.context.cartItems.map((val,index)=>{
-                if (val.id == this.state.item_id){
-                    oldQnty  = val.chosenQuantity
-                }
-            })
-            var newQnty = this.state.quantity+oldQnty;
+            var newQnty = this.state.quantity+this.countOldQnty();
             if(newQnty <= this.state.quantityAr.length) {
                 axios.post(`https://localhost:5001/api/carts/update/${this.state.item_id}/${parseInt(sessionStorage.getItem("user_id"))}/${newQnty}`)
                     .then((res) => {
@@ -197,9 +192,16 @@ class ItemDetails extends Component {
             }
         }
 
+    }
 
-
-
+    countOldQnty(){
+        var oldQnty = 0;
+        this.context.cartItems.map((val,index)=>{
+            if (val.id == this.state.item_id){
+                oldQnty  = val.chosenQuantity
+            }
+        })
+        return oldQnty
     }
     loadQuantity(quantity){
         for (let i = 1; i <= quantity; i++) {
@@ -230,7 +232,7 @@ class ItemDetails extends Component {
                 <Col xl={4}>
                 <CardImg src={'data:image/jpeg;base64,' + this.state.picture}/>
                 </Col>
-                <Col xl={8}>
+                <Col xl={(sessionStorage.getItem('userType') == "Sales Manager") ? 4 : 8}>
                     <div className={'details'}>
                         <h3>{this.state.name}</h3>
                         <ReactStars
@@ -270,6 +272,11 @@ class ItemDetails extends Component {
                         <Button id={'btn'} onClick={this.addItemCart}>Add To Cart</Button>
                     </div>
                 </Col>
+                    <Col xl={4}>
+                        {
+                            (sessionStorage.getItem('userType') == "Sales Manager") ? (<Campaigns/>) : null
+                        }
+                    </Col>
                 </Row>
                 <Row style={{background : 'rgb(248,248,248)'}}>
                     <Col>

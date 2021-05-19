@@ -16,9 +16,8 @@ class Counter extends Component {
                 axios.post(`https://localhost:5001/api/carts/update/${this.props.productId}/${parseInt(sessionStorage.getItem("user_id"))}/${this.state.Quantity}`)
                     .then((res)=>{
                     // to update something
-
-                        this.context.setCartItems()
                         window.location.reload()
+                        // this.context.calculateTotalPriceGlobal()
                 }).catch((error) => {
                     console.log(error)
                     toast.error("error happened while changing the quantity minus")
@@ -34,8 +33,8 @@ class Counter extends Component {
                 axios.post(`https://localhost:5001/api/carts/update/${this.props.productId}/${parseInt(sessionStorage.getItem("user_id"))}/${this.state.Quantity}`)
                     .then((res)=>{
                         // to update something
-                        this.context.setCartItems()
                         window.location.reload()
+                        // this.context.calculateTotalPriceGlobal()
                     }).catch((error) => {
                     console.log(error)
                     toast.error("error happened while changing the quantity")

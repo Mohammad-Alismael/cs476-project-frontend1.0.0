@@ -37,54 +37,19 @@ class CategoryPage extends Component {
     componentDidMount() {
         this.setState({loading: 'true'});
         setTimeout(() => {
-            if (sessionStorage.getItem("userType") != "Product Manager") {
-                axios.get(`https://localhost:5001/api/categories/${this.props.category}`).then((res) => {
-                    res.data.map((val, key) => {
-                        const tmp = {};
-                        tmp.price = val.price
-                        tmp.name = val.productName
-                        tmp.rate = val.rating
-                        tmp.item_id = val.id
-                        tmp.srcImg = val.picture
-                        this.setState({
-                            Products: [...this.state.Products, [tmp]]
-                        })
-                        this.setState({
-                            newProductList: [...this.state.newProductList, [tmp]]
-                        })
-                    })
-                    this.countStars()
-                }).catch((error) => {
-                    toast.error('fetching data error')
-                    console.log(error)
-                })
-            }else{
-                axios.get(`https://localhost:5001/api/products/getByPM/${parseInt(sessionStorage.getItem("user_id"))}`)
-                    .then((res) => {
-                    res.data.filter((val)=>{
-                        if (val.category == this.props.category)
-                            return val
-                    }).map((val, key) => {
-                        const tmp = {};
-                        tmp.price = val.price
-                        tmp.name = val.productName
-                        tmp.rate = val.rating
-                        tmp.item_id = val.id
-                        tmp.srcImg = val.picture
-                        this.setState({
-                            Products: [...this.state.Products, [tmp]]
-                        })
-                        this.setState({
-                            newProductList: [...this.state.newProductList, [tmp]]
-                        })
-                    })
-                    this.countStars()
-                }).catch((error) => {
-                    toast.error('fetching data error')
-                    console.log(error)
-                })
+            if (sessionStorage.getItem("userType") == "Customer") {
+                this.fetchProductsByUrl('https://localhost:5001/api/categories/',this.props.category)
             }
+            if (sessionStorage.getItem("userType") == "Sales Manager") {
+                axios.get(`https://localhost:5001/api/users/${parseInt(sessionStorage.getItem("user_id"))}`)
+                    .then((res)=>{
+                        this.fetchProductsByUrl('https://localhost:5001/api/products/getByPM/',res.data.linking_id)
+                    })
+            }
+            if (sessionStorage.getItem("userType") == "Product Manager") {
+                this.fetchProductsByUrl('https://localhost:5001/api/products/getByPM/',parseInt(sessionStorage.getItem("user_id")))
 
+            }
         }, 500)
 
         this.setState({
@@ -92,7 +57,32 @@ class CategoryPage extends Component {
         });
 
     }
-
+    fetchProductsByUrl(url,id){
+        axios.get(`${url}${id}`)
+            .then((res) => {
+                res.data.filter((val)=>{
+                    if (val.category == this.props.category)
+                        return val
+                }).map((val, key) => {
+                    const tmp = {};
+                    tmp.price = val.price
+                    tmp.name = val.productName
+                    tmp.rate = val.rating
+                    tmp.item_id = val.id
+                    tmp.srcImg = val.picture
+                    this.setState({
+                        Products: [...this.state.Products, [tmp]]
+                    })
+                    this.setState({
+                        newProductList: [...this.state.newProductList, [tmp]]
+                    })
+                })
+                this.countStars()
+            }).catch((error) => {
+            toast.error('fetching data error')
+            console.log(error)
+        })
+    }
     countStars(){
         const tmpArray = []
         const stars2 = [0, 0, 0, 0, 0]

@@ -4,6 +4,7 @@ import ItemDetails from "./ItemDetails";
 import tmp2 from '../Images/2.png';
 import {Button, Card, CardBody, CardHeader, Col, Container, FormGroup, Input, Row} from "reactstrap";
 import ShoppingCartItems from "../Components/ShoppingCartItems";
+import {log10} from "chart.js/helpers";
 
 class ShoppingCart extends Component {
     state = {
@@ -13,22 +14,25 @@ class ShoppingCart extends Component {
     }
     componentDidMount() {
         console.log(this.context.cartItems,"this is from shopping cart global")
-
-        console.log(this.context.calculateTotalPrice())
-        this.setState({priceBeforeDisc : this.context.calculateTotalPrice()})
+        // this.setState({priceBeforeDisc : this.context.calculateTotalPrice()})
+        // this.setState({priceBeforeDisc : this.context.calculateTotalPrice()})
         this.context.setCartItems()
     }
 
 
     render() {
+
         return (
             <Container>
                 <Row>
                     <Col xl={10}>
                         {
-                            this.context.cartItems.map((val,index)=>{
+                            this.context.cartItems.sort((a,b)=>{
+                                return a.id - b.id
+                            }).map((val,index)=>{
                                 return (
                                     <ShoppingCartItems
+                                        key={val.id.toString()}
                                         id={val.id}
                                         productName={val.productName}
                                         price={val.price}
@@ -50,7 +54,8 @@ class ShoppingCart extends Component {
                                     <Button id={'APPLY-btn'} >APPLY</Button>
                                 </FormGroup>
                                 <hr/>
-                                <p>Price before discount:     {this.context.calculateTotalPrice()}$</p>
+                                {/*<p>Price before discount:     {this.state.priceBeforeDisc}$</p>*/}
+                                <p>Price before discount:     {this.context.priceBeforeDisc}$</p>
                                 <p>Discount:     {this.state.discount}</p>
                                 <span>Price after discount:   {this.state.priceAfterDisc}$</span>
                                 <hr/>
