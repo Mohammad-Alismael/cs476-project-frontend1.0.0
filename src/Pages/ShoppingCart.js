@@ -14,11 +14,14 @@ class ShoppingCart extends Component {
     }
     componentDidMount() {
         console.log(this.context.cartItems,"this is from shopping cart global")
-        // this.setState({priceBeforeDisc : this.context.calculateTotalPrice()})
-        // this.setState({priceBeforeDisc : this.context.calculateTotalPrice()})
         this.context.setCartItems()
     }
 
+    next = (e) =>{
+        e.preventDefault();
+        console.log(this.context.priceBeforeDisc)
+        console.log((this.context.percentageDiscount/100))
+    }
 
     render() {
 
@@ -50,16 +53,23 @@ class ShoppingCart extends Component {
                             <CardHeader>Price Details</CardHeader>
                             <CardBody>
                                 <FormGroup>
-                                    <Input type="text" name="brand" placeholder={"coupons"} style={{width: '100px'}}/>
-                                    <Button id={'APPLY-btn'} >APPLY</Button>
+                                    <Input
+                                        type="text"
+                                        name="brand"
+                                        placeholder={"coupons"}
+                                        style={{width: '100px'}}
+                                        onChange={this.context.setDiscountCoupon}
+                                    />
+                                    <Button id={'APPLY-btn'} onClick={this.context.getCouponDiscount}>APPLY</Button>
                                 </FormGroup>
                                 <hr/>
-                                {/*<p>Price before discount:     {this.state.priceBeforeDisc}$</p>*/}
                                 <p>Price before discount:     {this.context.priceBeforeDisc}$</p>
-                                <p>Discount:     {this.state.discount}</p>
-                                <span>Price after discount:   {this.state.priceAfterDisc}$</span>
+                                <p>Discount:     {this.context.percentageDiscount}%</p>
+                                <span>Price after discount:   {this.context.priceBeforeDisc * (this.context.percentageDiscount/100)}$</span>
                                 <hr/>
-                                <Button id={'btn'} size={'lg'} style={{width : '100%'}}>Place order</Button>
+                                <Button id={'btn'} size={'lg'} style={{width : '100%'}}
+                                        onClick={this.next}
+                                >Place order</Button>
                             </CardBody>
                         </Card>
                     </Col>

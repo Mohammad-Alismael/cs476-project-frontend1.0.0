@@ -15,7 +15,11 @@ export class GlobalProvider extends Component {
             username : "",
             user_id : 0,
             email : "",
-            totalSum: -1
+            totalSum: -1,
+            discountCoupon : "",
+            percentageDiscount: 0,
+            usedCoupon : false,
+            CouponExists: false
         }
         this.addItemCart = this.addItemCart.bind(this)
     }
@@ -106,7 +110,7 @@ export class GlobalProvider extends Component {
 
     }
     calculateTotalPrice =()=>{
-        var priceBeforeDisc = -22;
+        var priceBeforeDisc = 0;
         this.sleep(500).then(()=>{
             this.state.cartItems.map((val,index)=>{
                 priceBeforeDisc+= val.price * val.chosenQuantity
@@ -114,14 +118,64 @@ export class GlobalProvider extends Component {
             this.setState({priceBeforeDisc})
         })
 
-
-
     }
 
     calculateTotalPriceGlobal =()=>{
        this.getItemsLocal().then((data)=>{
            console.log(data,'aa7a')
            })
+
+    }
+
+    checkingCouponExists(){
+        const self = this;
+        return new Promise((resolve, reject) => {
+            axios.get('https://localhost:5001/api/campaign')
+                .then((res) => {
+                    var tmp = {}
+                    tmp.productId = 0;
+                    tmp.startingDate = 0;
+                    tmp.endingDate = 0;
+                    tmp.truth = false
+                    tmp.percentageDiscount = 0
+
+                    res.data.map((val, index) => {
+
+                        if (val.description == self.state.discountCoupon) {
+                            tmp.truth = true
+                            tmp.productId= val.productId;
+                            tmp.startingDate = val.startDate;
+                            tmp.endingDate = val.endDate;
+                            tmp.percentageDiscount = val.percentage
+                           // resolve(tmp)
+                        }
+                    })
+                    resolve(tmp)
+                }).catch((error) => {
+                console.log(error)
+                toast.error("error happened while getting coupon percentage")
+            })
+        })
+    }
+    getCouponDiscount =() =>{
+         const self = this;
+         this.checkingCouponExists().then((data)=>{
+             if (data.truth){
+                 const currentTime = Math.floor(new Date().getTime()/1000)
+                 if (data.startingDate <= currentTime && currentTime <= data.endingDate){
+                    if (this.state.cartItems.some(item => item.id === data.productId)){
+                        this.setState({percentageDiscount: data.percentageDiscount})
+                        toast.info("your coupon applied successfully ")
+                    }else {
+                        toast.info("the coupon doesn't apply on any of your cart products")
+                    }
+                 }else {
+                     toast.info("expired coupon")
+                 }
+             }else {
+                 toast.info("coupon doesn't exist")
+             }
+         })
 
     }
     changeShoppingCard = (cartLength) => {
@@ -139,19 +193,32 @@ export class GlobalProvider extends Component {
     updateIsLoggedIn = (IsLoggedIn) => {
         this.setState({IsLoggedIn : IsLoggedIn})
     }
+    setDiscountCoupon =(e)=>{
+         e.preventDefault()
+        this.setState({discountCoupon : e.target.value})
+    }
 
     render() {
-        const {shoppingCard,username,IsLoggedIn,user_id,cartItems,priceBeforeDisc} = this.state;
+        const {shoppingCard,
+            username,
+            IsLoggedIn,
+            user_id,
+            cartItems,
+            priceBeforeDisc,
+            discountCoupon,
+            percentageDiscount} = this.state;
         const {changeShoppingCard,
             updateUsername,
             updateUserID,
             updateEmail,
             updateIsLoggedIn,
+            setDiscountCoupon,
             setCartItems,
             fetchProducts,
             addItemCart,
             calculateTotalPrice,
             calculateTotalPriceGlobal,
+            getCouponDiscount
         } = this;
         return (
             <GlobalContext.Provider value={{
@@ -161,6 +228,8 @@ export class GlobalProvider extends Component {
                 user_id,
                 priceBeforeDisc,
                 cartItems,
+                discountCoupon,
+                percentageDiscount,
                 updateUsername,
                 updateUserID,
                 updateEmail,
@@ -171,6 +240,8 @@ export class GlobalProvider extends Component {
                 addItemCart,
                 calculateTotalPrice,
                 calculateTotalPriceGlobal,
+                setDiscountCoupon,
+                getCouponDiscount
             }}>
                 {this.props.children}
             </GlobalContext.Provider>
