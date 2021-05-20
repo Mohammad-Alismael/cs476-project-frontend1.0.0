@@ -274,7 +274,8 @@ class ItemDetails extends Component {
                 </Col>
                     <Col xl={4}>
                         {
-                            (sessionStorage.getItem('userType') == "Sales Manager") ? (<Campaigns/>) : null
+                            (sessionStorage.getItem('userType') == "Sales Manager") ?
+                                (<Campaigns productId={this.state.item_id}/>) : null
                         }
                     </Col>
                 </Row>
