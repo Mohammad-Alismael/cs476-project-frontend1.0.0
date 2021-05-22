@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Ecommerce Web App",
+  "name": "Ecommerce Web App for cs476",
   "icons": [
     {
       "src": "favicon.ico",

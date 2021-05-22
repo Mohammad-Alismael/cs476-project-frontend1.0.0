@@ -63,9 +63,9 @@ class ShoppingCart extends Component {
                                     <Button id={'APPLY-btn'} onClick={this.context.getCouponDiscount}>APPLY</Button>
                                 </FormGroup>
                                 <hr/>
-                                <p>Price before discount:     {this.context.priceBeforeDisc}$</p>
+                                <p>Price before discount:     {(this.context.priceBeforeDisc).toFixed(2)}$</p>
                                 <p>Discount:     {this.context.percentageDiscount}%</p>
-                                <span>Price after discount:   {this.context.priceBeforeDisc * (this.context.percentageDiscount/100)}$</span>
+                                <span>Price after discount:   {(this.context.priceBeforeDisc * ((100-this.context.percentageDiscount)/100)).toFixed(2)}$</span>
                                 <hr/>
                                 <Button id={'btn'} size={'lg'} style={{width : '100%'}}
                                         onClick={this.next}
