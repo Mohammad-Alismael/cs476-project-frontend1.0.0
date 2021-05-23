@@ -52,7 +52,7 @@ class LayoutDefault extends Component {
     renderElement() {
         if (sessionStorage.getItem("userType") == "Customer") {
             return (
-                <>
+                <NavItem>
                     <DropdownItem>
                         <div className="options">
                             <i className="material-icons">payment</i>
@@ -66,23 +66,17 @@ class LayoutDefault extends Component {
                         </div>
                     </DropdownItem>
                     <DropdownItem divider/>
-                </>
+                </NavItem>
             );
         } else if (sessionStorage.getItem("userType") == "Product Manager"){
             return (
-                <>
+                <NavItem>
                     <DropdownItem href={"/product-owner-landing-page/add-products"}>
                         <div className="options">
                             <i className="material-icons">create</i>
                             <span>add products</span>
                         </div>
                     </DropdownItem>
-                    {/*<DropdownItem href={"/product-owner-landing-page/edit-products"}>*/}
-                    {/*    <div className="options">*/}
-                    {/*        <i className="material-icons">edit</i>*/}
-                    {/*        <span>edit products</span>*/}
-                    {/*    </div>*/}
-                    {/*</DropdownItem>*/}
                     <DropdownItem href={"/product-owner-landing-page/delete-products"}>
                         <div className="options">
                             <i className="material-icons">edit</i>
@@ -90,29 +84,34 @@ class LayoutDefault extends Component {
                         </div>
                     </DropdownItem>
                     <DropdownItem divider/>
-                </>
+                </NavItem>
             )
     }
         else if (sessionStorage.getItem("userType") == "Sales Manager") {
             return (
-                <>
+                <NavItem>
                     <DropdownItem href={"/product-owner-landing-page/delete-products"}>
                         <div className="options">
                             <i className="material-icons">delete_sweep</i>
                             <span>Invoices</span>
                         </div>
                     </DropdownItem>
-                </>
+                </NavItem>
             );
         }
         return null;
     }
+    toggle =() =>{
+        this.setState({isOpen: !this.state.isOpen})
+    }
     render() {
         return (
             <Fragment>
-                <Navbar color="white" light expand="md" style={{width: '111%',marginTop:'-70px'}}>
-                    <NavbarBrand href="/"><img id={'logo'} src={logo}/></NavbarBrand>
-                    <NavbarToggler onClick={this.toggle} />
+                <Navbar color="white"  expand="md" className={"navbar fixed-top"}>
+                    <NavbarBrand href="/"><img id={'logo'} src={logo} className="mr-auto"/></NavbarBrand>
+                    <NavbarToggler onClick={this.toggle} >
+                        <i className="material-icons mr-2" style={{font: '4rem'}}>dehaze</i>
+                    </NavbarToggler>
                     <Collapse isOpen={this.state.isOpen} navbar>
                         <Nav className="mr-auto" navbar>
                             <NavItem>
@@ -153,117 +152,115 @@ class LayoutDefault extends Component {
                         </Nav>
 
                         <Nav>
+                            <NavItem>
+                                <NavbarText>
+                                    <div className="cartBtn2">
+                                        <i className="material-icons">notifications</i>
+                                    </div>
+                                </NavbarText>
+                            </NavItem>
+                            <NavItem>
+                                <UncontrolledDropdown>
+                                    <DropdownToggle caret style={otherDropDown}>
+                                        {sessionStorage.getItem('isLoggedIn') == "true"  ? `hello ${sessionStorage.getItem('username')}` : "My account"}
+                                    </DropdownToggle>
+                                    <DropdownMenu right>
+                                        <DropdownItem href={'/profile-settings'}>
+                                            <div className="options">
+                                                <i className="material-icons">person</i>
+                                                <span>profile</span>
+                                            </div>
+                                        </DropdownItem>
+                                        {this.renderElement()}
+                                        <DropdownItem href={'/login'}>
+                                            <div className="options">
+                                                <i className="material-icons">logout</i>
+                                                <span>logout</span>
+                                            </div>
+                                        </DropdownItem>
+                                    </DropdownMenu>
+                                </UncontrolledDropdown>
+                            </NavItem>
+                        <NavItem>
                             <NavbarText>
-                                <div className="cartBtn2">
-                                    <i className="material-icons">notifications</i>
+                                <div className="cartBtn" onClick={()=> this.nextPath('/shopping-cart')}>
+                                    <span className={"number"} data-units={this.context.shoppingCard}>Cart</span>
+                                    <i className="material-icons">local_grocery_store</i>
                                 </div>
                             </NavbarText>
-                            <UncontrolledDropdown>
-                                <DropdownToggle caret style={otherDropDown}>
-                                    {sessionStorage.getItem('isLoggedIn') == "true"  ? `hello ${sessionStorage.getItem('username')}` : "My account"}
-                                </DropdownToggle>
-                                <DropdownMenu right>
-                                    <DropdownItem href={'/profile-settings'}>
-                                        <div className="options">
-                                            <i className="material-icons">person</i>
-                                            <span>profile</span>
-                                        </div>
-                                    </DropdownItem>
-                                    {this.renderElement()}
-                                    <DropdownItem href={'/login'}>
-                                        <div className="options">
-                                            <i className="material-icons">logout</i>
-                                            <span>logout</span>
-                                        </div>
-                                    </DropdownItem>
-                                </DropdownMenu>
-                            </UncontrolledDropdown>
+                        </NavItem>
                         </Nav>
-                        <NavbarText>
-                            <div className="cartBtn" onClick={()=> this.nextPath('/shopping-cart')}>
-                                <span className={"number"} data-units={this.context.shoppingCard}>Cart</span>
-                                <i className="material-icons">local_grocery_store</i>
-                            </div>
-                        </NavbarText>
                     </Collapse>
                 </Navbar>
                 <Navbar className={'secondNav'} style={{width: '111%'}}>
                     <Nav>
                         <NavItem>
-                            <UncontrolledDropdown nav >
-                                <DropdownToggle nav caret>
-                                    Computers
-                                </DropdownToggle>
-                                <DropdownMenu right>
-                                    <DropdownItem href={'/computers/gpu'}>
-                                        Gpu
-                                    </DropdownItem>
-                                    <DropdownItem href={'/computers/cpu'}>
-                                        Cpu
-                                    </DropdownItem>
-                                    <DropdownItem href={'/computers/motherboards'}>
-                                        Motherboards
-                                    </DropdownItem>
-                                    <DropdownItem href={'/computers/apple'}>
-                                        Apple
-                                    </DropdownItem>
-                                    <DropdownItem href={'/computers/monitors'}>
-                                        Monitors
-                                    </DropdownItem>
-                                    <DropdownItem>
-                                        Mouse & keyboard
-                                    </DropdownItem>
-                                </DropdownMenu>
-                            </UncontrolledDropdown>
+                            {/*<UncontrolledDropdown nav >*/}
+                            {/*    <DropdownToggle nav caret>*/}
+                            {/*        Computers*/}
+                            {/*    </DropdownToggle>*/}
+                            {/*    <DropdownMenu right>*/}
+                            {/*        <DropdownItem href={'/computers/gpu'}>*/}
+                            {/*            Gpu*/}
+                            {/*        </DropdownItem>*/}
+                            {/*        <DropdownItem href={'/computers/cpu'}>*/}
+                            {/*            Cpu*/}
+                            {/*        </DropdownItem>*/}
+                            {/*        <DropdownItem href={'/computers/motherboards'}>*/}
+                            {/*            Motherboards*/}
+                            {/*        </DropdownItem>*/}
+                            {/*        <DropdownItem href={'/computers/apple'}>*/}
+                            {/*            Apple*/}
+                            {/*        </DropdownItem>*/}
+                            {/*        <DropdownItem href={'/computers/monitors'}>*/}
+                            {/*            Monitors*/}
+                            {/*        </DropdownItem>*/}
+                            {/*        <DropdownItem>*/}
+                            {/*            Mouse & keyboard*/}
+                            {/*        </DropdownItem>*/}
+                            {/*    </DropdownMenu>*/}
+                            {/*</UncontrolledDropdown>*/}
                         </NavItem>
                         <NavItem>
-                            <NavLink href="/components/">Gaming</NavLink>
+                            <NavLink href={'/computers/gpu'}>Gpu</NavLink>
                         </NavItem>
                         <NavItem>
-                            <NavLink href="/components/">Software</NavLink>
+                            <NavLink href={'/computers/cpu'}>Cpu</NavLink>
                         </NavItem>
                         <NavItem>
-                            <NavLink href="/components/">Food</NavLink>
+                            <NavLink href={'/computers/motherboards'}>Motherboards</NavLink>
                         </NavItem>
-                        <UncontrolledDropdown nav >
-                            <DropdownToggle nav caret>
-                                Cloths
-                            </DropdownToggle>
-                            <DropdownMenu right>
-                                <DropdownItem>
-                                    men
-                                </DropdownItem>
-                                <DropdownItem>
-                                    women
-                                </DropdownItem>
-                                <DropdownItem divider />
-                                <DropdownItem>
-                                    kids
-                                </DropdownItem>
-                            </DropdownMenu>
-                        </UncontrolledDropdown>
+                        <NavItem>
+                            <NavLink href={'/computers/apple'}>Apple</NavLink>
+                        </NavItem>
+                        <NavItem>
+                            <NavLink href={'/computers/monitors'}>Monitors</NavLink>
+                        </NavItem>
                     </Nav>
                 </Navbar>
                 <Route {...this.props} />
-                <Card style={{width: '111%'}}>
-                    <SimpleReactFooter
-                        style={{position:'sticky',bottom: "0px"}}
-                        description={description}
-                        title={title}
-                        columns={columns}
-                        linkedin="fluffy_cat_on_linkedin"
-                        facebook="fluffy_cat_on_fb"
-                        twitter="fluffy_cat_on_twitter"
-                        instagram="fluffy_cat_live"
-                        youtube="UCFt6TSF464J8K82xeA?"
-                        pinterest="fluffy_cats_collections"
-                        copyright="black"
-                        iconColor="black"
-                        backgroundColor='white'
-                        fontColor="black"
-                        copyrightColor="darkgrey"
-                    />
-                </Card>
+                {/*<Card style={{width: '111%'}} xs={12} md={12} xl={12}>*/}
+                {/*    <SimpleReactFooter*/}
+                {/*        style={{position:'sticky',bottom: "0px"}}*/}
+                {/*        description={description}*/}
+                {/*        title={title}*/}
+                {/*        columns={columns}*/}
+                {/*        linkedin="fluffy_cat_on_linkedin"*/}
+                {/*        facebook="fluffy_cat_on_fb"*/}
+                {/*        twitter="fluffy_cat_on_twitter"*/}
+                {/*        instagram="fluffy_cat_live"*/}
+                {/*        youtube="UCFt6TSF464J8K82xeA?"*/}
+                {/*        pinterest="fluffy_cats_collections"*/}
+                {/*        copyright="black"*/}
+                {/*        iconColor="black"*/}
+                {/*        backgroundColor='white'*/}
+                {/*        fontColor="black"*/}
+                {/*        copyrightColor="darkgrey"*/}
+                {/*    />*/}
+                {/*</Card>*/}
+                {/*<Card style={{width: '111%',position: 'fixed',bottom:'0',marginTop: '100px'}}>*/}
+                {/*    <CardBody>{description}</CardBody>*/}
+                {/*</Card>*/}
 
             </Fragment>
         );

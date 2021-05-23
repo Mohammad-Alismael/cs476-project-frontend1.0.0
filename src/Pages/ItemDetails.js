@@ -279,7 +279,7 @@ class ItemDetails extends Component {
                         }
                     </Col>
                 </Row>
-                <Row style={{background : 'rgb(248,248,248)'}}>
+                <Row className={'RowDiv d-none'}>
                     <Col>
                         <Card className={'granteeCard'}>
                             <i className="material-icons">monetization_on</i>
@@ -288,7 +288,7 @@ class ItemDetails extends Component {
                         </Card>
                     </Col>
                     <Col>
-                        <Card className={'granteeCard'}>
+                        <Card className={'granteeCard'} >
                             <i className="material-icons">access_time</i>
                             <h5>10 Day Replacement</h5>
                             <p>Marshmallow biscuit donut dragée fruitcake wafer.</p>

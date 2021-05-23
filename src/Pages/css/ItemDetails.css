@@ -1,8 +1,19 @@
 .granteeCard{
     border: none;
+    display: block;
     height: 280px;
-    background: transparent;
-    /*position: relative;*/
+
+}
+.RowDiv{
+    background : rgb(248,248,248);
+    /*display: none;*/
+}
+@media only screen and (max-width: 768px){
+    .granteeCard{
+        display: none;
+        background: blue;
+
+    }
 }
 .granteeCard i{
     position: absolute;

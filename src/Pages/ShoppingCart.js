@@ -26,9 +26,9 @@ class ShoppingCart extends Component {
     render() {
 
         return (
-            <Container>
-                <Row>
-                    <Col xl={10}>
+            // <Container fuild >
+                <Row style={{width: '111%'}}>
+                    <Col xl={9}>
                         {
                             this.context.cartItems.sort((a,b)=>{
                                 return a.id - b.id
@@ -48,8 +48,8 @@ class ShoppingCart extends Component {
                             })
                         }
                     </Col>
-                    <Col>
-                        <Card style={{width: '230%',boxShadow: '0px 20px 47px 14px rgba(0,0,0,0.1)'}}>
+                    <Col xs={3} xl={3}>
+                        <Card style={{width: '300px',boxShadow: '0px 20px 47px 14px rgba(0,0,0,0.1)'}}>
                             <CardHeader>Price Details</CardHeader>
                             <CardBody>
                                 <FormGroup>
@@ -65,7 +65,7 @@ class ShoppingCart extends Component {
                                 <hr/>
                                 <p>Price before discount:     {(this.context.priceBeforeDisc).toFixed(2)}$</p>
                                 <p>Discount:     {this.context.percentageDiscount}%</p>
-                                <span>Price after discount:   {(this.context.priceBeforeDisc * ((100-this.context.percentageDiscount)/100)).toFixed(2)}$</span>
+                                <span>Price after discount:   {(this.context.priceAfterDisc).toFixed(2)}$</span>
                                 <hr/>
                                 <Button id={'btn'} size={'lg'} style={{width : '100%'}}
                                         onClick={this.next}
@@ -74,7 +74,7 @@ class ShoppingCart extends Component {
                         </Card>
                     </Col>
                 </Row>
-            </Container>
+            // </Container>
         );
     }
 }

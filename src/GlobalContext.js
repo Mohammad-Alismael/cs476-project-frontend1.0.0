@@ -11,7 +11,8 @@ export class GlobalProvider extends Component {
             shoppingCard : -1,
             cartItems : [],
             IsLoggedIn : false,
-            priceBeforeDisc : -1,
+            priceBeforeDisc : 0,
+            priceAfterDisc: 0,
             username : "",
             user_id : 0,
             email : "",
@@ -28,6 +29,7 @@ export class GlobalProvider extends Component {
     setCartItems(){
             axios.get(`https://localhost:5001/api/carts/getByUser/${parseInt(sessionStorage.getItem('user_id'))}`)
                 .then((res) => {
+                    console.log("checking update", res.data)
                     res.data.map((val,index)=>{
                         const productId = val.product;
                         this.fetchProducts(productId).then((data)=>{
@@ -44,15 +46,7 @@ export class GlobalProvider extends Component {
 
         this.calculateTotalPrice()
     }
-    async test(productId,quantity){
-        this.fetchProducts(productId).then((productData)=>{
-            // totalSum += (val.quantity * productData.price)
-            return quantity * productData.price
-            // TmpArray[index] = productData;
-            // TmpArray[index].chosenQuantity = val.quantity
-        })
-        return -1
-    }
+
     totalSum = 0;
      getItemsLocal(){
          const self = this;
@@ -119,10 +113,21 @@ export class GlobalProvider extends Component {
         })
 
     }
+    calculatePriceProductAfterDisc(productId,percentageDiscount){
+        var priceAfterDisc = 0;
+         this.state.cartItems.map((val,index)=>{
+             if (val.id == productId){
+                 priceAfterDisc+= (val.price * val.chosenQuantity) * ((100 - percentageDiscount)/100)
+             }else {
+                 priceAfterDisc+= (val.price * val.chosenQuantity)
+             }
 
+         })
+        this.setState({priceAfterDisc})
+    }
     calculateTotalPriceGlobal =()=>{
        this.getItemsLocal().then((data)=>{
-           console.log(data,'aa7a')
+           console.log(data,'')
            })
 
     }
@@ -164,6 +169,7 @@ export class GlobalProvider extends Component {
                  const currentTime = Math.floor(new Date().getTime()/1000)
                  if (data.startingDate <= currentTime && currentTime <= data.endingDate){
                     if (this.state.cartItems.some(item => item.id === data.productId)){
+                        this.calculatePriceProductAfterDisc(data.productId,data.percentageDiscount)
                         this.setState({percentageDiscount: data.percentageDiscount})
                         toast.info("your coupon applied successfully ")
                     }else {
@@ -205,6 +211,7 @@ export class GlobalProvider extends Component {
             user_id,
             cartItems,
             priceBeforeDisc,
+            priceAfterDisc,
             discountCoupon,
             percentageDiscount} = this.state;
         const {changeShoppingCard,
@@ -227,6 +234,7 @@ export class GlobalProvider extends Component {
                 IsLoggedIn,
                 user_id,
                 priceBeforeDisc,
+                priceAfterDisc,
                 cartItems,
                 discountCoupon,
                 percentageDiscount,
