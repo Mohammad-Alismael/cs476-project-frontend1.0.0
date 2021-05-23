@@ -239,29 +239,29 @@ class LayoutDefault extends Component {
                     </Nav>
                 </Navbar>
                 <Route {...this.props} />
-                {/*<Card style={{width: '111%'}} xs={12} md={12} xl={12}>*/}
-                {/*    <SimpleReactFooter*/}
-                {/*        style={{position:'sticky',bottom: "0px"}}*/}
-                {/*        description={description}*/}
-                {/*        title={title}*/}
-                {/*        columns={columns}*/}
-                {/*        linkedin="fluffy_cat_on_linkedin"*/}
-                {/*        facebook="fluffy_cat_on_fb"*/}
-                {/*        twitter="fluffy_cat_on_twitter"*/}
-                {/*        instagram="fluffy_cat_live"*/}
-                {/*        youtube="UCFt6TSF464J8K82xeA?"*/}
-                {/*        pinterest="fluffy_cats_collections"*/}
-                {/*        copyright="black"*/}
-                {/*        iconColor="black"*/}
-                {/*        backgroundColor='white'*/}
-                {/*        fontColor="black"*/}
-                {/*        copyrightColor="darkgrey"*/}
-                {/*    />*/}
-                {/*</Card>*/}
-                {/*<Card style={{width: '111%',position: 'fixed',bottom:'0',marginTop: '100px'}}>*/}
-                {/*    <CardBody>{description}</CardBody>*/}
-                {/*</Card>*/}
+                <footer class="page-footer font-small teal pt-4" style={{background: 'white',width: '111%'}}>
+                    <div class="container-fluid text-center text-md-left">
+                        <div class="row">
+                            <div class="col-md-6 mt-md-0 mt-3">
+                                <h5 class="text-uppercase font-weight-bold">Footer text 1</h5>
+                                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Expedita sapiente sint, nulla, nihil
+                                    repudiandae commodi voluptatibus corrupti animi sequi aliquid magnam debitis, maxime quam recusandae
+                                    harum esse fugiat. Itaque, culpa?</p>
 
+                            </div>
+                            <hr class="clearfix w-100 d-md-none pb-3"/>
+                                <div class="col-md-6 mb-md-0 mb-3">
+                                    <h5 class="text-uppercase font-weight-bold">Footer text 2</h5>
+                                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Optio deserunt fuga perferendis modi earum
+                                        commodi aperiam temporibus quod nulla nesciunt aliquid debitis ullam omnis quos ipsam, aspernatur id
+                                        excepturi hic.</p>
+                                </div>
+                        </div>
+                    </div>
+                    <div class="footer-copyright text-center py-3">© 2020 Copyright
+                        <a href="https://mdbootstrap.com/"></a>
+                    </div>
+                </footer>
             </Fragment>
         );
     }

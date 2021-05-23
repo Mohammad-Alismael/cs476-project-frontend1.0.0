@@ -159,6 +159,7 @@ class ItemDetails extends Component {
     }
     addItemCart = (e) =>{
         e.preventDefault()
+        // this part for the product if the product exists in cart or not
         if(!this.context.cartItems.some(item => item.productName === this.state.name)){
             this.context.fetchProducts(this.state.item_id).then((data)=>{
                 axios.post(`https://localhost:5001/api/carts/add`, {
@@ -176,7 +177,7 @@ class ItemDetails extends Component {
 
             })
         }else{
-            // this part for the product if the product exists in cart or not
+            // this part for the product if the product exists in cart then only update the quantity
             var newQnty = this.state.quantity+this.countOldQnty();
             if(newQnty <= this.state.quantityAr.length) {
                 axios.post(`https://localhost:5001/api/carts/update/${this.state.item_id}/${parseInt(sessionStorage.getItem("user_id"))}/${newQnty}`)
