@@ -26,7 +26,7 @@ import {
     Title,
     Tooltip
 } from 'chart.js';
-import {Card, CardBody, CardHeader, CardTitle, Col, Row, Table} from "reactstrap";
+import {Card, CardBody, CardHeader, CardTitle, Col, Row, Spinner, Table} from "reactstrap";
 import axios from "axios";
 import {toast} from "react-toastify";
 
@@ -63,6 +63,8 @@ class DashBoard extends Component {
         MotherBoard : 0,
         Apple : 0,
         Monitor : 0,
+        loading: 'initial',
+        salesReportData: []
     }
     chartRef = React.createRef();
     AmountOFProductsChart = React.createRef();
@@ -78,7 +80,19 @@ class DashBoard extends Component {
         })
     }
 
+    getSalesReportData(){
+        return new Promise((resolve, reject) => {
+            axios.get(`https://localhost:5001/api/sales`)
+                .then((res) => {
+                    resolve(res.data)
+                }).catch(error => {
+                toast.error("error happened fetching sales report data")
+                console.log(error)
+            })
+        })
+    }
     componentDidMount() {
+        // this.setState({ loading: 'true' });
         this.getChartData().then((data)=>{
             data.map((val,index)=>{
                 if (val.category == "1")
@@ -94,7 +108,6 @@ class DashBoard extends Component {
 
             })
             const {Cpu, Gpu, Motherboard, Apple, Monitor} = this.state;
-            console.log(this.state)
             new Chart(myChartRef, {
                 type: 'bar',
                 data: {
@@ -130,7 +143,53 @@ class DashBoard extends Component {
                     }
                 }
             });
+
+            this.getSalesReportData().then((data)=>{
+                console.log(data)
+                data.map((val,indexed)=>{
+                    const tmp = {}
+                    tmp.id = val.id;
+                    tmp.price = val.price;
+                    tmp.amount = val.amount;
+                    getUsername(val.userId).then((username)=>{
+                        tmp.username1 = username;
+                    })
+                    getProductName(parseInt(val.productId)).then((productName)=>{
+                        tmp.productName1 = productName;
+                    })
+                    this.setState({salesReportData: [...this.state.salesReportData, tmp]},function () {
+                        console.log("the new sales report data", this.state.salesReportData)
+                    })
+                })
+
+            })
         })
+
+        function getUsername(userId) {
+            return new Promise((resolve, reject) => {
+                axios.get(`https://localhost:5001/api/users/${userId}`)
+                    .then((res) => {
+                        resolve(res.data.userName)
+                    }).catch(error => {
+                    toast.error("error happened fetching username data")
+                    console.log(error)
+                })
+            })
+        }
+
+        function getProductName(productId) {
+            return new Promise((resolve, reject) => {
+                axios.get(`https://localhost:5001/api/products/${productId}`)
+                    .then((res) => {
+                        resolve(res.data.productName)
+                    }).catch(error => {
+                    toast.error("error happened fetching username data")
+                    console.log(error)
+                })
+            })
+        }
+
+
         const myChartRef = this.chartRef.current.getContext("2d");
 
 
@@ -170,9 +229,28 @@ class DashBoard extends Component {
         //         }
         //     }
         // });
+        // this.setState({
+        //     loading: 'false'
+        // });
     }
 
     render() {
+        // if (this.state.loading === 'initial') {
+        //     return (
+        //         <div>
+        //             <Spinner color="danger" style={{ width: '30rem', height: '30rem' }}/>
+        //         </div>
+        //     );
+        // }
+        //
+        //
+        // if (this.state.loading === 'true') {
+        //     return (
+        //         <div>
+        //             <Spinner color="black" style={{ width: '20rem', height: '20rem',marginLeft: '45%',marginTop: '10%',marginBottom: '10%' }}/>
+        //         </div>
+        //     );
+        // }
         return (
             <div className="container">
                 <Row>
@@ -197,32 +275,29 @@ class DashBoard extends Component {
                             <Table striped>
                                 <thead>
                                 <tr>
-                                    <th>Last Transaction Date</th>
+                                    <th>id</th>
+                                    <th>Username(buyer)</th>
                                     <th>Product Name</th>
-                                    <th>Quantity</th>
-                                    <th>Number of Purchases</th>
+                                    <th>amount</th>
+                                    <th>price</th>
+                                    <th>Revenue</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@mdo</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>Jacob</td>
-                                    <td>Thornton</td>
-                                    <td>@fat</td>
-
-                                </tr>
-                                <tr>
-                                    <th scope="row">3</th>
-                                    <td>Larry</td>
-                                    <td>the Bird</td>
-                                    <td>@twitter</td>
-                                </tr>
+                                {
+                                    this.state.salesReportData.map((val,index)=>{
+                                        return (
+                                            <tr>
+                                                <th scope="row">{val.id}</th>
+                                                <td>{val.username1}</td>
+                                                <td>{val.productName1}</td>
+                                                <td>{val.amount}</td>
+                                                <td>{val.price}</td>
+                                                <td>{val.price * val.amount}</td>
+                                            </tr>
+                                        )
+                                    })
+                                }
                                 </tbody>
                             </Table>
                         </CardBody>
@@ -231,6 +306,7 @@ class DashBoard extends Component {
             </div>
                 );
     }
+
 
 }
 
