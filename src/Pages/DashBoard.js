@@ -26,7 +26,7 @@ import {
     Title,
     Tooltip
 } from 'chart.js';
-import {Card, CardBody, CardHeader, CardTitle, Col, Row} from "reactstrap";
+import {Card, CardBody, CardHeader, CardTitle, Col, Row, Table} from "reactstrap";
 import axios from "axios";
 import {toast} from "react-toastify";
 
@@ -176,18 +176,56 @@ class DashBoard extends Component {
         return (
             <div className="container">
                 <Row>
-                    <Card className={".mx-auto"} style={{width: '110%',marginLeft: '10%'}} body>
+                    <Card style={{width: '110%',marginLeft: '10%'}} body>
                         <CardTitle tag="h3">Amount of products</CardTitle>
                         <CardBody>
-                        <Col>
-                            <canvas id="myChart" width="1000" height="600"  ref={this.chartRef}></canvas>
-                        </Col>
+                            <Col>
+                                <canvas id="myChart" width="1000" height="600"  ref={this.chartRef}></canvas>
+                            </Col>
                         </CardBody>
                     </Card>
-                    <Card className={".mx-auto"} style={{width: '110%'}}>
-                        <Col>
-                            {/*<Doughnut data={[2,63,21,1221,3]} />*/}
-                        </Col>
+                    {/*<Card  style={{width: '110%'}}>*/}
+                    {/*    <Col>*/}
+                    {/*        /!*<Doughnut data={[2,63,21,1221,3]} />*!/*/}
+                    {/*    </Col>*/}
+                    {/*</Card>*/}
+                </Row>
+                <Row>
+                    <Card  style={{width: '110%',marginLeft: '10%',marginTop: '5%'}} body>
+                        <CardTitle tag="h3">Sales Report</CardTitle>
+                        <CardBody>
+                            <Table striped>
+                                <thead>
+                                <tr>
+                                    <th>Last Transaction Date</th>
+                                    <th>Product Name</th>
+                                    <th>Quantity</th>
+                                    <th>Number of Purchases</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <th scope="row">1</th>
+                                    <td>Mark</td>
+                                    <td>Otto</td>
+                                    <td>@mdo</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">2</th>
+                                    <td>Jacob</td>
+                                    <td>Thornton</td>
+                                    <td>@fat</td>
+
+                                </tr>
+                                <tr>
+                                    <th scope="row">3</th>
+                                    <td>Larry</td>
+                                    <td>the Bird</td>
+                                    <td>@twitter</td>
+                                </tr>
+                                </tbody>
+                            </Table>
+                        </CardBody>
                     </Card>
                 </Row>
             </div>

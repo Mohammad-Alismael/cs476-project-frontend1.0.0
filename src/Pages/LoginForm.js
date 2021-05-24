@@ -18,7 +18,7 @@ class LoginForm extends Component {
     login = (e) =>{
         e.preventDefault()
         if (this.state.username != "" && this.state.password != ""){
-            axios.post('https://localhost:5001/api/account/login',{
+            axios.post('https:localhost:5001/api/account/login',{
                 "userName": this.state.username,
                 "password": this.state.password
             }).then(res =>{
@@ -70,9 +70,6 @@ class LoginForm extends Component {
                             <input type="text" className="form-input" name="username" required onChange={this.updateSate}/><br/>
                             <label className="password" for="password">Password</label><br/>
                             <input type="password" className="form-input password-input" name="password" required onChange={this.updateSate}/><br/>
-                            <input type={"checkbox"} class="checkbox-form" name="terms" value="t"/>
-                            <label className="remember" htmlFor="terms"> Remember me</label>
-                            <a className="forgot-password" href="/forgot-password">Forgot Password?</a><br/>
                             <button type="button" className="register" onClick={() => this.nextPath('/register')}>Register</button>
                             <button type="button" className="login" onClick={this.login}>log In</button>
                         </div>
