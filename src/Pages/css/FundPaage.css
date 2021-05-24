@@ -1,0 +1,10 @@
+.fundPageDiv{
+    text-align: center;
+    margin-top: 3% !important;
+    margin-left: 20%;
+    background: red;
+}
+
+.fundPageDiv h1, .fundPageDiv h2,.fundPageDiv input,.fundPageDiv select {
+    margin-bottom: 3%!important;
+}
