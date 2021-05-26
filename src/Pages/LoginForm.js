@@ -18,7 +18,7 @@ class LoginForm extends Component {
     login = (e) =>{
         e.preventDefault()
         if (this.state.username != "" && this.state.password != ""){
-            axios.post('https:localhost:5001/api/account/login',{
+            axios.post('https://localhost:5001/api/account/login',{
                 "userName": this.state.username,
                 "password": this.state.password
             }).then(res =>{

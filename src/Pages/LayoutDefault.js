@@ -53,7 +53,7 @@ class LayoutDefault extends Component {
         if (sessionStorage.getItem("userType") == "Customer") {
             return (
                 <NavItem>
-                    <DropdownItem>
+                    <DropdownItem href={"/fund-page"}>
                         <div className="options">
                             <i className="material-icons">payment</i>
                             <span>payment</span>
@@ -108,7 +108,7 @@ class LayoutDefault extends Component {
         return (
             <Fragment>
                 <Navbar color="white"  expand="md" className={"navbar fixed-top"}>
-                    <NavbarBrand href="/"><img id={'logo'} src={logo} className="mr-auto"/></NavbarBrand>
+                    <NavbarBrand href={sessionStorage.getItem('userType') == "Sales Manager" ? "/dashBoard" : "/"}><img id={'logo'} src={logo} className="mr-auto"/></NavbarBrand>
                     <NavbarToggler onClick={this.toggle} >
                         <i className="material-icons mr-2" style={{font: '4rem'}}>dehaze</i>
                     </NavbarToggler>

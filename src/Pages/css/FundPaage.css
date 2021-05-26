@@ -1,10 +1,10 @@
 .fundPageDiv{
     text-align: center;
     margin-top: 3% !important;
-    margin-left: 20%;
-    background: red;
+    margin-left: 10%;
 }
 
-.fundPageDiv h1, .fundPageDiv h2,.fundPageDiv input,.fundPageDiv select {
-    margin-bottom: 3%!important;
+.pricing-column{
+    width: 300px;
+    margin-bottom: 3%;
 }
