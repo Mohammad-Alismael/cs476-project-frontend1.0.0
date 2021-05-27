@@ -27,29 +27,31 @@ class LoginForm extends Component {
                 sessionStorage.setItem("email", res.data.email);
                 sessionStorage.setItem("isLoggedIn", "true");
                 sessionStorage.setItem("userType", res.data.userType);
+                sessionStorage.setItem("mailCode", res.data.mailCode);
                 this.context.updateEmail(res.data.email);
                 this.context.updateUserID(res.data.id);
-                this.context.updateUsername(res.data.userName)
+                this.context.updateUsername(res.data.userName);
+                this.context.setVerificationCode(res.data.mailCode);
                 this.context.updateIsLoggedIn(true);
-                if (res.data.userType == "Customer"){
-                    this.nextPath('/')
-                }else if (res.data.userType == "Sales Manager"){
-                    this.nextPath('/dashBoard')
-                }else if (res.data.userType == "Product Manager"){
-                    this.nextPath('/product-owner-landing-page')
-                }else{
-                    this.nextPath('/')
-                    console.log(this.context.userID)
-                }
+                this.nextPath('/factor-authentication');
+                // if (res.data.userType == "Customer"){
+                //     this.nextPath('/')
+                // }else if (res.data.userType == "Sales Manager"){
+                //     this.nextPath('/dashBoard')
+                // }else if (res.data.userType == "Product Manager"){
+                //     this.nextPath('/product-owner-landing-page')
+                // }else{
+                //     this.nextPath('/')
+                //     console.log(this.context.userID)
+                // }
             }).catch(error =>{
-                if(error.response.status == 401)
+                console.log(error)
                     toast.error("username or password is incorrect")
 
             })
         }else {
             toast.warn("check your info")
         }
-        console.log()
     }
     updateSate = (e) =>{
         e.preventDefault()

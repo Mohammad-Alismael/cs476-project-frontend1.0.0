@@ -1,51 +1,55 @@
 import React, {Component} from 'react';
 
 import './css/Factor.css'
+import {Button, Card, CardBody, CardHeader, CardText, CardTitle, FormGroup, Input, InputGroup, Label} from "reactstrap";
+import {toast} from "react-toastify";
 class FactorAuthentication extends Component{
 
-
+    state = {
+        verificationCode: ""
+    }
+    nextPath(path) {
+        this.props.history.push(path);
+    }
+    verify = (e) =>{
+        e.preventDefault()
+        if (this.context.verificationCode == this.state.verificationCode ||
+        sessionStorage.getItem('mailCode') == this.state.verificationCode){
+            const userType = sessionStorage.getItem('userType');
+            if (userType == "Customer"){
+                this.nextPath('/')
+            }else if (userType == "Sales Manager"){
+                this.nextPath('/dashBoard')
+            }else if (userType == "Product Manager"){
+                this.nextPath('/product-owner-landing-page')
+            }else{
+                this.nextPath('/')
+                console.log(this.context.userID)
+            }
+        }else {
+           toast.info('the verificationCode is incorrect')
+        }
+    }
     render() {
         return (
             <>
-            <form className="in-the-middle">
-                <div className="card">
-                    <h3 className="card-header"><i className="fa fa-user-circle"/> Two Factor Authentication</h3>
-
-                    <div className="card-block">
-                        <div className="lead">
-                            <i className="fa fa-info-circle"></i>
-                            Your account is secured with Two Factor Authentication, therefore you will receive a code.
-                            Please enter your verification code to verify your account.
-                            <br/>
+                <form className="in-the-middle">
+                    <Card>
+                        <CardHeader>Two Factor Authentication</CardHeader>
+                        <CardBody>
+                            <CardText>Your account is secured with Two Factor Authentication, therefore you will receive a code.
+                                Please enter your verification code to verify your account.<br/>
                                 If you do not receive the code within some minutes, try sending a new code.
-                        </div>
-                    </div>
-
-                    <div className="card-block">
-                        <div className="form-group row">
-                            <label htmlFor="smscode" className="col-4 col-form-label text-right">Verification
-                                code</label>
-                            <div className="col-8">
-                                <input type="text" className="form-control" id="smscode"
-                                       placeholder="Enter your code here"/>
-                            </div>
-                        </div>
-
-                        <div className="row">
-                            <div className="col col-8 offset-4">
-                                <div className="row">
-                                    <div className="col-sm-6">
-                                        <button type="submit" className="btn btn-block btn-success">Verify</button>
-                                    </div>
-                                    <div className="col-sm-6">
-                                        <button type="submit" className="btn btn-block btn-primary">Send new code</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </form>
+                            </CardText>
+                            <FormGroup>
+                                <Label for="exampleEmail">Verification code</Label>
+                                <Input type="test" name="verificationCode" id="exampleEmail" placeholder=""
+                                    onChange={(e)=>{this.setState({verificationCode : e.target.value})}}/>
+                            </FormGroup>
+                            <Button id={'btn'} size={'lg'} style={{width : '100%',margin: '10px'}} onClick={this.verify}>Verify</Button>
+                        </CardBody>
+                    </Card>
+                </form>
                 </>
         );
     }

@@ -21,7 +21,8 @@ export class GlobalProvider extends Component {
             percentageDiscount: 0,
             usedCoupon : false,
             CouponExists: false,
-            isEmpty1: false
+            isEmpty1: false,
+            verificationCode:""
         }
         this.addItemCart = this.addItemCart.bind(this)
     }
@@ -205,7 +206,9 @@ export class GlobalProvider extends Component {
          e.preventDefault()
         this.setState({discountCoupon : e.target.value})
     }
-
+    setVerificationCode = (verificationCode) =>{
+         this.setState({verificationCode})
+    }
     emptyCartItems = ()=>{
          this.state.cartItems.map((val,index)=>{
              this.emptyCartPerProduct(val.id)
@@ -231,7 +234,8 @@ export class GlobalProvider extends Component {
             priceAfterDisc,
             discountCoupon,
             percentageDiscount,
-            isEmpty} = this.state;
+            isEmpty,
+            verificationCode} = this.state;
         const {changeShoppingCard,
             updateUsername,
             updateUserID,
@@ -245,7 +249,8 @@ export class GlobalProvider extends Component {
             calculateTotalPriceGlobal,
             getCouponDiscount,
             emptyCartItems,
-            changeEmptyStatus
+            changeEmptyStatus,
+            setVerificationCode
         } = this;
         return (
             <GlobalContext.Provider value={{
@@ -259,6 +264,7 @@ export class GlobalProvider extends Component {
                 discountCoupon,
                 percentageDiscount,
                 isEmpty,
+                verificationCode,
                 updateUsername,
                 updateUserID,
                 updateEmail,
@@ -272,7 +278,8 @@ export class GlobalProvider extends Component {
                 setDiscountCoupon,
                 getCouponDiscount,
                 emptyCartItems,
-                changeEmptyStatus
+                changeEmptyStatus,
+                setVerificationCode
             }}>
                 {this.props.children}
             </GlobalContext.Provider>
