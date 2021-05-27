@@ -97,7 +97,7 @@ class ProfileSettings extends Component {
                                value={this.state.userType == null? "not specified" :this.state.userType }/>
                       </div>
                         <div className="col-lg-6 col-md-6 col-sm-6">
-                            <label htmlFor="text" className="form-label">password</label>
+                            <label htmlFor="text" className="form-label">balance</label>
                             <input className="form-control" type="text" name="password"
                                    disabled={true}
                                    onChange={this.updateSate}

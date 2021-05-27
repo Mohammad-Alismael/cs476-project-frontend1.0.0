@@ -84,7 +84,7 @@ class DashBoard extends Component {
         return new Promise((resolve, reject) => {
             this.getUsername(parseInt(sessionStorage.getItem('user_id')))
                 .then((data)=>{
-                    axios.get(`http://localhost:5000/api/products/getLinkedProducts/${data.linking_id}`)
+                    axios.get(`https://localhost:5001/api/sales/getSales/${parseInt(sessionStorage.getItem('user_id'))}`)
                         .then((res) => {
                             resolve(res.data)
                         }).catch(error => {
@@ -150,21 +150,21 @@ class DashBoard extends Component {
 
             this.getSalesReportData().then((data)=>{
                 console.log(data)
-                // data.map((val,indexed)=>{
-                //     const tmp = {}
-                //     tmp.id = val.id;
-                //     tmp.price = val.price;
-                //     tmp.amount = val.amount;
-                //     // getUsername(val.userId).then((username)=>{
-                //     //     tmp.username1 = username;
-                //     // })
-                //     // getProductName(parseInt(val.productId)).then((productName)=>{
-                //     //     tmp.productName1 = productName;
-                //     // })
-                //     this.setState({salesReportData: [...this.state.salesReportData, tmp]},function () {
-                //         console.log("the new sales report data", this.state.salesReportData)
-                //     })
-                // })
+                data.map((val,indexed)=>{
+                    const tmp = {}
+                    tmp.id = val.id;
+                    tmp.price = val.price;
+                    tmp.amount = val.amount;
+                    this.getUsername(val.userId).then((username)=>{
+                        tmp.username1 = username;
+                    })
+                    this.getProductName(parseInt(val.productId)).then((productName)=>{
+                        tmp.productName1 = productName;
+                    })
+                    this.setState({salesReportData: [...this.state.salesReportData, tmp]},function () {
+                        console.log("the new sales report data", this.state.salesReportData)
+                    })
+                })
 
             })
         })
@@ -220,7 +220,7 @@ class DashBoard extends Component {
         return new Promise((resolve, reject) => {
             axios.get(`https://localhost:5001/api/users/${userId}`)
                 .then((res) => {
-                    resolve(res.data)
+                    resolve(res.data.userName)
                 }).catch(error => {
                 toast.error("error happened fetching username data")
                 console.log(error)
@@ -294,7 +294,7 @@ class DashBoard extends Component {
                                     this.state.salesReportData.map((val,index)=>{
                                         return (
                                             <tr>
-                                                <th scope="row">{val.id}</th>
+                                                <th scope="row">{index+1}</th>
                                                 <td>{val.username1}</td>
                                                 <td>{val.productName1}</td>
                                                 <td>{val.amount}</td>
