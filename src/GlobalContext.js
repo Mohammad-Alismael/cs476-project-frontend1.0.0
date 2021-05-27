@@ -20,20 +20,22 @@ export class GlobalProvider extends Component {
             discountCoupon : "",
             percentageDiscount: 0,
             usedCoupon : false,
-            CouponExists: false
+            CouponExists: false,
+            isEmpty1: false
         }
         this.addItemCart = this.addItemCart.bind(this)
     }
 
 
-    setCartItems(){
+    setCartItems =() =>{
+
             axios.get(`https://localhost:5001/api/carts/getByUser/${parseInt(sessionStorage.getItem('user_id'))}`)
                 .then((res) => {
                     console.log("checking update", res.data)
-                    res.data.map((val,index)=>{
+                    res.data.map((val, index) => {
                         const productId = val.product;
-                        this.fetchProducts(productId).then((data)=>{
-                            this.addItemCart(data,val.quantity)
+                        this.fetchProducts(productId).then((data) => {
+                            this.addItemCart(data, val.quantity)
                         })
                     })
                     this.changeShoppingCard(res.data.length)
@@ -43,8 +45,8 @@ export class GlobalProvider extends Component {
                 alert(" error happened fetch cart items number")
                 this.changeShoppingCard(-1)
             })
+            this.calculateTotalPrice()
 
-        this.calculateTotalPrice()
     }
 
     totalSum = 0;
@@ -204,6 +206,21 @@ export class GlobalProvider extends Component {
         this.setState({discountCoupon : e.target.value})
     }
 
+    emptyCartItems = ()=>{
+         this.state.cartItems.map((val,index)=>{
+             this.emptyCartPerProduct(val.id)
+         })
+    }
+
+    emptyCartPerProduct = (productId) =>{
+         axios.post('https://localhost:5001/api/carts/delete',{
+                 "userId": parseInt(sessionStorage.getItem('user_id')),
+                 "product": productId
+             }).catch((error) => {
+             console.log(error)
+             toast.error("error happened while deleting products from carts")
+         })
+    }
     render() {
         const {shoppingCard,
             username,
@@ -213,7 +230,8 @@ export class GlobalProvider extends Component {
             priceBeforeDisc,
             priceAfterDisc,
             discountCoupon,
-            percentageDiscount} = this.state;
+            percentageDiscount,
+            isEmpty} = this.state;
         const {changeShoppingCard,
             updateUsername,
             updateUserID,
@@ -225,7 +243,9 @@ export class GlobalProvider extends Component {
             addItemCart,
             calculateTotalPrice,
             calculateTotalPriceGlobal,
-            getCouponDiscount
+            getCouponDiscount,
+            emptyCartItems,
+            changeEmptyStatus
         } = this;
         return (
             <GlobalContext.Provider value={{
@@ -238,6 +258,7 @@ export class GlobalProvider extends Component {
                 cartItems,
                 discountCoupon,
                 percentageDiscount,
+                isEmpty,
                 updateUsername,
                 updateUserID,
                 updateEmail,
@@ -249,7 +270,9 @@ export class GlobalProvider extends Component {
                 calculateTotalPrice,
                 calculateTotalPriceGlobal,
                 setDiscountCoupon,
-                getCouponDiscount
+                getCouponDiscount,
+                emptyCartItems,
+                changeEmptyStatus
             }}>
                 {this.props.children}
             </GlobalContext.Provider>

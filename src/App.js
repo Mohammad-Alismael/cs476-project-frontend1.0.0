@@ -20,6 +20,7 @@ import Checkout from "./Pages/Checkout";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import FundPage from "./Pages/FundPage";
+import Done from "./Pages/Done";
 function App() {
 
     const routes = [
@@ -53,6 +54,7 @@ function App() {
               <div>
                   <Switch>
                       <LayoutDefault exact path="/" component={LandingPage}/>
+                      <LayoutDefault exact path="/done" component={Done}/>
                       <LayoutDefault exact path="/item-details/:item_id" component={ItemDetails} />
                       {
                           routes.map(({path,category})=>{

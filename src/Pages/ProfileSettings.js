@@ -10,16 +10,18 @@ class ProfileSettings extends Component {
       password: "",
       email: "",
       userType: null,
-      locker: true
+      locker: true,
+        balance: 0
     }
     componentWillMount() {
       axios.get(`https://localhost:5001/api/users/${sessionStorage.getItem('user_id')}`)
           .then((res)=>{
-              const {userName, name, surname, password, email, userType} = res.data;this.setState({userName})
+              const {userName, name, surname, password, email, userType,balance} = res.data;this.setState({userName})
             this.setState({name})
             this.setState({surname})
             this.setState({password})
             this.setState({email})
+              this.setState({balance})
             this.setState({userType})
 
           }).catch((error)=>{
@@ -94,6 +96,13 @@ class ProfileSettings extends Component {
                         <input class="form-control" type="text" name="display" disabled={true}
                                value={this.state.userType == null? "not specified" :this.state.userType }/>
                       </div>
+                        <div className="col-lg-6 col-md-6 col-sm-6">
+                            <label htmlFor="text" className="form-label">password</label>
+                            <input className="form-control" type="text" name="password"
+                                   disabled={true}
+                                   onChange={this.updateSate}
+                                   value={this.state.balance}/>
+                        </div>
                     </div>
                   </div>
                 </form>

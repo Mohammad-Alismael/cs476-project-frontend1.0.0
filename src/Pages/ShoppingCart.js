@@ -19,8 +19,7 @@ class ShoppingCart extends Component {
 
     next = (e) =>{
         e.preventDefault();
-        console.log(this.context.priceBeforeDisc)
-        console.log((this.context.percentageDiscount/100))
+        this.props.history.push('/checkout');
     }
 
     render() {

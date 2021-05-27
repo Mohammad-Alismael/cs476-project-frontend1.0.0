@@ -1,43 +1,91 @@
 import React, {Component} from 'react';
+import {Button, Card, CardBody, Col, Container, Input, InputGroup, Row} from "reactstrap";
+import GlobalContext from "../GlobalContext";
+import ShoppingCart from "./ShoppingCart";
+import axios from "axios";
+import {toast} from "react-toastify";
 
 class Checkout extends Component {
+    state = {
+        email: "",
+        username: ""
+    }
+    pay =(e) =>{
+    e.preventDefault()
+        if (this.state.username == sessionStorage.getItem('username') &&
+            this.state.email == sessionStorage.getItem('email')) {
+            axios.post(`https://localhost:5001/api/finance/pay`, {
+                "customerID": parseInt(sessionStorage.getItem('user_id')),
+                "fee": Math.round(this.context.priceAfterDisc) == 0 ?
+                    Math.round(this.context.priceBeforeDisc) : Math.round(this.context.priceAfterDisc)
+            }).then((res) => {
+                this.context.cartItems.map((val, index) => {
+                    this.addingProductsToDB(val)
+                })
+                this.context.emptyCartItems()
+                this.context.changeShoppingCard(0)
+                toast.success("successfully paid")
+            }).catch((error) => {
+                console.log(error)
+                toast.error("error happened while proceeding")
+            })
+            console.log( Math.round(this.context.priceAfterDisc) == 0 ?
+                Math.round(this.context.priceBeforeDisc) : Math.round(this.context.priceAfterDisc))
+        }else {
+            if (this.state.username != sessionStorage.getItem('username')){
+                toast.info('username is incorrect')
+            }else {
+                toast.info('email is incorrect')
+            }
+        }
+
+    }
+    addingProductsToDB(val){
+            axios.post(`https://localhost:5001/api/sales/add`,{
+                "productId": val.id,
+                "userId": parseInt(sessionStorage.getItem('user_id')),
+                "price": val.price,
+                "amount":val.chosenQuantity
+            }).catch((error) => {
+                console.log(error)
+                toast.error("error happened while adding products to db")
+            })
+    }
+    updateSate = (e) =>{
+        e.preventDefault()
+        this.setState({[e.target.name] : e.target.value})
+    }
     render() {
         return (
-                <section class="payment-form dark">
-                    <div class="container">
-                            <div class="card-details">
-                                <h3 class="title">User Information</h3>
-                                <div class="row">
-                                    <div class="form-group col-sm-7">
-                                        <label for="full-name">Full-Name</label>
-                                        <input id="full-name" type="text" class="form-control" placeholder="Full-Name" aria-label="Full-Name" aria-describedby="basic-addon1"/>
-                                    </div>
-                                    <div class="form-group col-sm-5">
-                                        <label for="city">City</label>
-                                        <input id="city" type="text" class="form-control" placeholder="City" aria-label="City" aria-describedby="basic-addon1"/>
-                                    </div>
-                                </div>
-                                <div class="form-group col-sm-12">
-                                    <label for="address">Address</label>
-                                    <input id="address" type="text" class="form-control"  placeholder="Address" aria-label="Address" aria-describedby="basic-addon1"/>
-                                </div>
-                                <div class="form-group col-sm-4">
-                                    <label for="zip-code">Zip code</label>
-                                    <input id="zip-code" type="number" class="form-control" placeholder="Zip Code" aria-label="Zip Code" aria-describedby="basic-addon1"/>
-                                </div>
-                                <div class="form-group col-sm-9">
-                                    <label for="email-address">Email Address</label>
-                                    <input id="email-address" type="email" class="form-control" placeholder="Email Address" aria-label="Email Address" aria-describedby="basic-addon1"/>
-                                </div>
-                                <div class="form-group col-sm-12">
-                                    <button type="button" class="btn btn-primary btn-block">Proceed</button>
-                                </div>
-                            </div>
-                    </div>
+            <Container style={{marginBottom: '20%'}}>
+                <Row style={{background: 'white'}}>
+                    <Col xl={9}>
+                        {/*<InputGroup style={{margin:'10px'}}>*/}
+                        {/*    <Input placeholder={"wallet address"} />*/}
+                        {/*</InputGroup>*/}
+                        <InputGroup style={{margin:'10px'}}>
+                            <Input name="username" placeholder={"enter username for checking"}
+                                   onChange={this.updateSate}/>
+                        </InputGroup>
+                        <InputGroup style={{margin:'10px'}}>
+                            <Input name="email" placeholder={"enter email for checking"}
+                                   onChange={this.updateSate}/>
+                        </InputGroup>
+                        <Button id={'btn'} size={'lg'} style={{width : '100%',margin: '10px'}} onClick={this.pay}>proceed</Button>
 
-    </section>
+                    </Col>
+                    <Col xl={3}>
+                        <Card body>
+                            <p>Price before discount:     {(this.context.priceBeforeDisc).toFixed(2)}$</p>
+                            <p>Discount:     {this.context.percentageDiscount}%</p>
+                            <p>Price after discount:   {(this.context.priceAfterDisc).toFixed(2)}$</p>
+                        </Card>
+
+                    </Col>
+                </Row>
+            </Container>
         );
     }
 }
-
+Checkout.contextType = GlobalContext
 export default Checkout;

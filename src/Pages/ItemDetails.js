@@ -116,7 +116,6 @@ class ItemDetails extends Component {
                 this.setState({
                     loading: 'false'
                 });
-
                 this.loadQuantity(quantity)
                 console.log(this.state, "checking options")
             });

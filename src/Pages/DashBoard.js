@@ -82,13 +82,17 @@ class DashBoard extends Component {
 
     getSalesReportData(){
         return new Promise((resolve, reject) => {
-            axios.get(`https://localhost:5001/api/sales`)
-                .then((res) => {
-                    resolve(res.data)
-                }).catch(error => {
-                toast.error("error happened fetching sales report data")
-                console.log(error)
+            this.getUsername(parseInt(sessionStorage.getItem('user_id')))
+                .then((data)=>{
+                    axios.get(`http://localhost:5000/api/products/getLinkedProducts/${data.linking_id}`)
+                        .then((res) => {
+                            resolve(res.data)
+                        }).catch(error => {
+                        toast.error("error happened fetching sales report data")
+                        console.log(error)
+                    })
             })
+           
         })
     }
     componentDidMount() {
@@ -146,48 +150,26 @@ class DashBoard extends Component {
 
             this.getSalesReportData().then((data)=>{
                 console.log(data)
-                data.map((val,indexed)=>{
-                    const tmp = {}
-                    tmp.id = val.id;
-                    tmp.price = val.price;
-                    tmp.amount = val.amount;
-                    getUsername(val.userId).then((username)=>{
-                        tmp.username1 = username;
-                    })
-                    getProductName(parseInt(val.productId)).then((productName)=>{
-                        tmp.productName1 = productName;
-                    })
-                    this.setState({salesReportData: [...this.state.salesReportData, tmp]},function () {
-                        console.log("the new sales report data", this.state.salesReportData)
-                    })
-                })
+                // data.map((val,indexed)=>{
+                //     const tmp = {}
+                //     tmp.id = val.id;
+                //     tmp.price = val.price;
+                //     tmp.amount = val.amount;
+                //     // getUsername(val.userId).then((username)=>{
+                //     //     tmp.username1 = username;
+                //     // })
+                //     // getProductName(parseInt(val.productId)).then((productName)=>{
+                //     //     tmp.productName1 = productName;
+                //     // })
+                //     this.setState({salesReportData: [...this.state.salesReportData, tmp]},function () {
+                //         console.log("the new sales report data", this.state.salesReportData)
+                //     })
+                // })
 
             })
         })
 
-        function getUsername(userId) {
-            return new Promise((resolve, reject) => {
-                axios.get(`https://localhost:5001/api/users/${userId}`)
-                    .then((res) => {
-                        resolve(res.data.userName)
-                    }).catch(error => {
-                    toast.error("error happened fetching username data")
-                    console.log(error)
-                })
-            })
-        }
 
-        function getProductName(productId) {
-            return new Promise((resolve, reject) => {
-                axios.get(`https://localhost:5001/api/products/${productId}`)
-                    .then((res) => {
-                        resolve(res.data.productName)
-                    }).catch(error => {
-                    toast.error("error happened fetching username data")
-                    console.log(error)
-                })
-            })
-        }
 
 
         const myChartRef = this.chartRef.current.getContext("2d");
@@ -232,6 +214,30 @@ class DashBoard extends Component {
         // this.setState({
         //     loading: 'false'
         // });
+    }
+
+    getUsername(userId) {
+        return new Promise((resolve, reject) => {
+            axios.get(`https://localhost:5001/api/users/${userId}`)
+                .then((res) => {
+                    resolve(res.data)
+                }).catch(error => {
+                toast.error("error happened fetching username data")
+                console.log(error)
+            })
+        })
+    }
+
+    getProductName(productId) {
+        return new Promise((resolve, reject) => {
+            axios.get(`https://localhost:5001/api/products/${productId}`)
+                .then((res) => {
+                    resolve(res.data.productName)
+                }).catch(error => {
+                toast.error("error happened fetching username data")
+                console.log(error)
+            })
+        })
     }
 
     render() {

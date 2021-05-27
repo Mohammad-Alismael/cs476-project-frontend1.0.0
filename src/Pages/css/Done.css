@@ -1,0 +1,56 @@
+
+/*div {*/
+/*    position: relative;*/
+/*    display: block;*/
+/*    width: 400px;*/
+/*    height: 400px;*/
+/*    padding: 5px;*/
+/*    margin-top: 220px;*/
+/*    border-bottom: 20px solid rgb(126,213,108);*/
+/*    border-left: 0px solid white;*/
+/*    border-right: 0px solid white;*/
+/*    border-top: 0px solid white;*/
+/*    background: white;*/
+/*    !*	box-shadow: 20px  0 30px rgb(126,222,165);*!*/
+/*}*/
+
+/*div img {*/
+/*    margin: 40px 150px;*/
+/*    width: 100px;*/
+/*    height: 100px;*/
+/*}*/
+
+/*div p {*/
+/*    text-align: center;*/
+/*    font-size: 24px;*/
+/*    margin: 0;*/
+/*}*/
+
+/*div #s{*/
+/*    font-size: 44px;*/
+/*    color: rgb(126,222,165);*/
+/*}*/
+
+/*div #check{*/
+/*    padding-top: 15px;*/
+/*    padding-bottom: 35px;*/
+/*    color: black;*/
+/*}*/
+
+/*div button{*/
+/*    margin: 0 100px;*/
+/*    padding: 15px;*/
+/*    font-size: 24px;*/
+/*    border-radius: 25px;*/
+/*    width: 200px;*/
+/*    text-transform: uppercase;*/
+/*    letter-spacing: 5px;*/
+/*    border-color: rgb(212,240,207);*/
+/*    color: rgb(126,222,165);*/
+/*}*/
+
+
+/*div button:hover{*/
+/*    color: rgb(4, 204, 104);*/
+/*    border-color: rgb(4, 204, 104);*/
+/*}*/

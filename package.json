@@ -19,6 +19,7 @@
     "react-rating-stars-component": "^2.2.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
+    "react-simple-stepper-component": "^1.0.4",
     "react-slideshow-image": "^3.4.3",
     "react-toastify": "^7.0.4",
     "reactstrap": "^8.9.0",
