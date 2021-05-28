@@ -14,6 +14,7 @@ import GlobalContext from "../GlobalContext";
 import Comments from "../Components/Comments";
 import {toast} from "react-toastify";
 import Campaigns from "../Components/Campaigns";
+import {log10} from "chart.js/helpers";
 
 class ItemDetails extends Component {
     state = {
@@ -79,7 +80,7 @@ class ItemDetails extends Component {
                 this.context.fetchProducts(this.state.item_id)
                     .then(function (response) {
                         console.log("Ff",response)
-                        const {description,price,brand,rating,productName,picture,quantity} = response;
+                        const {description,price,brand,rating,productName,picture,quantity,userId} = response;
                         var tmp = {}
                         tmp.description = description
                         tmp.price = price
@@ -87,17 +88,33 @@ class ItemDetails extends Component {
                         tmp.rate = rating;
                         tmp.quantity = quantity;
                         tmp.name = productName;
-                        tmp.picture = picture
+                        tmp.picture = picture;
+                        tmp.userId = userId;
+
                         resolve(tmp);
                     }).catch(function (error) {
                     toast.error("error happened fetching product data")
                     console.log(error);
                 })
 
+
             }, 500);
         });
 
+
         return promise;
+    }
+
+    getUsername(userId) {
+        return new Promise((resolve, reject) => {
+            axios.get(`https://localhost:5001/api/users/${userId}`)
+                .then((res) => {
+                    resolve(res.data.userName)
+                }).catch(error => {
+                toast.error("error happened fetching username data")
+                console.log(error)
+            })
+        })
     }
 
     componentDidMount() {
@@ -105,12 +122,16 @@ class ItemDetails extends Component {
 
         this.loadData()
             .then((data) => {
-                const {name,description,price,rate,brand,picture,quantity} = data
+                console.log(Object.keys(data))
+                const {name,description,price,rate,brand,picture,quantity,userId} = data
+
                 this.setState({name})
                 this.setState({price})
                 this.setState({rate})
                 this.setState({brand})
-                // this.setState({quantity})
+                this.getUsername(userId).then((seller)=>{
+                    this.setState({seller})
+                })
                 this.setState({picture})
                 this.setState({description})
                 this.setState({
@@ -135,7 +156,7 @@ class ItemDetails extends Component {
     addComment = (e)=>{
         var self = this;
         e.preventDefault()
-        if(sessionStorage.getItem("userType") != "Product Manager") {
+        if(sessionStorage.getItem("userType") == "Customer") {
             axios.post(`https://localhost:5001/api/comments/add`, {
                 "userID": sessionStorage.getItem("user_id").toString(),
                 "userName": sessionStorage.getItem("username"),
@@ -247,7 +268,8 @@ class ItemDetails extends Component {
                         />
                         <h6>{this.state.brand}</h6>
                         <h4>{this.state.price}$</h4>
-                        {/*<h4>{this.state.seller}</h4>*/}
+                        <h4>{this.state.seller}</h4>
+                        {/*<h4>seller</h4>*/}
                         <hr></hr>
                         <p>{this.state.description}</p>
                         <div className="options">
