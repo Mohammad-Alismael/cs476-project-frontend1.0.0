@@ -21,6 +21,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import FundPage from "./Pages/FundPage";
 import Done from "./Pages/Done";
+import { Notifications } from 'react-push-notification';
 function App() {
 
     const routes = [
@@ -50,6 +51,7 @@ function App() {
 
       <GlobalProvider>
           <ToastContainer/>
+          <Notifications />
           <Router>
               <div>
                   <Switch>

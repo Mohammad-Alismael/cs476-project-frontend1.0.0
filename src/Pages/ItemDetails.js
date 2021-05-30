@@ -137,6 +137,7 @@ class ItemDetails extends Component {
                 this.setState({
                     loading: 'false'
                 });
+                this.setState({quantity})
                 this.loadQuantity(quantity)
                 console.log(this.state, "checking options")
             });
@@ -229,6 +230,25 @@ class ItemDetails extends Component {
             this.setState({quantityAr: [...this.state.quantityAr, <option>{i}</option>]})
         }
     }
+    validation(){
+        if (this.state.quantity != 1){
+            return (
+                <>
+                    <Label for="exampleSelect">Quantity</Label>
+                    <Input type="select" name="select" id="exampleSelect"
+                    onChange={(e)=> {this.setState({quantity : parseInt(e.target.value)})}}>
+                    {
+                        this.state.quantityAr
+                    }
+                    </Input>
+                </>
+            )
+        }else{
+            return (
+                <span color={"success"}>Out of Stock!</span>
+            )
+        }
+    }
     render() {
 
         if (this.state.loading === 'initial') {
@@ -281,14 +301,9 @@ class ItemDetails extends Component {
                             <span>crypto currency support it</span>
                         </div>
                         <hr></hr>
-                        <FormGroup style={{width: '7%'}}>
-                            <Label for="exampleSelect">Quantity</Label>
-                            <Input type="select" name="select" id="exampleSelect"
-                                onChange={(e)=> {this.setState({quantity : parseInt(e.target.value)})}}>
-                                {
-                                    this.state.quantityAr
-                                }
-                            </Input>
+                        <FormGroup style={{width: '20%'}}>
+                            {this.validation()}
+
                         </FormGroup>
 
                         <Button id={'btn'} onClick={this.addItemCart}>Add To Cart</Button>
@@ -299,29 +314,6 @@ class ItemDetails extends Component {
                             (sessionStorage.getItem('userType') == "Sales Manager") ?
                                 (<Campaigns productId={this.state.item_id}/>) : null
                         }
-                    </Col>
-                </Row>
-                <Row className={'RowDiv d-none'}>
-                    <Col>
-                        <Card className={'granteeCard'}>
-                            <i className="material-icons">monetization_on</i>
-                            <h5>100% Original</h5>
-                            <p>Chocolate bar candy canes ice cream toffee cookie halvah.</p>
-                        </Card>
-                    </Col>
-                    <Col>
-                        <Card className={'granteeCard'} >
-                            <i className="material-icons">access_time</i>
-                            <h5>10 Day Replacement</h5>
-                            <p>Marshmallow biscuit donut dragée fruitcake wafer.</p>
-                        </Card>
-                    </Col>
-                    <Col>
-                        <Card className={'granteeCard'}>
-                            <i className="material-icons">monetization_on</i>
-                            <h5>1 Year Warranty</h5>
-                            <p>Chocolate bar candy canes ice cream toffee cookie halvah.</p>
-                        </Card>
                     </Col>
                 </Row>
                 <hr></hr>

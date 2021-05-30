@@ -101,6 +101,7 @@ export class GlobalProvider extends Component {
 
     addItemCart(product,quantity){
         product.chosenQuantity = quantity;
+        product.applied = false
         if(!this.state.cartItems.some(item => item.productName === product.productName)){
             this.setState({cartItems : [...this.state.cartItems,product]})
         }
@@ -120,6 +121,7 @@ export class GlobalProvider extends Component {
         var priceAfterDisc = 0;
          this.state.cartItems.map((val,index)=>{
              if (val.id == productId){
+                 val.applied = true
                  priceAfterDisc+= (val.price * val.chosenQuantity) * ((100 - percentageDiscount)/100)
              }else {
                  priceAfterDisc+= (val.price * val.chosenQuantity)
@@ -165,6 +167,7 @@ export class GlobalProvider extends Component {
             })
         })
     }
+
     getCouponDiscount =() =>{
          const self = this;
          this.checkingCouponExists().then((data)=>{

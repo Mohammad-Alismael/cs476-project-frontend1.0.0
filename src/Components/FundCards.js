@@ -9,7 +9,7 @@ class FundCards extends Component {
         e.preventDefault();
         axios.post('https://localhost:5001/api/finance/addMoney',{
             "customerID":parseInt(sessionStorage.getItem('user_id')),
-            "fee": (this.props.price* this.props.percentageMore) + this.props.price
+            "fee": Math.round((this.props.price* this.props.percentageMore) + this.props.price)
         }).then((res)=>{
             toast.success('balance added successfully')
         }).catch(error =>{

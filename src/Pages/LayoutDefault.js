@@ -19,6 +19,9 @@ import SimpleReactFooter from "simple-react-footer";
 import GlobalContext from "../GlobalContext";
 import RegisterForm from "./RegisterForm";
 import axios from "axios";
+import {toast} from "react-toastify";
+import addNotification from "react-push-notification";
+
 class LayoutDefault extends Component {
     state = {
         isOpen: false,
@@ -104,6 +107,16 @@ class LayoutDefault extends Component {
     toggle =() =>{
         this.setState({isOpen: !this.state.isOpen})
     }
+
+    notification = () =>{
+            addNotification({
+                title: 'New coupons',
+                subtitle: 'This is a subtitle',
+                message: 'new coupons have been added',
+                theme: 'darkblue',
+                native: true // when using native, your OS will handle theming.
+            });
+    }
     render() {
         return (
             <Fragment>
@@ -154,7 +167,7 @@ class LayoutDefault extends Component {
                         <Nav>
                             <NavItem>
                                 <NavbarText>
-                                    <div className="cartBtn2">
+                                    <div className="cartBtn2" onClick={this.notification}>
                                         <i className="material-icons">notifications</i>
                                     </div>
                                 </NavbarText>
@@ -243,18 +256,14 @@ class LayoutDefault extends Component {
                     <div class="container-fluid text-center text-md-left">
                         <div class="row">
                             <div class="col-md-6 mt-md-0 mt-3">
-                                <h5 class="text-uppercase font-weight-bold">Footer text 1</h5>
-                                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Expedita sapiente sint, nulla, nihil
-                                    repudiandae commodi voluptatibus corrupti animi sequi aliquid magnam debitis, maxime quam recusandae
-                                    harum esse fugiat. Itaque, culpa?</p>
+                                <h5 class="text-uppercase font-weight-bold">best web app</h5>
+                                <p>Ecommerce software by PHP programmers matter</p>
 
                             </div>
                             <hr class="clearfix w-100 d-md-none pb-3"/>
                                 <div class="col-md-6 mb-md-0 mb-3">
-                                    <h5 class="text-uppercase font-weight-bold">Footer text 2</h5>
-                                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Optio deserunt fuga perferendis modi earum
-                                        commodi aperiam temporibus quod nulla nesciunt aliquid debitis ullam omnis quos ipsam, aspernatur id
-                                        excepturi hic.</p>
+                                    <h5 class="text-uppercase font-weight-bold">Ecommerce software by</h5>
+                                    <p>PHP progrmamers matter</p>
                                 </div>
                         </div>
                     </div>

@@ -25,7 +25,6 @@ class ShoppingCart extends Component {
     render() {
 
         return (
-            // <Container fuild >
                 <Row style={{width: '111%'}}>
                     <Col xl={9}>
                         {
@@ -40,9 +39,11 @@ class ShoppingCart extends Component {
                                         price={val.price}
                                         brand={val.brand}
                                         rating={val.rating}
+                                        applied={val.applied}
                                         maxQuantity={val.quantity}
                                         chosenQuantity={val.chosenQuantity}
                                         srcImg={val.picture}/>
+
                                 )
                             })
                         }
@@ -73,7 +74,6 @@ class ShoppingCart extends Component {
                         </Card>
                     </Col>
                 </Row>
-            // </Container>
         );
     }
 }
