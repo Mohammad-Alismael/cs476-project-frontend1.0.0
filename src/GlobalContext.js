@@ -10,6 +10,7 @@ export class GlobalProvider extends Component {
         this.state = {
             shoppingCard : -1,
             cartItems : [],
+            notifications: [],
             IsLoggedIn : false,
             priceBeforeDisc : 0,
             priceAfterDisc: 0,
@@ -50,37 +51,7 @@ export class GlobalProvider extends Component {
 
     }
 
-    totalSum = 0;
-     getItemsLocal(){
-         const self = this;
-          return  new Promise((resolve, reject) => {
-              // var TmpArray = {};
-
-              axios.get(`https://localhost:5001/api/carts/getByUser/${parseInt(sessionStorage.getItem('user_id'))}`)
-                      .then((res) => {
-                          let totalSum = 0;
-                          this.totalSum = 0;
-                          this.setState({totalSum : 110})
-                          res.data.map((val, index) => {
-                              const productId = val.product;
-                              // TmpArray[index] = {}
-                              // this.test(productId,val.quantity)
-                              this.fetchProducts(productId).then((productData)=>{
-                                  this.setState({totalSum : 1210})
-                                  // totalSum += (val.quantity * productData.price)
-                                  // self.setState({totalSum : (val.quantity * productData.price)})
-                                  // this.totalSum += val.quantity * productData.price
-                                  // TmpArray[index] = productData;
-                                  // TmpArray[index].chosenQuantity = val.quantity
-                              })
-                          })
-                          resolve(self.state.totalSum)
-                      }).catch((error) => {
-                      console.log(error)
-                      alert(" error happened fetching cart items for price")
-                  })
-
-          })
+    loadNotifications(){
 
     }
     async fetchProducts(productId){
@@ -130,12 +101,7 @@ export class GlobalProvider extends Component {
          })
         this.setState({priceAfterDisc})
     }
-    calculateTotalPriceGlobal =()=>{
-       this.getItemsLocal().then((data)=>{
-           console.log(data,'')
-           })
 
-    }
 
     checkingCouponExists(){
         const self = this;
@@ -229,6 +195,7 @@ export class GlobalProvider extends Component {
     }
     render() {
         const {shoppingCard,
+            notifications,
             username,
             IsLoggedIn,
             user_id,
@@ -258,6 +225,7 @@ export class GlobalProvider extends Component {
         return (
             <GlobalContext.Provider value={{
                 shoppingCard,
+                notifications,
                 username,
                 IsLoggedIn,
                 user_id,

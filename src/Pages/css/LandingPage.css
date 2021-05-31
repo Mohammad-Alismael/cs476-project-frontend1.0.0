@@ -163,6 +163,22 @@ html, body{
     left: 81%;
     /*left: 445px;*/
 }
+/* number of notifications*/
+.numberNotification{
+    position: relative;
+}
+.numberNotification:after{
+    content: attr(data-units);
+    /*z-index: 999;*/
+    /*background: #61dafb;*/
+    color: black;
+    position: absolute;
+    top: -20px;
+    right: -5px;
+    /*width: 30px;*/
+    /*height: 30px;*/
+    border-radius: 50%;
+ }
 /* shopping cart number*/
 .number:after{
     content: attr(data-units);
@@ -202,6 +218,73 @@ html, body{
 .down_count {
 
     margin-right: 3px;
+}
+
+.notificationItems{
+    display: block;
+    position: absolute;
+    top: 60px;
+    right: 200px;
+    width: 350px;
+    height: 500px;
+    max-height: 400px;
+    border: 1px solid black;
+    z-index: 999;
+    background: white;
+}
+
+.notificationItems #lowerDiv{
+    position: absolute;
+    bottom: 0;
+    text-align: center;
+    border-top: #a9aaad solid 1px;
+    width: 350px;
+    cursor: pointer;
+}
+
+.notificationItems #lowerDiv:hover{
+    background: #ededed;
+}
+
+.notificationItem{
+    /*min-height: 70px;*/
+    /*max-height: 120px;*/
+    height: 70px;
+    width: 348px;
+    display: block;
+    position: relative;
+    /*background: red;*/
+    border-bottom: #a9aaad solid 1px;
+    cursor: pointer;
+}
+
+.notificationItem:hover{
+    background: #ededed;
+}
+.notificationItem img{
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    top: 10px;
+    left: 5px;
+}
+.notificationItem p{
+    position: absolute;
+}
+#desc{
+    /* desc */
+    top: 35px;
+    left: 65px;
+
+}
+.notificationItem p:nth-child(2){
+    top: 7px;
+    left: 65px;
+}
+
+.notificationItem p:nth-child(3){
+    top: 8px;
+    right: 20px;
 }
 
 

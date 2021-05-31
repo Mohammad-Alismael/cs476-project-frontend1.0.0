@@ -21,6 +21,7 @@ import RegisterForm from "./RegisterForm";
 import axios from "axios";
 import {toast} from "react-toastify";
 import addNotification from "react-push-notification";
+import NotificationItem from "../Components/NotificationItem";
 
 class LayoutDefault extends Component {
     state = {
@@ -29,7 +30,8 @@ class LayoutDefault extends Component {
         animating: false,
         searchTerm : "",
         productNames : [],
-        productDescription : []
+        productDescription : [],
+        notificationOpener : false
     }
     nextPath(path) {
         this.props.history.push(path);
@@ -108,7 +110,9 @@ class LayoutDefault extends Component {
         this.setState({isOpen: !this.state.isOpen})
     }
 
-    notification = () =>{
+    notification = (e) =>{
+        e.preventDefault()
+        this.setState({notificationOpener: !this.state.notificationOpener})
             addNotification({
                 title: 'New coupons',
                 subtitle: 'This is a subtitle',
@@ -168,10 +172,19 @@ class LayoutDefault extends Component {
                             <NavItem>
                                 <NavbarText>
                                     <div className="cartBtn2" onClick={this.notification}>
-                                        <i className="material-icons">notifications</i>
+                                        <span className={"numberNotification"} data-units={1}>
+                                            <i className="material-icons numberNotification">notifications</i>
+                                        </span>
                                     </div>
                                 </NavbarText>
                             </NavItem>
+                            <div className={'notificationItems'} style={{display : this.state.notificationOpener ?  "block" : "none"}}>
+                                <NotificationItem title={"coupon"} time={'10/02/2010'} description={'new coupon is out'}/>
+                                <NotificationItem title={"coupon"} time={'10/02/2010'} description={'new coupon is out gkgbk'}/>
+                                <div id={'lowerDiv'}>
+                                    <span>Read All notifications</span>
+                                </div>
+                            </div>
                             <NavItem>
                                 <UncontrolledDropdown>
                                     <DropdownToggle caret style={otherDropDown}>
