@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component,Suspense} from 'react';
 
 import {
     Chart,
@@ -96,7 +96,7 @@ class DashBoard extends Component {
         })
     }
     componentDidMount() {
-        // this.setState({ loading: 'true' });
+        this.setState({ loading: 'true' });
         this.getChartData().then((data)=>{
             data.map((val,index)=>{
                 if (val.category == "1")
@@ -161,59 +161,21 @@ class DashBoard extends Component {
                     this.getProductName(parseInt(val.productId)).then((productName)=>{
                         tmp.productName1 = productName;
                     })
+                    console.log("checking",tmp)
                     this.setState({salesReportData: [...this.state.salesReportData, tmp]},function () {
                         console.log("the new sales report data", this.state.salesReportData)
                     })
+                    this.setState({
+                        loading: 'false'
+                    });
                 })
-
             })
+
+
         })
-
-
-
 
         const myChartRef = this.chartRef.current.getContext("2d");
 
-
-
-        // const AmountOFProductsChart = this.chartRef.current.getContext("2d");
-        // new Chart(myChartRef, {
-        //     type: 'pie',
-        //     data: {
-        //         labels: ['Red', 'Orange', 'Yellow', 'Green', 'Blue'],
-        //         datasets: [
-        //             {
-        //                 label: 'Dataset 1',
-        //                 data: [15, 17, 9, 11, 4, 7],
-        //                 backgroundColor: [
-        //                     'rgba(255, 99, 132, 0.2)',
-        //                     'rgba(54, 162, 235, 0.2)',
-        //                     'rgba(255, 206, 86, 0.2)',
-        //                     'rgba(75, 192, 192, 0.2)',
-        //                     'rgba(153, 102, 255, 0.2)',
-        //                     'rgba(255, 159, 64, 0.2)'
-        //                 ],
-        //                 borderColor: [
-        //                     'rgba(255, 99, 132, 1)',
-        //                     'rgba(54, 162, 235, 1)',
-        //                     'rgba(255, 206, 86, 1)',
-        //                     'rgba(75, 192, 192, 1)',
-        //                     'rgba(153, 102, 255, 1)',
-        //                     'rgba(255, 159, 64, 1)'
-        //                 ]
-        //             }
-        //         ]
-        //     },
-        //     options: {
-        //         title: {
-        //             display: true,
-        //             text: 'Chart.js Pie Chart'
-        //         }
-        //     }
-        // });
-        // this.setState({
-        //     loading: 'false'
-        // });
     }
 
     getUsername(userId) {
@@ -240,23 +202,55 @@ class DashBoard extends Component {
         })
     }
 
+    loadTable(){
+        if (this.state.loading === 'initial') {
+            return (
+                <div>
+                    <Spinner color="danger" style={{ width: '20rem', height: '20rem',marginLeft: '45%',marginTop: '10%',marginBottom: '10%' }}/>
+                </div>
+            );
+        }else if(this.state.loading === 'true'){
+            return (
+                <div>
+                    <Spinner color="black" style={{ width: '20rem', height: '20rem',marginLeft: '45%',marginTop: '10%',marginBottom: '10%' }}/>
+                </div>
+            );
+        }else {
+            return (
+            <Table striped responsive>
+                <thead>
+                <tr>
+                    <th>id</th>
+                    <th>Username(buyer)</th>
+                    <th>Product Name</th>
+                    <th>amount</th>
+                    <th>price</th>
+                    <th>Revenue</th>
+                </tr>
+                </thead>
+                <tbody>
+                {
+                    this.state.salesReportData.map((val,index)=>{
+                        return (
+                            <tr key={val.id}>
+                                <th scope="row">{index+1}</th>
+                                <td>{val.username1}</td>
+                                <td>{val.productName1}</td>
+                                <td>{val.amount}</td>
+                                <td>{val.price}</td>
+                                <td>{val.price * val.amount}</td>
+                            </tr>
+                        )
+                    })
+                }
+                </tbody>
+            </Table>
+            )
+        }
+    }
+
     render() {
-        // if (this.state.loading === 'initial') {
-        //     return (
-        //         <div>
-        //             <Spinner color="danger" style={{ width: '30rem', height: '30rem' }}/>
-        //         </div>
-        //     );
-        // }
-        //
-        //
-        // if (this.state.loading === 'true') {
-        //     return (
-        //         <div>
-        //             <Spinner color="black" style={{ width: '20rem', height: '20rem',marginLeft: '45%',marginTop: '10%',marginBottom: '10%' }}/>
-        //         </div>
-        //     );
-        // }
+
         return (
             <div className="container">
                 <Row>
@@ -268,46 +262,14 @@ class DashBoard extends Component {
                             </Col>
                         </CardBody>
                     </Card>
-                    {/*<Card  style={{width: '110%'}}>*/}
-                    {/*    <Col>*/}
-                    {/*        /!*<Doughnut data={[2,63,21,1221,3]} />*!/*/}
-                    {/*    </Col>*/}
-                    {/*</Card>*/}
                 </Row>
                 <Row>
-                    <Card  style={{width: '110%',marginLeft: '10%',marginTop: '5%'}} body>
-                        <CardTitle tag="h3">Sales Report</CardTitle>
-                        <CardBody>
-                            <Table striped>
-                                <thead>
-                                <tr>
-                                    <th>id</th>
-                                    <th>Username(buyer)</th>
-                                    <th>Product Name</th>
-                                    <th>amount</th>
-                                    <th>price</th>
-                                    <th>Revenue</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {
-                                    this.state.salesReportData.map((val,index)=>{
-                                        return (
-                                            <tr>
-                                                <th scope="row">{index+1}</th>
-                                                <td>{val.username1}</td>
-                                                <td>{val.productName1}</td>
-                                                <td>{val.amount}</td>
-                                                <td>{val.price}</td>
-                                                <td>{val.price * val.amount}</td>
-                                            </tr>
-                                        )
-                                    })
-                                }
-                                </tbody>
-                            </Table>
-                        </CardBody>
-                    </Card>
+                        <Card  style={{width: '110%',marginLeft: '10%',marginTop: '5%',height:'600px',overflow: 'scroll'}} body>
+                            <CardTitle tag="h3">Sales Report</CardTitle>
+                            <CardBody>
+                                {this.loadTable()}
+                            </CardBody>
+                        </Card>
                 </Row>
             </div>
                 );

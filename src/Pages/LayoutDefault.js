@@ -172,15 +172,27 @@ class LayoutDefault extends Component {
                             <NavItem>
                                 <NavbarText>
                                     <div className="cartBtn2" onClick={this.notification}>
-                                        <span className={"numberNotification"} data-units={1}>
+                                        <span className={"numberNotification"} data-units={""}>
                                             <i className="material-icons numberNotification">notifications</i>
                                         </span>
                                     </div>
                                 </NavbarText>
                             </NavItem>
                             <div className={'notificationItems'} style={{display : this.state.notificationOpener ?  "block" : "none"}}>
+                                <div id={'upperDiv'}>
+                                    <p>5 New</p>
+                                    <p>App Notifications</p>
+                                </div>
+                                <div className={'middleDiv'}>
                                 <NotificationItem title={"coupon"} time={'10/02/2010'} description={'new coupon is out'}/>
                                 <NotificationItem title={"coupon"} time={'10/02/2010'} description={'new coupon is out gkgbk'}/>
+                                <NotificationItem title={"coupon"} time={'10/02/2010'} description={'new coupon is out'}/>
+                                <NotificationItem title={"coupon"} time={'10/02/2010'} description={'new coupon is out gkgbk'}/>
+                                <NotificationItem title={"coupon"} time={'10/02/2010'} description={'new coupon is out'}/>
+                                <NotificationItem title={"coupon"} time={'10/02/2010'} description={'new coupon is out gkgbk'}/>
+                                <NotificationItem title={"coupon"} time={'10/02/2010'} description={'new coupon is out'}/>
+                                <NotificationItem title={"coupon"} time={'10/02/2010'} description={'new coupon is out gkgbk'}/>
+                                </div>
                                 <div id={'lowerDiv'}>
                                     <span>Read All notifications</span>
                                 </div>
