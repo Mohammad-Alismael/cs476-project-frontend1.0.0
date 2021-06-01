@@ -84,7 +84,7 @@ class DeleteProductItems extends Component {
             <Card className={"shoppingCartItems"}>
                 <Row>
                     <Col xl={3} style={{borderRight: '1px solid black'}}>
-                        <CardImg src={this.props.srcImg != null ? 'data:image/jpeg;base64,' + this.props.srcImg :"https://thumbs.dreamstime.com/b/no-image-available-icon-flat-vector-no-image-available-icon-flat-vector-illustration-132482953.jpg" }   alt={"product img"}/>
+                        <CardImg src={this.props.srcImg != null ? 'data:image/jpeg;base64,' + this.props.srcImg :"https://thumbs.dreamstime.com/b/no-image-available-icon-flat-vector-no-image-available-icon-flat-vector-illustration-132482953.jpg" } height={"200px"} alt={"product img"}/>
                         <Row style={{marginLeft: '12px'}}>
                         <ReactStars
                             count={5}

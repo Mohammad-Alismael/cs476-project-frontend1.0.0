@@ -144,7 +144,8 @@ class LayoutDefault extends Component {
                                     this.state.productNames.filter((val)=>{
                                         if (this.state.searchTerm == ""){
                                             return val
-                                        }else if(val[0].productName.toLowerCase().includes(this.state.searchTerm.toLowerCase())){
+                                        }else if(val[0].productName.toLowerCase().includes(this.state.searchTerm.toLowerCase()) ||
+                                            val[0].description.toLowerCase().includes(this.state.searchTerm.toLowerCase())){
                                             return val
                                         }
                                     }).map((val,key)=>{

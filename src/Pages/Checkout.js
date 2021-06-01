@@ -4,11 +4,14 @@ import GlobalContext from "../GlobalContext";
 import ShoppingCart from "./ShoppingCart";
 import axios from "axios";
 import {toast} from "react-toastify";
-
+import {PDFDownloadLink, Document, Page, PDFViewer} from '@react-pdf/renderer'
+import DownloadDocument from "./DownloadDocument";
 class Checkout extends Component {
     state = {
         email: "",
-        username: ""
+        username: "",
+        cartItems: this.context.cartItems
+
     }
     pay =(e) =>{
     e.preventDefault()
@@ -40,6 +43,7 @@ class Checkout extends Component {
         }
 
     }
+
     addingProductsToDB(val){
             axios.post(`https://localhost:5001/api/sales/add`,{
                 "productId": val.id,
@@ -55,14 +59,15 @@ class Checkout extends Component {
         e.preventDefault()
         this.setState({[e.target.name] : e.target.value})
     }
+    componentDidMount() {
+        this.setState({cartItems: this.context.cartItems})
+    }
+
     render() {
         return (
             <Container style={{marginBottom: '20%'}}>
                 <Row style={{background: 'white'}}>
                     <Col xl={9}>
-                        {/*<InputGroup style={{margin:'10px'}}>*/}
-                        {/*    <Input placeholder={"wallet address"} />*/}
-                        {/*</InputGroup>*/}
                         <InputGroup style={{margin:'10px'}}>
                             <Input name="username" placeholder={"enter username for checking"}
                                    onChange={this.updateSate}/>
@@ -71,8 +76,13 @@ class Checkout extends Component {
                             <Input name="email" placeholder={"enter email for checking"}
                                    onChange={this.updateSate}/>
                         </InputGroup>
-                        <Button id={'btn'} size={'lg'} style={{width : '100%',margin: '10px'}} onClick={this.pay}>proceed</Button>
-
+                        <Button id={'btn'} size={'lg'} style={{width : '100%',margin: '10px'}}
+                                onClick={this.pay}>proceed</Button>
+                        <PDFDownloadLink document={<DownloadDocument cartItems={this.state.cartItems}/>} fileName="pdfInvoice.pdf">
+                            {({ blob, url, loading, error }) => (
+                                loading ? 'Loading document...' : <Button id={'btn'} size={'lg'} style={{width : '100%',margin: '10px'}}>Download Invoice</Button>)
+                            }
+                        </PDFDownloadLink>
                     </Col>
                     <Col xl={3}>
                         <Card body>
@@ -83,9 +93,16 @@ class Checkout extends Component {
 
                     </Col>
                 </Row>
+                <div>
+
+                    <PDFViewer width="1000" height="600" >
+                        <DownloadDocument />
+                    </PDFViewer>
+                </div>
             </Container>
         );
     }
 }
+
 Checkout.contextType = GlobalContext
 export default Checkout;

@@ -224,7 +224,7 @@ html, body{
     display: block;
     position: absolute;
     top: 68px;
-    right: 190px;
+    right: 13.5%;
     width: 350px;
     height: 500px;
     max-height: 400px;
@@ -233,6 +233,34 @@ html, body{
     background: white;
     border: #a9aaad solid 1px;
 
+}
+@media only screen and (max-width: 600px) {
+    .notificationItems{
+        display: block;
+        position: absolute;
+        top: 165px;
+        right: 2%;
+        width: 350px;
+        height: 500px;
+        max-height: 400px;
+        border: 1px solid black;
+        z-index: 999;
+        background: white;
+        border: #a9aaad solid 1px;
+
+    }
+    .notificationItems:after{
+        content: "";
+        position: absolute;
+        top: -15px;
+        left: 8px;
+        /*background: red;*/
+        width: 0;
+        height: 0;
+        border-left: 15px solid transparent;
+        border-right: 15px solid transparent;
+        border-bottom: 15px solid rgb(120,60,237);
+    }
 }
 #upperDiv{
     background: rgb(120,60,237);
