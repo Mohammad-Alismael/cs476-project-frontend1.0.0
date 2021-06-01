@@ -7,6 +7,7 @@ import BillTo from "./PdfComponents/BillTo";
 import InvoiceItemsTable from "./PdfComponents/InvoiceItemsTable";
 import InvoiceThankYouMsg from "./PdfComponents/InvoiceThankYouMsg";
 import GlobalContext from "../GlobalContext";
+import {Spinner} from "reactstrap";
 
 const styles = StyleSheet.create({
     page: {
@@ -69,29 +70,56 @@ class DownloadDocument extends Component {
                     qty: 4,
                     rate: 141.02,
                 },
-            ],
-            items2 : []
-        }
+            ]
+        },
+        items: [],
+        loading: 'initial'
     };
 
-    componentWillMount() {
-
-    }
 
     componentDidMount() {
-        console.log(this.props.cartItems, 'here')
-        // this.props.cartItems.map((val,index)=>{
-        //     let tmp = {
-        //         desc: val.productName,
-        //         qty: val.chosenQuantity,
-        //         rate: val.price
-        //     }
-        //     this.setState({items2:[...this.state.items2,tmp]})
-        // })
+        this.setState({ loading: 'true' });
+        let temp = this.props.cartItems.map((val,index) => {
+            return {
+                sno: index+1,
+                desc: val.productName,
+                qty: val.chosenQuantity,
+                rate: val.price
+            }
+        })
+
+        this.setState({items: temp},function () {
+            console.log(this.state.items, 'copy items')
+        })
+        console.log(this.props.cartItems, 'checked from checkout');
+        this.setState({
+            loading: 'false'
+        });
     }
-
+    sleep = (milliseconds) => {
+        return new Promise(resolve => setTimeout(resolve, milliseconds))
+    }
     render() {
-
+        if (this.state.loading === 'initial') {
+            return (
+                <div>
+                    <Spinner color="danger" style={{ width: '20rem', height: '20rem',marginLeft: '45%',marginTop: '10%',marginBottom: '10%' }}/>
+                </div>
+            );
+        }
+        if(this.state.loading === 'true') {
+            return (
+                <div>
+                    <Spinner color="black" style={{
+                        width: '20rem',
+                        height: '20rem',
+                        marginLeft: '45%',
+                        marginTop: '10%',
+                        marginBottom: '10%'
+                    }}/>
+                </div>
+            );
+        }
         return (
             <Document>
                 <Page size="A4" style={styles.page}>
@@ -99,7 +127,7 @@ class DownloadDocument extends Component {
                     <InvoiceTitle title='Invoice'/>
                     <InvoiceNo invoice={this.state.invoice}/>
                     <BillTo invoice={this.state.invoice}/>
-                    <InvoiceItemsTable invoice={this.state.invoice} />
+                    <InvoiceItemsTable invoice={this.state.items} nigga={'nigga'}/>
                     <InvoiceThankYouMsg />
                 </Page>
             </Document>

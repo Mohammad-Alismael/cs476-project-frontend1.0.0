@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
 
 });
 
-const InvoiceTableBlankSpace = ({rowsCount}) => {
+const InvoiceTableBlankSpace = (rowsCount) => {
     const blankRows = Array(rowsCount).fill(0)
     const rows = blankRows.map( (x, i) =>
         <View style={styles.row} key={`BR${i}`}>

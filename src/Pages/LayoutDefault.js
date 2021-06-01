@@ -43,9 +43,9 @@ class LayoutDefault extends Component {
                     this.setState({
                         productNames : [...this.state.productNames,[val]]
                     })
-                    console.log(this.state.productNames)
+                    // console.log(this.state.productNames)
                 })
-                console.log(this.state.productNames)
+                // console.log(this.state.productNames)
             }).catch((error)=>{
                 alert('fetching data error')
                 console.log(error)

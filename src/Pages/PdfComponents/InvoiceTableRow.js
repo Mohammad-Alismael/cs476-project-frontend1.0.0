@@ -1,5 +1,7 @@
-import React, {Fragment} from 'react';
+import React, {Component, Fragment} from 'react';
 import {Text, View, StyleSheet } from '@react-pdf/renderer';
+import GlobalContext from "../../GlobalContext";
+import Checkout from "../Checkout";
 
 const borderColor = '#90e5fc'
 const styles = StyleSheet.create({
@@ -40,16 +42,36 @@ const styles = StyleSheet.create({
 });
 
 
-const InvoiceTableRow = ({items}) => {
-    const rows = items.map( item =>
-        <View style={styles.row} key={item.sno.toString()}>
-            <Text style={styles.description}>{item.desc}</Text>
-            <Text style={styles.rate}>{item.rate}</Text>
-            <Text style={styles.qty}>{item.qty}</Text>
-            <Text style={styles.amount}>{(item.qty * item.rate).toFixed(2)}</Text>
-        </View>
-    )
-    return (<Fragment>{rows}</Fragment> )
-};
 
-export default InvoiceTableRow
+class InvoiceTableRow extends Component{
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            rows : []
+        }
+    }
+
+    componentDidMount() {
+        const rows = this.props.items.map( (item) => {
+            return (
+                <View style={styles.row} key={item.sno.toString()}>
+                    <Text style={styles.description}>{item.desc}</Text>
+                    <Text style={styles.rate}>{item.rate}</Text>
+                    <Text style={styles.qty}>{item.qty}</Text>
+                    <Text style={styles.amount}>{item.qty*item.rate}</Text>
+                </View>
+            )
+        })
+        this.setState({rows})
+        console.log('row1',this.props.items)
+    }
+
+    render(){
+        return (<Fragment>{this.state.rows}</Fragment> )
+    }
+
+}
+
+InvoiceTableRow.contextType = GlobalContext;
+export default InvoiceTableRow;

@@ -60,6 +60,7 @@ class Checkout extends Component {
         this.setState({[e.target.name] : e.target.value})
     }
     componentDidMount() {
+        console.log('mount',this.context.cartItems )
         this.setState({cartItems: this.context.cartItems})
     }
 
@@ -78,11 +79,11 @@ class Checkout extends Component {
                         </InputGroup>
                         <Button id={'btn'} size={'lg'} style={{width : '100%',margin: '10px'}}
                                 onClick={this.pay}>proceed</Button>
-                        <PDFDownloadLink document={<DownloadDocument cartItems={this.state.cartItems}/>} fileName="pdfInvoice.pdf">
-                            {({ blob, url, loading, error }) => (
-                                loading ? 'Loading document...' : <Button id={'btn'} size={'lg'} style={{width : '100%',margin: '10px'}}>Download Invoice</Button>)
-                            }
-                        </PDFDownloadLink>
+                        {/*<PDFDownloadLink document={<DownloadDocument cartItems={this.context.cartItems}/>} fileName="pdfInvoice.pdf">*/}
+                        {/*    {({ blob, url, loading, error }) => (*/}
+                        {/*        loading ? 'Loading document...' : <Button id={'btn'} size={'lg'} style={{width : '100%',margin: '10px'}}>Download Invoice</Button>)*/}
+                        {/*    }*/}
+                        {/*</PDFDownloadLink>*/}
                     </Col>
                     <Col xl={3}>
                         <Card body>
@@ -90,13 +91,12 @@ class Checkout extends Component {
                             <p>Discount:     {this.context.percentageDiscount}%</p>
                             <p>Price after discount:   {(this.context.priceAfterDisc).toFixed(2)}$</p>
                         </Card>
-
                     </Col>
                 </Row>
                 <div>
 
                     <PDFViewer width="1000" height="600" >
-                        <DownloadDocument />
+                        <DownloadDocument cartItems={this.context.cartItems} />
                     </PDFViewer>
                 </div>
             </Container>
