@@ -1,5 +1,7 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {Text, View, StyleSheet } from '@react-pdf/renderer';
+import GlobalContext from "../../GlobalContext";
+import Checkout from "../Checkout";
 
 const borderColor = '#90e5fc'
 const styles = StyleSheet.create({
@@ -27,17 +29,29 @@ const styles = StyleSheet.create({
 });
 
 
-const InvoiceTableFooter = ({items}) => {
-    const total = 0;
-    console.log(items,'footer')
-    // const total = items.invoice.map(item => item.qty * item.rate)
-    //     .reduce((accumulator, currentValue) => accumulator + currentValue , 0)
-    return(
-        <View style={styles.row}>
-            <Text style={styles.description}>TOTAL</Text>
-            <Text style={styles.total}>{ Number.parseFloat(total).toFixed(2)}</Text>
-        </View>
-    )
+class InvoiceTableFooter extends Component{
+
+    state = {
+        total : 0
+    }
+
+    componentDidMount() {
+        const total = this.props.items.map(item => item.qty * item.rate)
+            .reduce((accumulator, currentValue) => accumulator + currentValue , 0)
+
+        this.setState({total})
+    }
+
+    render(){
+        return(
+            <View style={styles.row}>
+                <Text style={styles.description}>TOTAL</Text>
+                <Text style={styles.total}>{(this.state.total).toFixed(2)}</Text>
+            </View>
+        )
+    }
+
 };
 
+InvoiceTableFooter.contextType = GlobalContext;
 export default InvoiceTableFooter

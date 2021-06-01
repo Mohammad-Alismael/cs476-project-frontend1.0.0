@@ -79,11 +79,11 @@ class Checkout extends Component {
                         </InputGroup>
                         <Button id={'btn'} size={'lg'} style={{width : '100%',margin: '10px'}}
                                 onClick={this.pay}>proceed</Button>
-                        {/*<PDFDownloadLink document={<DownloadDocument cartItems={this.context.cartItems}/>} fileName="pdfInvoice.pdf">*/}
-                        {/*    {({ blob, url, loading, error }) => (*/}
-                        {/*        loading ? 'Loading document...' : <Button id={'btn'} size={'lg'} style={{width : '100%',margin: '10px'}}>Download Invoice</Button>)*/}
-                        {/*    }*/}
-                        {/*</PDFDownloadLink>*/}
+                        <PDFDownloadLink document={<DownloadDocument cartItems={this.context.cartItems}/>} fileName="pdfInvoice.pdf">
+                            {({ blob, url, loading, error }) => (
+                                loading ? 'Loading document...' : <Button id={'btn'} size={'lg'} style={{width : '100%',margin: '10px'}}>Download Invoice</Button>)
+                            }
+                        </PDFDownloadLink>
                     </Col>
                     <Col xl={3}>
                         <Card body>
@@ -95,9 +95,9 @@ class Checkout extends Component {
                 </Row>
                 <div>
 
-                    <PDFViewer width="1000" height="600" >
-                        <DownloadDocument cartItems={this.context.cartItems} />
-                    </PDFViewer>
+                    {/*<PDFViewer width="1000" height="600" >*/}
+                    {/*    <DownloadDocument cartItems={this.context.cartItems} />*/}
+                    {/*</PDFViewer>*/}
                 </div>
             </Container>
         );

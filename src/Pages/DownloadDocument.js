@@ -38,39 +38,7 @@ class DownloadDocument extends Component {
             email: "mohammad.alismael@ozu.edu.tr",
             phone: "+1 (000) 000-0000",
             address: "no address",
-            trans_date: new Date().toISOString().slice(0, 10),
-            items: [
-                {
-                    sno: 1,
-                    desc: "ad sunt culpa occaecat qui",
-                    qty: 5,
-                    rate: 405.89,
-                },
-                {
-                    sno: 2,
-                    desc: "cillum quis sunt qui aute",
-                    qty: 5,
-                    rate: 373.11,
-                },
-                {
-                    sno: 3,
-                    desc: "ea commodo labore culpa irure",
-                    qty: 5,
-                    rate: 458.61,
-                },
-                {
-                    sno: 4,
-                    desc: "nisi consequat et adipisicing dolor",
-                    qty: 10,
-                    rate: 725.24,
-                },
-                {
-                    sno: 5,
-                    desc: "proident cillum anim elit esse",
-                    qty: 4,
-                    rate: 141.02,
-                },
-            ]
+            trans_date: new Date().toISOString().slice(0, 10)
         },
         items: [],
         loading: 'initial'
@@ -96,9 +64,7 @@ class DownloadDocument extends Component {
             loading: 'false'
         });
     }
-    sleep = (milliseconds) => {
-        return new Promise(resolve => setTimeout(resolve, milliseconds))
-    }
+
     render() {
         if (this.state.loading === 'initial') {
             return (
@@ -127,7 +93,7 @@ class DownloadDocument extends Component {
                     <InvoiceTitle title='Invoice'/>
                     <InvoiceNo invoice={this.state.invoice}/>
                     <BillTo invoice={this.state.invoice}/>
-                    <InvoiceItemsTable invoice={this.state.items} nigga={'nigga'}/>
+                    <InvoiceItemsTable invoice={this.state.items} />
                     <InvoiceThankYouMsg />
                 </Page>
             </Document>
@@ -136,5 +102,5 @@ class DownloadDocument extends Component {
 }
 
 
-DownloadDocument.contextType = GlobalContext
+DownloadDocument.contextType = GlobalContext;
 export default DownloadDocument;

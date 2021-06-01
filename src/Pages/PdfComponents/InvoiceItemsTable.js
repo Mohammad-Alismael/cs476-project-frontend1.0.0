@@ -30,8 +30,8 @@ class InvoiceItemsTable extends Component{
         <View style={styles.tableContainer}>
             <InvoiceTableHeader/>
             <InvoiceTableRow items={this.props.invoice}/>
-            {/*<InvoiceTableBlankSpace rowsCount={ tableRowsCount - invoice.length} />*/}
-            {/*<InvoiceTableFooter items={invoice} />*/}
+            {/*<InvoiceTableBlankSpace rowsCount={ tableRowsCount - this.props.invoice.length} />*/}
+            <InvoiceTableFooter items={this.props.invoice} />
         </View>
         )
     }

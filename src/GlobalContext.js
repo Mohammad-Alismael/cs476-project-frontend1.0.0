@@ -92,7 +92,8 @@ export class GlobalProvider extends Component {
         var priceAfterDisc = 0;
          this.state.cartItems.map((val,index)=>{
              if (val.id == productId){
-                 val.applied = true
+                 val.applied = true;
+                 val.price = val.price * ((100 - percentageDiscount)/100)
                  priceAfterDisc+= (val.price * val.chosenQuantity) * ((100 - percentageDiscount)/100)
              }else {
                  priceAfterDisc+= (val.price * val.chosenQuantity)
