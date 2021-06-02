@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import '../Pages/css/LoginPage.css'
 import img from '../Pages/css/U.png'
-import 'bootstrap/dist/css/bootstrap.min.css';
 import {Row, Container, Col, Input, Button} from "reactstrap";
 import axios from 'axios';
 import GlobalContext from "../GlobalContext";
