@@ -22,23 +22,27 @@ class AddProduct extends Component {
     }
     uploadProduct = (e) =>{
         e.preventDefault()
-        axios.post('https://localhost:5001/api/products/add', {
-            "productName": this.state.productName,
-            "Price": this.state.price.toString(),
-            "Description": this.state.Description,
-            "Comments": "No Comments",
-            "Category": this.givesType(this.state.category),
-            "UserId": sessionStorage.getItem("user_id"),
-            "Quantity":this.state.Quantity,
-            "brand":this.state.Brand,
-            "picture": this.state.img
-        }).then(res =>{
-            // console.log(res.data)
-            toast.success("uploaded successfully !")
-        }).catch((error)=>{
-            toast.info("product name is taken")
-            console.log(error)
-        })
+        if (this.state.img != "") {
+            axios.post('https://localhost:5001/api/products/add', {
+                "productName": this.state.productName,
+                "Price": this.state.price.toString(),
+                "Description": this.state.Description,
+                "Comments": "No Comments",
+                "Category": this.givesType(this.state.category),
+                "UserId": sessionStorage.getItem("user_id"),
+                "Quantity": this.state.Quantity,
+                "brand": this.state.Brand,
+                "picture": this.state.img
+            }).then(res => {
+                // console.log(res.data)
+                toast.success("uploaded successfully !")
+            }).catch((error) => {
+                toast.info("product name is taken")
+                console.log(error)
+            })
+        }else {
+            toast.info('you have to add an image for a product')
+        }
     }
     givesType(category){
         switch (category) {
