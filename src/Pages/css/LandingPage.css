@@ -224,7 +224,7 @@ html, body{
     display: block;
     position: absolute;
     top: 68px;
-    right: 13.5%;
+    right: 17.25%;
     width: 350px;
     height: 500px;
     max-height: 400px;
@@ -321,7 +321,7 @@ html, body{
 .notificationItem{
     /*min-height: 70px;*/
     /*max-height: 120px;*/
-    height: 70px;
+    height: 100px;
     width: 348px;
     display: block;
     position: relative;
@@ -357,6 +357,10 @@ html, body{
 .notificationItem p:nth-child(3){
     top: 8px;
     right: 20px;
+}
+#prdnm{
+    top: 65px;
+    left: 65px;
 }
 
 

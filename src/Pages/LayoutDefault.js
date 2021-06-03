@@ -31,7 +31,9 @@ class LayoutDefault extends Component {
         searchTerm : "",
         productNames : [],
         productDescription : [],
-        notificationOpener : false
+        notifications: [],
+        notificationOpener : false,
+        newNotifications: -1
     }
     nextPath(path) {
         this.props.history.push(path);
@@ -51,8 +53,67 @@ class LayoutDefault extends Component {
                 console.log(error)
             })
         },500)
+        this.loadNotifications();
+
         this.context.setCartItems()
 
+    }
+    countNewNotifications(){
+        let counter = 0;
+        this.state.notifications.map((val)=>{
+            if (val.data.seen == 0)
+                counter++;
+        })
+        return counter;
+    }
+
+    loadNotifications(){
+        axios.get(`https://localhost:5001/api/notification/getByUser/${parseInt(sessionStorage.getItem('user_id'))}`)
+            .then((res)=>{
+                console.log('notification',res.data)
+                res.data.map((val,index)=>{
+                    if (val.seen != 1) {
+                        const tmp = {}
+                        tmp.data = val;
+                        tmp.campaignData = "";
+                        tmp.productData = "";
+                        loadCampaignsData(val.notificationId).then((campaignData) => {
+                            tmp.campaignData = campaignData
+                            this.context.fetchProducts(campaignData.productId).then((productData) => {
+                                tmp.productData = productData;
+                            })
+                        })
+                        addNotification({
+                            title: 'New coupons',
+                            subtitle: 'This is a subtitle',
+                            message: 'new coupons have been added',
+                            theme: 'darkblue',
+                            native: true // when using native, your OS will handle theming.
+                        });
+                        this.setState({notifications: [...this.state.notifications, tmp]})
+                    }
+                })
+                this.setState({newNotifications: this.countNewNotifications()})
+        })
+
+        function loadCampaignsData(campaignId) {
+            return new Promise((resolve, reject) => {
+            axios.get(`https://localhost:5001/api/campaign`)
+                .then((res)=>{
+
+                    var tmp = res.data.filter((val)=>{
+                        if (val.id == campaignId) {
+                            return val
+                        }
+                    })
+                    resolve(tmp[0])
+                }).catch((error)=>{
+                alert('fetching data error campaignId')
+                console.log(error)
+                resolve([])
+            })
+            })
+        }
     }
     renderElement() {
         if (sessionStorage.getItem("userType") == "Customer") {
@@ -113,14 +174,30 @@ class LayoutDefault extends Component {
     notification = (e) =>{
         e.preventDefault()
         this.setState({notificationOpener: !this.state.notificationOpener})
-            addNotification({
-                title: 'New coupons',
-                subtitle: 'This is a subtitle',
-                message: 'new coupons have been added',
-                theme: 'darkblue',
-                native: true // when using native, your OS will handle theming.
-            });
     }
+
+    readAllNotifications = (e)=> {
+        e.preventDefault()
+        toast.info(this.state.notifications.length)
+        console.log(this.state.notifications)
+        this.state.notifications.map((val,index)=>{
+            axios.post('https://localhost:5001/api/notification/change',{
+                "id": val.data.id,
+                "notificationId": val.data.notificationId,
+                "userId": val.data.userId,
+                "seen": 1
+            }).then(()=>{
+            }).catch((error)=>{
+                console.log(error)
+                toast.info('error happened while reading all notifications')
+            })
+        })
+
+        this.setState({notifications: []})
+
+
+    }
+
     render() {
         return (
             <Fragment>
@@ -181,21 +258,28 @@ class LayoutDefault extends Component {
                             </NavItem>
                             <div className={'notificationItems'} style={{display : this.state.notificationOpener ?  "block" : "none"}}>
                                 <div id={'upperDiv'}>
-                                    <p>5 New</p>
+                                    <p>{this.state.notifications.length} New</p>
                                     <p>App Notifications</p>
                                 </div>
                                 <div className={'middleDiv'}>
-                                <NotificationItem title={"coupon"} time={'10/02/2010'} description={'new coupon is out'}/>
-                                <NotificationItem title={"coupon"} time={'10/02/2010'} description={'new coupon is out gkgbk'}/>
-                                <NotificationItem title={"coupon"} time={'10/02/2010'} description={'new coupon is out'}/>
-                                <NotificationItem title={"coupon"} time={'10/02/2010'} description={'new coupon is out gkgbk'}/>
-                                <NotificationItem title={"coupon"} time={'10/02/2010'} description={'new coupon is out'}/>
-                                <NotificationItem title={"coupon"} time={'10/02/2010'} description={'new coupon is out gkgbk'}/>
-                                <NotificationItem title={"coupon"} time={'10/02/2010'} description={'new coupon is out'}/>
-                                <NotificationItem title={"coupon"} time={'10/02/2010'} description={'new coupon is out gkgbk'}/>
+                                    {
+                                        this.state.notifications.map((val,index)=>{
+                                            return (
+                                                <NotificationItem
+                                                    id={val.data.id}
+                                                    title={"New Coupon"}
+                                                    productName={val.productData.productName}
+                                                    seen={val.data.seen}
+                                                    // endTime={val.campaignData.endDate}
+                                                    description={val.campaignData.description}
+                                                />
+                                            )
+                                        })
+                                    }
+
                                 </div>
                                 <div id={'lowerDiv'}>
-                                    <span>Read All notifications</span>
+                                    <span onClick={this.readAllNotifications}>Read All notifications</span>
                                 </div>
                             </div>
                             <NavItem>
@@ -233,33 +317,6 @@ class LayoutDefault extends Component {
                 </Navbar>
                 <Navbar className={'secondNav'} style={{width: '111%'}}>
                     <Nav>
-                        <NavItem>
-                            {/*<UncontrolledDropdown nav >*/}
-                            {/*    <DropdownToggle nav caret>*/}
-                            {/*        Computers*/}
-                            {/*    </DropdownToggle>*/}
-                            {/*    <DropdownMenu right>*/}
-                            {/*        <DropdownItem href={'/computers/gpu'}>*/}
-                            {/*            Gpu*/}
-                            {/*        </DropdownItem>*/}
-                            {/*        <DropdownItem href={'/computers/cpu'}>*/}
-                            {/*            Cpu*/}
-                            {/*        </DropdownItem>*/}
-                            {/*        <DropdownItem href={'/computers/motherboards'}>*/}
-                            {/*            Motherboards*/}
-                            {/*        </DropdownItem>*/}
-                            {/*        <DropdownItem href={'/computers/apple'}>*/}
-                            {/*            Apple*/}
-                            {/*        </DropdownItem>*/}
-                            {/*        <DropdownItem href={'/computers/monitors'}>*/}
-                            {/*            Monitors*/}
-                            {/*        </DropdownItem>*/}
-                            {/*        <DropdownItem>*/}
-                            {/*            Mouse & keyboard*/}
-                            {/*        </DropdownItem>*/}
-                            {/*    </DropdownMenu>*/}
-                            {/*</UncontrolledDropdown>*/}
-                        </NavItem>
                         <NavItem>
                             <NavLink href={'/computers/gpu'}>Gpu</NavLink>
                         </NavItem>
@@ -300,6 +357,8 @@ class LayoutDefault extends Component {
             </Fragment>
         );
     }
+
+
 }
 const description = "From the perspective of server-side website deployment, there are two types of web pages: static and dynamic. Static pages are retrieved from the web server's file system without any modification,[3] while dynamic pages must be created by the server on the fly, typically drawing from a database to fill out a web template, before being sent to the user's browser.";
 const title = "E commerce web app";

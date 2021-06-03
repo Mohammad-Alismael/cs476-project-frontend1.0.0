@@ -51,9 +51,7 @@ export class GlobalProvider extends Component {
 
     }
 
-    loadNotifications(){
 
-    }
     async fetchProducts(productId){
         return new Promise((resolve, reject) => {
             axios.get(`https://localhost:5001/api/products/${productId}`)
