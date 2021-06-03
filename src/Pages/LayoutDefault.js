@@ -178,8 +178,6 @@ class LayoutDefault extends Component {
 
     readAllNotifications = (e)=> {
         e.preventDefault()
-        toast.info(this.state.notifications.length)
-        console.log(this.state.notifications)
         this.state.notifications.map((val,index)=>{
             axios.post('https://localhost:5001/api/notification/change',{
                 "id": val.data.id,
@@ -250,7 +248,7 @@ class LayoutDefault extends Component {
                             <NavItem>
                                 <NavbarText>
                                     <div className="cartBtn2" onClick={this.notification}>
-                                        <span className={"numberNotification"} data-units={""}>
+                                        <span className={"numberNotification"} data-units={this.state.notifications.length}>
                                             <i className="material-icons numberNotification">notifications</i>
                                         </span>
                                     </div>
