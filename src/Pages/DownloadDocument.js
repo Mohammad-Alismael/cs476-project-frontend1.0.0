@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
 import logo from '../Images/logo_cs476.png'
 import {Document, Page, Text, View, StyleSheet, Image} from "@react-pdf/renderer";
-import InvoiceTitle from "./PdfComponents/InvoiceTitle";
-import InvoiceNo from "./PdfComponents/InvoiceNo";
-import BillTo from "./PdfComponents/BillTo";
-import InvoiceItemsTable from "./PdfComponents/InvoiceItemsTable";
-import InvoiceThankYouMsg from "./PdfComponents/InvoiceThankYouMsg";
+import InvoiceTitle from "../PdfComponents/InvoiceTitle";
+import InvoiceNo from "../PdfComponents/InvoiceNo";
+import BillTo from "../PdfComponents/BillTo";
+import InvoiceItemsTable from "../PdfComponents/InvoiceItemsTable";
+import InvoiceThankYouMsg from "../PdfComponents/InvoiceThankYouMsg";
 import GlobalContext from "../GlobalContext";
 import {Spinner} from "reactstrap";
 

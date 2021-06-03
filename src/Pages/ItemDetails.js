@@ -31,7 +31,7 @@ class ItemDetails extends Component {
         loading: 'initial',
         seller: "seller",
         picture : "",
-        quantity: 1,
+        quantity: 0,
         quantityAr: [],
         currentComment : [
             {
@@ -231,7 +231,7 @@ class ItemDetails extends Component {
         }
     }
     validation(){
-        if (this.state.quantity != 1){
+        if (this.state.quantity != 0){
             return (
                 <>
                     <Label for="exampleSelect">Quantity</Label>

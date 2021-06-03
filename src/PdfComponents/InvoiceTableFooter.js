@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Text, View, StyleSheet } from '@react-pdf/renderer';
-import GlobalContext from "../../GlobalContext";
-import Checkout from "../Checkout";
+import GlobalContext from "../GlobalContext";
+import Checkout from "../Pages/Checkout";
 
 const borderColor = '#90e5fc'
 const styles = StyleSheet.create({

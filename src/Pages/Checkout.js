@@ -15,35 +15,54 @@ class Checkout extends Component {
     }
     pay =(e) =>{
     e.preventDefault()
-        if (this.state.username == sessionStorage.getItem('username') &&
-            this.state.email == sessionStorage.getItem('email')) {
-            axios.post(`https://localhost:5001/api/finance/pay`, {
-                "customerID": parseInt(sessionStorage.getItem('user_id')),
-                "fee": Math.round(this.context.priceAfterDisc) == 0 ?
-                    Math.round(this.context.priceBeforeDisc) : Math.round(this.context.priceAfterDisc)
-            }).then((res) => {
-                this.context.cartItems.map((val, index) => {
-                    this.addingProductsToDB(val)
-                })
-                this.context.emptyCartItems()
-                this.context.changeShoppingCard(0)
-                toast.success("successfully paid")
-            }).catch((error) => {
-                console.log(error)
-                toast.error("error happened while proceeding")
-            })
-            console.log( Math.round(this.context.priceAfterDisc) == 0 ?
-                Math.round(this.context.priceBeforeDisc) : Math.round(this.context.priceAfterDisc))
-        }else {
-            if (this.state.username != sessionStorage.getItem('username')){
-                toast.info('username is incorrect')
+
+        this.getBalance().then((balance)=>{
+            if (this.state.username == sessionStorage.getItem('username') &&
+                this.state.email == sessionStorage.getItem('email')) {
+                const fee = Math.round(this.context.priceAfterDisc) == 0 ?
+                    Math.round(this.context.priceBeforeDisc) : Math.round(this.context.priceAfterDisc);
+                if (fee <= balance) {
+                    axios.post(`https://localhost:5001/api/finance/pay`, {
+                        "customerID": parseInt(sessionStorage.getItem('user_id')),
+                        "fee": fee
+                    }).then((res) => {
+                        this.context.cartItems.map((val, index) => {
+                            this.addingProductsToDB(val)
+                        })
+                        this.context.emptyCartItems()
+                        this.context.changeShoppingCard(0)
+                        toast.success("successfully paid")
+                    }).catch((error) => {
+                        console.log(error)
+                        toast.error("error happened while proceeding")
+                    })
+                }else {
+                    toast.info("you don't have enough balance")
+                }
             }else {
-                toast.info('email is incorrect')
+                if (this.state.username != sessionStorage.getItem('username')){
+                    toast.info('username is incorrect')
+                }else {
+                    toast.info('email is incorrect')
+                }
             }
-        }
+        })
 
     }
 
+    getBalance(){
+        return new Promise((resolve, reject) => {
+            axios.get(`https://localhost:5001/api/users/${parseInt(sessionStorage.getItem('user_id'))}`)
+                .then((res) => {
+                    console.log(res.data)
+                    resolve(res.data.balance)
+                }).catch((error) => {
+                console.log(error)
+                toast.error("error happened while fetching balance")
+                resolve(-1)
+            })
+        })
+    }
     addingProductsToDB(val){
             axios.post(`https://localhost:5001/api/sales/add`,{
                 "productId": val.id,

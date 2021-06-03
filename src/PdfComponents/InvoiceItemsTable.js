@@ -4,8 +4,8 @@ import InvoiceTableHeader from './InvoiceTableHeader'
 import InvoiceTableRow from './InvoiceTableRow'
 import InvoiceTableBlankSpace from './InvoiceTableBlankSpace'
 import InvoiceTableFooter from './InvoiceTableFooter'
-import GlobalContext from "../../GlobalContext";
-import Checkout from "../Checkout";
+import GlobalContext from "../GlobalContext";
+import Checkout from "../Pages/Checkout";
 
 const tableRowsCount = 11;
 
